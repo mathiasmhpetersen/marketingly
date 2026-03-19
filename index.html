@@ -109,12 +109,23 @@ hr{border:none;border-top:1px solid var(--border)}
 .case p{font-size:13px;color:var(--muted);line-height:1.65;font-weight:400}
 
 /* ─── TESTIMONIALS ─── */
-.testi{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:32px;margin-bottom:12px;position:relative;overflow:hidden}
-.testi::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--grad2)}
-.testi-stars{font-size:14px;margin-bottom:12px;color:#f59e0b;letter-spacing:3px}
-.testi p{font-size:15px;color:#ccc;line-height:1.8;margin-bottom:16px;font-style:italic;font-weight:400}
-.testi-author{font-size:13px;font-weight:700;color:#444}
-.testi-author span{color:var(--purple-l)}
+.testi-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.testi-card{border-radius:16px;overflow:hidden;position:relative}
+.testi-card-inner{padding:36px 32px;position:relative;z-index:1;display:flex;flex-direction:column;gap:24px;min-height:320px}
+.testi-card--tajmer{background:linear-gradient(135deg,#2d1b4e 0%,#4a2080 40%,#6b3fa0 100%)}
+.testi-card--oob{background:linear-gradient(135deg,#1b2a4e 0%,#2d4080 40%,#3f5fa0 100%)}
+.testi-card--friluftsland{background:linear-gradient(135deg,#1b4e2d 0%,#2a6b3f 40%,#3f8055 100%)}
+.testi-headline{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(18px,3.5vw,22px);line-height:1.3;letter-spacing:-0.02em;color:#fff}
+.testi-headline span{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);letter-spacing:0;margin-top:6px}
+.testi-metrics{display:flex;gap:24px;flex-wrap:wrap}
+.testi-metric{display:flex;flex-direction:column}
+.testi-metric-value{font-family:'Manrope',sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:#fff;line-height:1.1}
+.testi-metric-label{font-size:12px;color:rgba(255,255,255,0.5);font-weight:600;margin-top:2px}
+.testi-quote{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.75;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;padding:16px 0;border-top:1px solid rgba(255,255,255,0.1)}
+.testi-author{font-size:13px;color:rgba(255,255,255,0.5);font-weight:600}
+.testi-author strong{color:rgba(255,255,255,0.8);font-weight:700}
+.testi-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none;transition:all 0.2s;align-self:flex-start;cursor:pointer}
+.testi-cta:hover{background:rgba(255,255,255,0.2)}
 
 /* ─── PRICING ─── */
 .pc{background:var(--s1);border:2px solid var(--purple);border-radius:14px;overflow:hidden;box-shadow:0 0 80px rgba(100,46,255,0.1)}
@@ -327,9 +338,51 @@ hr{border:none;border-top:1px solid var(--border)}
 <!-- TESTIMONIALS -->
 <div class="w">
   <div class="sh"><span class="e">❤️</span><h2>Hvad vores klienter siger.</h2></div>
-  <div class="testi"><div class="testi-stars">★★★★★</div><p>"Mathias' ægte interesse for sit arbejde og for os som kunde skinnede igennem fra det første møde. Det er sjældent at finde et bureau der reelt forstår éns forretning."</p><div class="testi-author">Sofie Bennedsen — <span>Tajmer Booking &amp; Management</span></div></div>
-  <div class="testi"><div class="testi-stars">★★★★★</div><p>"Vi gik fra 30 til 100 millioner SEK i omsætning over 5 år. Marketingly forstår Meta på et niveau de fleste bureauer aldrig når."</p><div class="testi-author">Out of Bounds — <span>Europas største sælger af brugte golfbolde</span></div></div>
-  <div class="testi"><div class="testi-stars">★★★★★</div><p>"ROAS steg 379% på under 4 måneder. Ingen binding, ingen skjulte costs. Bare resultater."</p><div class="testi-author">Friluftsland — <span>13 butikker, 200M+ DKK</span></div></div>
+  <div class="testi-grid">
+
+    <!-- Tajmer Booking & Management -->
+    <div class="testi-card testi-card--tajmer">
+      <div class="testi-card-inner">
+        <div class="testi-headline">Vi hjælper +30 af Danmarks førende komikere, foredragsholdere mv. med at vækste deres personlige brand og sælge flere tour-billetter<span>3 års samarbejde · Her er resultaterne:</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">288%</span><span class="testi-metric-label">højere CTR</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">73%</span><span class="testi-metric-label">lavere CPM priser</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">114%</span><span class="testi-metric-label">flere billetter solgt</span></div>
+        </div>
+        <div class="testi-quote">"Mathias' ægte interesse i sit arbejde og i os som kunde skinnede igennem fra første møde — et geniuint match."</div>
+        <div class="testi-author"><strong>Sofie Bennedsen</strong> · Produktion og markedsføring</div>
+      </div>
+    </div>
+
+    <!-- Out of Bounds -->
+    <div class="testi-card testi-card--oob">
+      <div class="testi-card-inner">
+        <div class="testi-headline">Vi har hjulpet Out of Bounds med at skalere 4 markeder og gå fra 30-100 mio i årlig omsætning (med et kommende exit)<span>5 års samarbejde · Her er resultaterne:</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">14.43x</span><span class="testi-metric-label">i gns. ROAS</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">4 markeder</span><span class="testi-metric-label">skaleret</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">30–100 mio</span><span class="testi-metric-label">i årlig oms.</span></div>
+        </div>
+        <div class="testi-quote">"Over de sidste fem år har Mathias været en afgørende faktor i vores succesfulde ekspansion over fire markeder."</div>
+        <div class="testi-author"><strong>Alexander Edsmyr</strong> · Stifter og CMO</div>
+      </div>
+    </div>
+
+    <!-- Friluftsland -->
+    <div class="testi-card testi-card--friluftsland">
+      <div class="testi-card-inner">
+        <div class="testi-headline">Friluftsland A/S<br>Fra 5 meta annoncer til 5 mio i ekstra omsætning på 4 måneder og en langsigtet top-funnel strategi<span>Uden at skulle udskifte deres team med et bureau</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">379%</span><span class="testi-metric-label">stigning i ROAS</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">109%</span><span class="testi-metric-label">lavere Cost Per Lead</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">Uddannelse</span><span class="testi-metric-label">af in-house team</span></div>
+        </div>
+        <div class="testi-quote">"Mathias har hjulpet os med at skabe en yderst succesfuld top-funnel strategi på Meta-platformene."</div>
+        <div class="testi-author"><strong>Mikkel Mandrup Vogt</strong> · Digital Marketing Manager</div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <hr>
