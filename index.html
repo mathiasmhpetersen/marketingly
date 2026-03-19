@@ -75,12 +75,13 @@ hr{border:none;border-top:1px solid var(--border)}
 .compare-box{border-radius:12px;padding:32px 28px}
 .compare-box--bad{background:rgba(232,68,58,0.04);border:1px solid rgba(232,68,58,0.18)}
 .compare-box--good{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.18)}
-.compare-box h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;margin-bottom:20px;letter-spacing:-0.02em}
+.compare-box h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;margin-bottom:20px;letter-spacing:0.08em;text-transform:uppercase}
 .compare-box--bad h3{color:var(--red)}
 .compare-box--good h3{color:var(--green)}
-.compare-row{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:#aaa;padding:10px 0;border-bottom:1px solid var(--border);font-weight:400;line-height:1.6}
+.compare-row{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:#aaa;padding:14px 0;border-bottom:1px solid var(--border);font-weight:400;line-height:1.6}
 .compare-row:last-child{border-bottom:none}
 .compare-icon{flex-shrink:0;margin-top:2px;font-size:13px;font-weight:800}
+.compare-row strong{display:block;color:var(--fg);font-weight:700;font-size:15px;margin-bottom:2px}
 .compare-box--bad .compare-icon{color:var(--red)}
 .compare-box--good .compare-icon{color:var(--green)}
 @media(max-width:680px){.compare{grid-template-columns:1fr}}
@@ -261,17 +262,17 @@ hr{border:none;border-top:1px solid var(--border)}
   <div class="compare">
     <div class="compare-box compare-box--bad">
       <h3>✗ Hvad 9/10 virksomheder gør</h3>
-      <div class="compare-row"><span class="compare-icon">✗</span><span>De håber på at noget rammer — og kalder det test</span></div>
-      <div class="compare-row"><span class="compare-icon">✗</span><span>De taler om produktet — ikke om kunden</span></div>
-      <div class="compare-row"><span class="compare-icon">✗</span><span>De jagter det nemme salg og mister de lange kunder</span></div>
-      <div class="compare-row"><span class="compare-icon">✗</span><span>De vokser når markedet er godt — og kæmper når det ikke er</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Annoncer efter mavefornemmelse</strong>Ingen research om deres marked, kunder eller konkurrenter</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>De sælger produktet</strong>De taler om produktet — ikke om kunden</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Rammer kun retargeting</strong>Målretter kun 3-7% af markedet der er klar til at købe lige nu</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Giver algoritmen skylden</strong>Når markedet ændrer sig, falder de bagud fordi deres fundament er svagt</span></div>
     </div>
     <div class="compare-box compare-box--good">
-      <h3>✓ Virksomheder der bruger vores framework</h3>
-      <div class="compare-row"><span class="compare-icon">✓</span><span>De forstår kunden bedre end kunden forstår sig selv</span></div>
-      <div class="compare-row"><span class="compare-icon">✓</span><span>De sælger på identitet og følelse — ikke på features og rabat</span></div>
-      <div class="compare-row"><span class="compare-icon">✓</span><span>De bygger kunder der bliver — ikke kunder der kun køber én gang</span></div>
-      <div class="compare-row"><span class="compare-icon">✓</span><span>De vækster uanset markedet — fordi fundamentet er rigtigt</span></div>
+      <h3>✓ Dem der bruger vores framework</h3>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De kender kunden indefra og ud</strong>De skaber kortsigtet salg, samtidig med de bygger et langsigtet brand</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De konkurrerer ikke på pris</strong>De sælger på identitet og følelse — ikke på features og rabat</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>Laver indhold til hele kunderejsen</strong>De skalerer, fordi deres annoncer rammer alle 5 stadier i kunderejsen</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De vækster uanset markedet</strong>De forstår hvad der skal til for at få succes på trods af nye ændringer</span></div>
     </div>
   </div>
 </div>
