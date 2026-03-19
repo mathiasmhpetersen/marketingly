@@ -143,6 +143,16 @@ hr{border:none;border-top:1px solid var(--border)}
 .testi-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Manrope',sans-serif;font-size:13px;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none;transition:all 0.2s;align-self:flex-start;cursor:pointer}
 .testi-cta:hover{background:rgba(255,255,255,0.2)}
 
+/* ─── QUOTE STRIP ─── */
+.quote-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.quote-card{text-align:center;padding:32px 24px}
+.quote-avatar{width:80px;height:80px;border-radius:50%;background:var(--s1);border:2px solid var(--border);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:var(--purple-l);letter-spacing:-0.02em}
+.quote-company{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#666;margin-bottom:14px}
+.quote-text{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;line-height:1.4;letter-spacing:-0.02em;color:#fff;margin-bottom:18px}
+.quote-name{font-size:14px;font-weight:600;color:#ccc;margin-bottom:2px}
+.quote-role{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--purple-l)}
+@media(max-width:680px){.quote-strip{grid-template-columns:1fr}}
+
 /* ─── PRICING ─── */
 .pc{background:var(--s1);border:2px solid var(--purple);border-radius:14px;overflow:hidden;box-shadow:0 0 80px rgba(100,46,255,0.1)}
 .pc-header{background:var(--grad2);padding:16px 36px;text-align:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#fff}
@@ -383,6 +393,31 @@ hr{border:none;border-top:1px solid var(--border)}
     </div>
 
   </div>
+
+  <div class="quote-strip">
+    <div class="quote-card">
+      <div class="quote-avatar">SB</div>
+      <div class="quote-company">Tajmer Booking &amp; Management</div>
+      <div class="quote-text">"Mathias' ægte interesse i sit arbejde og i os som kunde skinnede igennem fra første møde — et genialt match."</div>
+      <div class="quote-name">Sofie Bennedsen</div>
+      <div class="quote-role">Produktionsansvarlig</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-avatar">AE</div>
+      <div class="quote-company">Out of Bounds</div>
+      <div class="quote-text">"Over de sidste tre år har Mathias været en afgørende faktor i vores succesfulde ekspansion over fire markeder"</div>
+      <div class="quote-name">Alexander Edsmyr</div>
+      <div class="quote-role">Stifter &amp; CMO</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-avatar">CP</div>
+      <div class="quote-company">Grejfreak</div>
+      <div class="quote-text">"Det føles langt hen ad vejen som om, at vi er Mathias' eneste kunde. Og det er rart."</div>
+      <div class="quote-name">Casper Pedersen</div>
+      <div class="quote-role">Stifter &amp; Medejer</div>
+    </div>
+  </div>
+
 </div>
 
 <hr>
