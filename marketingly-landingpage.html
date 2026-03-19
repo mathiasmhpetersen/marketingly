@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Din Personlige Marketingstrategi — Marketingly</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#121212;
+  --s1:#1b1b1b;
+  --s2:#222;
+  --border:#2c2c2c;
+  --purple:#642eff;
+  --purple-l:#7c4fff;
+  --purple-d:#4d1fd4;
+  --red:#e8443a;
+  --white:#ffffff;
+  --off:#f0f0ee;
+  --muted:#666;
+  --muted2:#3a3a3a;
+  --green:#22c55e;
+  --grad:linear-gradient(135deg,#5b1bd5 0%,#832383 55%,#aa2a2c 100%);
+  --grad2:linear-gradient(135deg,#5b1bd5 0%,#642eff 100%);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Manrope',sans-serif;font-size:16px;font-weight:400;line-height:1.65;overflow-x:hidden}
+
+/* ─── NAV ─── */
+.nav{background:rgba(18,18,18,0.97);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white)}
+.logo-mark{width:38px;height:38px;background:var(--grad2);border-radius:9px;display:flex;align-items:center;justify-content:center;position:relative;font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#fff;letter-spacing:-0.04em;flex-shrink:0}
+.logo-mark::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+.logo-text{font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;letter-spacing:-0.03em;color:var(--white)}
+.nav-btn{background:var(--purple);color:#fff;border:none;padding:11px 24px;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;border-radius:7px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;letter-spacing:0.01em}
+.nav-btn:hover{background:var(--purple-l);box-shadow:0 0 24px rgba(100,46,255,0.35)}
+
+/* ─── TOPBAR ─── */
+.topbar{background:var(--grad);color:#fff;text-align:center;padding:11px 24px;font-size:13px;font-weight:700;letter-spacing:0.02em}
+
+/* ─── HERO ─── */
+.hero{padding:88px 24px 72px;text-align:center;max-width:860px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(100,46,255,0.1);border:1px solid rgba(100,46,255,0.3);color:#a07fff;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:32px}
+.badge-dot{width:6px;height:6px;background:var(--purple);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(46px,8vw,84px);line-height:0.96;letter-spacing:-0.04em;margin-bottom:28px}
+h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:18px;color:#888;max-width:580px;margin:0 auto 48px;line-height:1.75;font-weight:400}
+.hero-sub strong{color:var(--white);font-weight:700}
+.trust-row{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:22px;flex-wrap:wrap}
+.trust-item{font-size:12px;color:#555;font-weight:600;display:flex;align-items:center;gap:6px}
+.trust-item::before{content:'✓';color:var(--green);font-weight:800;font-size:13px}
+
+/* ─── LAYOUT ─── */
+.w{max-width:860px;margin:0 auto;padding:80px 24px}
+.ws{max-width:860px;margin:0 auto;padding:44px 24px}
+hr{border:none;border-top:1px solid var(--border)}
+
+/* ─── SECTION HEADLINE ─── */
+.sh{text-align:center;margin-bottom:56px}
+.sh .e{font-size:44px;display:block;margin-bottom:12px;line-height:1}
+.sh h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(32px,5vw,52px);letter-spacing:-0.035em;line-height:1.05}
+.sh p{font-size:16px;color:var(--muted);margin-top:14px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
+
+/* ─── PAIN ─── */
+.pain-box{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:44px}
+.pain-box h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:26px;margin-bottom:28px;letter-spacing:-0.025em}
+.pain-row{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:15px;color:#aaa;font-weight:400}
+.pain-row:last-child{border-bottom:none}
+.pain-x{width:22px;height:22px;background:rgba(232,68,58,0.12);border:1px solid rgba(232,68,58,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* ─── VALUE STACK ─── */
+.vrow{display:flex;align-items:flex-start;gap:20px;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:26px 30px;margin-bottom:8px;transition:border-color 0.2s,background 0.2s}
+.vrow:hover{border-color:rgba(100,46,255,0.28);background:rgba(100,46,255,0.03)}
+.vn{font-size:11px;font-weight:800;color:#333;min-width:24px;margin-top:4px;letter-spacing:0.05em}
+.vb h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;margin-bottom:6px;letter-spacing:-0.02em}
+.vb p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:12px;font-weight:400}
+.vpill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;background:rgba(100,46,255,0.08);border:1px solid rgba(100,46,255,0.18);border-radius:100px;padding:4px 12px;color:#9977ee;letter-spacing:0.02em}
+.vpill s{color:#3a3a3a}
+.vi{font-size:26px;flex-shrink:0;margin-top:2px}
+.vb{flex:1}
+
+/* ─── TOTAL ─── */
+.total{display:flex;justify-content:space-between;align-items:center;background:rgba(100,46,255,0.05);border:1px solid rgba(100,46,255,0.18);border-radius:12px;padding:28px 30px;margin-top:12px;flex-wrap:wrap;gap:14px}
+.total-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#3a3a3a;margin-bottom:6px}
+.total-amt{font-family:'Manrope',sans-serif;font-weight:800;font-size:44px;letter-spacing:-0.04em;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:line-through;-webkit-text-decoration-color:rgba(255,255,255,0.15);text-decoration-color:rgba(255,255,255,0.15)}
+.total-save{font-family:'Manrope',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.04em;color:var(--green)}
+
+/* ─── STEPS ─── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:32px 26px;text-align:center;position:relative;overflow:hidden}
+.step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad2)}
+.step-n{font-family:'Manrope',sans-serif;font-weight:800;font-size:48px;line-height:1;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:16px;letter-spacing:-0.04em}
+.step h3{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;margin-bottom:10px;letter-spacing:-0.01em}
+.step p{font-size:13px;color:var(--muted);line-height:1.65;font-weight:400}
+
+/* ─── STATS ─── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.stat{background:var(--s1);padding:30px 16px;text-align:center}
+.stat-n{font-family:'Manrope',sans-serif;font-weight:800;font-size:38px;display:block;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.03em;line-height:1}
+.stat-l{font-size:11px;color:#444;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:6px}
+
+/* ─── CASES ─── */
+.cases{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.case{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;position:relative;overflow:hidden}
+.case::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--grad)}
+.case h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:32px;letter-spacing:-0.04em;margin-bottom:8px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.case p{font-size:13px;color:var(--muted);line-height:1.65;font-weight:400}
+
+/* ─── TESTIMONIALS ─── */
+.testi{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:32px;margin-bottom:12px;position:relative;overflow:hidden}
+.testi::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--grad2)}
+.testi-stars{font-size:14px;margin-bottom:12px;color:#f59e0b;letter-spacing:3px}
+.testi p{font-size:15px;color:#ccc;line-height:1.8;margin-bottom:16px;font-style:italic;font-weight:400}
+.testi-author{font-size:13px;font-weight:700;color:#444}
+.testi-author span{color:var(--purple-l)}
+
+/* ─── PRICING ─── */
+.pc{background:var(--s1);border:2px solid var(--purple);border-radius:14px;overflow:hidden;box-shadow:0 0 80px rgba(100,46,255,0.1)}
+.pc-header{background:var(--grad2);padding:16px 36px;text-align:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#fff}
+.pc-body{padding:56px 48px}
+.price-was{font-size:15px;color:#333;margin-bottom:4px;font-weight:500}
+.price-was span{text-decoration:line-through}
+.price-label{font-size:11px;font-weight:700;color:var(--purple-l);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
+.price-main{font-family:'Manrope',sans-serif;font-weight:800;font-size:96px;line-height:1;letter-spacing:-0.05em;margin-bottom:12px}
+.price-main sub{font-size:32px;font-weight:700;vertical-align:super;color:#3a3a3a}
+.price-badge{display:inline-block;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:var(--green);font-size:13px;font-weight:700;padding:8px 20px;border-radius:100px;margin-bottom:44px;letter-spacing:0.01em}
+.cl{list-style:none;margin:0 0 44px}
+.cl li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;color:#ccc;font-weight:400}
+.cl li:last-child{border-bottom:none}
+.ck{width:20px;height:20px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+
+/* ─── MAIN BUTTON ─── */
+.btn{display:block;width:100%;background:var(--purple);color:#fff;border:none;padding:22px;font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.02em;border-radius:9px;cursor:pointer;text-align:center;text-decoration:none;transition:all 0.2s}
+.btn:hover{background:var(--purple-l);transform:translateY(-1px);box-shadow:0 12px 40px rgba(100,46,255,0.35)}
+.btn-note{text-align:center;font-size:12px;color:#333;margin-top:12px;font-weight:500}
+
+/* ─── UPSELLS ─── */
+.ug{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:30px 0}
+.uc{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:28px 24px;cursor:pointer;position:relative;transition:all 0.2s}
+.uc:hover{border-color:rgba(100,46,255,0.3);transform:translateY(-2px)}
+.uc.on{border-color:var(--purple);background:rgba(100,46,255,0.05)}
+.u-hot{position:absolute;top:-1px;left:20px;background:var(--grad2);color:#fff;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:0 0 6px 6px}
+.u-tick{position:absolute;top:16px;right:16px;width:24px;height:24px;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--purple);font-weight:800;transition:all 0.2s}
+.uc.on .u-tick{border-color:var(--purple);background:rgba(100,46,255,0.18)}
+.u-icon{font-size:26px;margin-bottom:14px}
+.uc h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;margin-bottom:8px;padding-right:30px;letter-spacing:-0.01em}
+.uc p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px;font-weight:400}
+.u-price{display:flex;align-items:baseline;gap:10px}
+.u-old{font-size:13px;color:#3a3a3a;text-decoration:line-through;font-weight:500}
+.u-new{font-family:'Manrope',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ─── ORDER BOX ─── */
+.ob{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-top:16px}
+.ob h4{font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#2a2a2a;margin-bottom:20px}
+.ol{display:flex;justify-content:space-between;font-size:14px;color:#555;padding:10px 0;border-bottom:1px solid var(--border);font-weight:500}
+.ol:last-of-type{border-bottom:none}
+.ol.tot{color:var(--white);font-weight:800;font-size:17px;padding-top:18px;margin-top:10px;border-top:1px solid var(--border)}
+.ol .op{color:var(--white);font-weight:800}
+
+/* ─── GUARANTEE ─── */
+.gu{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.14);border-radius:12px;padding:40px;display:flex;gap:28px;align-items:flex-start}
+.gu-icon{font-size:48px;flex-shrink:0;line-height:1}
+.gu h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;margin-bottom:12px;letter-spacing:-0.02em}
+.gu p{font-size:15px;color:var(--muted);line-height:1.75;font-weight:400}
+
+/* ─── FAQ ─── */
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;gap:16px;letter-spacing:-0.01em}
+.faq-ico{width:28px;height:28px;background:rgba(100,46,255,0.08);border:1px solid rgba(100,46,255,0.18);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--purple-l);font-size:18px;flex-shrink:0;transition:transform 0.25s,background 0.2s;line-height:1}
+.faq-a{font-size:15px;color:var(--muted);line-height:1.75;overflow:hidden;max-height:0;transition:max-height 0.3s ease,padding-top 0.3s;font-weight:400}
+.faq-item.open .faq-ico{transform:rotate(45deg);background:rgba(100,46,255,0.18)}
+.faq-item.open .faq-a{max-height:240px;padding-top:16px}
+
+/* ─── FOOTER ─── */
+.footer{border-top:1px solid var(--border);padding:56px 24px;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.fl-mark{width:34px;height:34px;background:var(--grad2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;color:#fff;position:relative;letter-spacing:-0.03em}
+.fl-mark::after{content:'';position:absolute;top:-2px;right:-2px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+.fl-text{font-family:'Manrope',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.03em;color:var(--white)}
+.footer p{font-size:13px;color:#2a2a2a;line-height:2.2;font-weight:500}
+.footer a{color:#333;text-decoration:none}
+
+/* ─── STICKY BAR ─── */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(18,18,18,0.98);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:14px 32px;display:flex;align-items:center;justify-content:center;gap:24px;z-index:200;transform:translateY(100%);transition:transform 0.3s;flex-wrap:wrap}
+.sticky.show{transform:translateY(0)}
+.sk-t{font-family:'Manrope',sans-serif;font-weight:700;font-size:15px}
+.sk-p{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.03em;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sk-btn{background:var(--purple);color:#fff;border:none;padding:13px 30px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;border-radius:7px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.sk-btn:hover{background:var(--purple-l);box-shadow:0 0 24px rgba(100,46,255,0.35)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:680px){
+  .nav{padding:14px 20px}
+  .steps{grid-template-columns:1fr}
+  .ug{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .cases{grid-template-columns:1fr}
+  .pc-body{padding:36px 24px}
+  .price-main{font-size:72px}
+  .gu{flex-direction:column;gap:16px;padding:28px}
+  .total{flex-direction:column;gap:8px}
+  .pain-box{padding:28px 22px}
+  .w{padding:56px 20px}
+  h1{letter-spacing:-0.03em}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">⚡ Begrænset tilbud — kun 20 strategier pr. måned · Prisen stiger snart</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark">M</div>
+    <span class="logo-text">Marketingly</span>
+  </a>
+  <a href="#pricing" class="nav-btn">Få adgang nu →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><div class="badge-dot"></div>Personlig Marketingstrategi</div>
+  <h1>Stop med at gætte.<br><em>Start med at skalere.</em></h1>
+  <p class="hero-sub">En komplet, <strong>skræddersyet marketingstrategi</strong> for din virksomhed — med markedsanalyse, konkurrentanalyse, 4 kundeavatarer, 25 annoncevinkler og 10 klar-til-brug annoncekoncepts.</p>
+  <a href="#pricing" class="btn" style="max-width:440px;margin:0 auto">Ja — giv mig min strategi →</a>
+  <div class="trust-row">
+    <span class="trust-item">Øjeblikkelig bekræftelse</span>
+    <span class="trust-item">Ingen binding</span>
+    <span class="trust-item">14 dages garanti</span>
+    <span class="trust-item">6+ års erfaring</span>
+  </div>
+</section>
+
+<hr>
+
+<!-- PAIN -->
+<div class="ws">
+  <div class="pain-box">
+    <h2>😤 Kender du det her?</h2>
+    <div class="pain-row"><div class="pain-x">✗</div><span>Du bruger penge på annoncer men ved ikke præcis hvad der virker — og <em>hvorfor</em></span></div>
+    <div class="pain-row"><div class="pain-x">✗</div><span>Du ved ikke hvem din ideelle kunde er, hvad de frygter, eller hvad der får dem til at købe</span></div>
+    <div class="pain-row"><div class="pain-x">✗</div><span>Dine konkurrenter vokser hurtigere end dig, og du har ikke styr på hvad de gør anderledes</span></div>
+    <div class="pain-row"><div class="pain-x">✗</div><span>Du løber tør for annonceidéer — og de du laver, konverterer ikke som forventet</span></div>
+    <div class="pain-row"><div class="pain-x">✗</div><span>Du har fået generisk rådgivning der ikke passer til din branche eller dine kunder</span></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- VALUE STACK -->
+<div class="w">
+  <div class="sh">
+    <span class="e">🎁</span>
+    <h2>Alt du får.<br>Skræddersyet til din virksomhed.</h2>
+    <p>Dette er ikke et template. Lavet specifikt til dig — din branche, dine produkter, dine kunder.</p>
+  </div>
+
+  <div class="vrow"><span class="vi">📊</span><div class="vb"><h3>Markedsanalyse</h3><p>Vi kortlægger dit marked — størrelse, trends, sæsonudsving og de muligheder dine konkurrenter ikke har opdaget endnu.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#1</span></div>
+
+  <div class="vrow"><span class="vi">🔍</span><div class="vb"><h3>Konkurrentanalyse</h3><p>Vi gennemgår dine top-konkurrenter — hvad de kommunikerer, hvad de lover og vigtigst: hvad de forsømmer, som du kan vinde på.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#2</span></div>
+
+  <div class="vrow"><span class="vi">💬</span><div class="vb"><h3>Kommunikationsstrategi</h3><p>Din tone of voice, positionering og de præcise budskaber der skaber tillid og konvertering — tilpasset dit brand.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#3</span></div>
+
+  <div class="vrow"><span class="vi">👥</span><div class="vb"><h3>4 Kundeavatarer</h3><p>Fire dybtgående kundeprofiler med demografi, adfærd, værdier og digitale vaner — så du præcist ved hvem du taler til.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#4</span></div>
+
+  <div class="vrow"><span class="vi">🧠</span><div class="vb"><h3>Pain &amp; Desire-analyse</h3><p>De præcise frustrationer og drømme hos dine kunder — formuleret så du bruger det direkte i din annoncetekst.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#5</span></div>
+
+  <div class="vrow"><span class="vi">🎯</span><div class="vb"><h3>25 Annoncevinkler</h3><p>25 unikke vinkler der rammer din målgruppe på tværs af alle awareness-stadier. Aldrig løb tør for idéer igen.</p><div class="vpill">Vejl. værdi: <s>750 kr.</s></div></div><span class="vn">#6</span></div>
+
+  <div class="vrow"><span class="vi">💡</span><div class="vb"><h3>10 Unikke Annoncekoncepts</h3><p>10 færdige annoncekoncepts — format, hook, vinkel og budskab klar til produktion. Du skal bare trykke record.</p><div class="vpill">Vejl. værdi: <s>750 kr.</s></div></div><span class="vn">#7</span></div>
+
+  <div class="total">
+    <div>
+      <div class="total-label">Samlet vejl. værdi</div>
+      <div class="total-amt">4.000 kr.</div>
+    </div>
+    <div style="text-align:right">
+      <div class="total-label" style="color:var(--green)">Du sparer</div>
+      <div class="total-save">3.751 kr.</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- HOW IT WORKS -->
+<div class="w">
+  <div class="sh"><span class="e">⚡</span><h2>Sådan fungerer det.</h2><p>Tre trin. Ingen ventetid. Klar-til-brug output.</p></div>
+  <div class="steps">
+    <div class="step"><span class="step-n">01</span><h3>Du køber adgang</h3><p>Du angiver din branche, dine produkter og en kort beskrivelse af din virksomhed. Tager 3 minutter.</p></div>
+    <div class="step"><span class="step-n">02</span><h3>Vi bygger strategien</h3><p>Marketingly analyserer dit marked, dine konkurrenter og dine kunder og bygger alt fra bunden.</p></div>
+    <div class="step"><span class="step-n">03</span><h3>Du skalerer</h3><p>Du modtager strategien og har øjeblikkeligt 25 annoncevinkler og 10 koncepter klar til brug.</p></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- STATS -->
+<div class="ws">
+  <div class="stats">
+    <div class="stat"><span class="stat-n">6.7x</span><span class="stat-l">Gns. ROAS</span></div>
+    <div class="stat"><span class="stat-n">2.384+</span><span class="stat-l">Annoncer produceret</span></div>
+    <div class="stat"><span class="stat-n">2.8 år</span><span class="stat-l">Gns. klientforhold</span></div>
+    <div class="stat"><span class="stat-n">0</span><span class="stat-l">Dårlige anmeldelser</span></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- CASE STUDIES -->
+<div class="w">
+  <div class="sh"><span class="e">🚀</span><h2>Det her er hvad vores kunder oplever.</h2></div>
+  <div class="cases">
+    <div class="case"><h3>30M → 100M SEK</h3><p>Out of Bounds — Europas største sælger af brugte golfbolde. 5 år. Ekspanderet til DK, SE, NL, DE.</p></div>
+    <div class="case"><h3>+379% ROAS</h3><p>Friluftsland — 248 ansatte, 13 butikker. ROAS steg 379% på under 4 måneder.</p></div>
+    <div class="case"><h3>60M → 91M DKK</h3><p>GrejFreak — En af Danmarks største outdoorvirksomheder. 3 års samarbejde.</p></div>
+    <div class="case"><h3>2B DKK</h3><p>Vi arbejder med virksomheder med op til 2 milliarder DKK i årsomsætning.</p></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- TESTIMONIALS -->
+<div class="w">
+  <div class="sh"><span class="e">❤️</span><h2>Hvad vores klienter siger.</h2></div>
+  <div class="testi"><div class="testi-stars">★★★★★</div><p>"Mathias' ægte interesse for sit arbejde og for os som kunde skinnede igennem fra det første møde. Det er sjældent at finde et bureau der reelt forstår éns forretning."</p><div class="testi-author">Sofie Bennedsen — <span>Tajmer Booking &amp; Management</span></div></div>
+  <div class="testi"><div class="testi-stars">★★★★★</div><p>"Vi gik fra 30 til 100 millioner SEK i omsætning over 5 år. Marketingly forstår Meta på et niveau de fleste bureauer aldrig når."</p><div class="testi-author">Out of Bounds — <span>Europas største sælger af brugte golfbolde</span></div></div>
+  <div class="testi"><div class="testi-stars">★★★★★</div><p>"ROAS steg 379% på under 4 måneder. Ingen binding, ingen skjulte costs. Bare resultater."</p><div class="testi-author">Friluftsland — <span>13 butikker, 200M+ DKK</span></div></div>
+</div>
+
+<hr>
+
+<!-- PRICING -->
+<div id="pricing" class="w">
+  <div class="sh"><span class="e">🔥</span><h2>Klar til at få din strategi?</h2><p>94% rabat · 14 dages pengene tilbage garanti</p></div>
+
+  <div class="pc">
+    <div class="pc-header">🔥 Begrænset tilbud — prisen stiger snart</div>
+    <div class="pc-body">
+
+      <div style="text-align:center;margin-bottom:44px">
+        <div class="price-was">Normal pris: <span>4.000 kr.</span></div>
+        <div class="price-label">Din pris i dag</div>
+        <div class="price-main"><sub>kr.</sub>249</div>
+        <div class="price-badge">✓ Du sparer 3.751 kr. — 94% rabat</div>
+      </div>
+
+      <ul class="cl">
+        <li><div class="ck">✓</div>Komplet markedsanalyse</li>
+        <li><div class="ck">✓</div>Konkurrentanalyse (top 3-5 konkurrenter)</li>
+        <li><div class="ck">✓</div>Kommunikationsstrategi &amp; tone of voice</li>
+        <li><div class="ck">✓</div>4 detaljerede kundeavatarer</li>
+        <li><div class="ck">✓</div>Pain &amp; Desire-analyse klar til brug i annoncer</li>
+        <li><div class="ck">✓</div>25 annoncevinkler på tværs af awareness-stadier</li>
+        <li><div class="ck">✓</div>10 unikke annoncekoncepts klar til produktion</li>
+        <li><div class="ck">✓</div>Leveret som PDF inden for 3 hverdage</li>
+        <li><div class="ck">✓</div>Gratis justeringsrunde</li>
+      </ul>
+
+      <!-- UPSELLS -->
+      <div style="border-top:1px solid var(--border);padding-top:36px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:800;color:#2a2a2a;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:6px">Tilføj til din ordre</div>
+        <p style="font-size:14px;color:#3a3a3a;margin-bottom:24px;font-weight:500">Opgradér og få endnu mere ud af din strategi</p>
+        <div class="ug">
+          <div class="uc" onclick="toggleU(this,'99','u1l','t1')">
+            <div class="u-hot">Populær</div>
+            <div class="u-tick" id="t1"></div>
+            <div class="u-icon">🤖</div>
+            <h3>Static Ad Creator GPT</h3>
+            <p>Vores AI der genererer annonceoverskrifter og copy baseret på din strategi. Trænet på 2.384+ annoncer.</p>
+            <div class="u-price"><span class="u-old">499 kr.</span><span class="u-new">99 kr.</span></div>
+          </div>
+          <div class="uc" onclick="toggleU(this,'299','u2l','t2')">
+            <div class="u-tick" id="t2"></div>
+            <div class="u-icon">🎨</div>
+            <h3>3 Klar-til-brug Static Ads</h3>
+            <p>Vi designer 3 færdige static annoncer baseret på din strategi. Upload direkte til Meta Ads Manager.</p>
+            <div class="u-price"><span class="u-old">999 kr.</span><span class="u-new">299 kr.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="ob">
+        <h4>Din ordre</h4>
+        <div class="ol"><span>Personlig Marketingstrategi</span><span class="op">249 kr.</span></div>
+        <div class="ol" id="u1l" style="display:none"><span>Static Ad Creator GPT</span><span class="op">99 kr.</span></div>
+        <div class="ol" id="u2l" style="display:none"><span>3 Static Ads</span><span class="op">299 kr.</span></div>
+        <div class="ol tot"><span>Total</span><span class="op" id="tot">249 kr.</span></div>
+      </div>
+
+      <a href="#" class="btn" style="margin-top:32px" onclick="return false">Ja — Jeg vil have min strategi nu →</a>
+      <p class="btn-note">Øjeblikkelig bekræftelse · Levering inden for 3 hverdage · Ingen binding</p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- GUARANTEE -->
+<div class="ws">
+  <div class="gu">
+    <div class="gu-icon">🛡️</div>
+    <div>
+      <h3>100% Pengene tilbage garanti</h3>
+      <p>Jeg er så sikker på at denne strategi vil give dig klarhed og retning, at du får pengene tilbage hvis du ikke er tilfreds inden for 14 dage. Ingen spørgsmål. Send en email til mathias@marketingly.dk.</p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- FAQ -->
+<div class="w">
+  <div class="sh"><span class="e">💬</span><h2>Spørgsmål &amp; svar.</h2></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Er dette virkelig skræddersyet til min virksomhed?</span><div class="faq-ico">+</div></div><div class="faq-a">Ja — 100%. Vi analyserer din specifikke branche, dine konkurrenter og din målgruppe. Du får ikke et generisk template. Du angiver din virksomhed og vi bygger strategien derfra.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvornår modtager jeg min strategi?</span><div class="faq-ico">+</div></div><div class="faq-a">Du modtager din komplette strategi inden for 3 hverdage efter at du har udfyldt vores korte onboarding-formular. Du bekræftes på email øjeblikkeligt.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvad er formatet på leverancen?</span><div class="faq-ico">+</div></div><div class="faq-a">Du modtager en velstruktureret PDF klar til at dele med dit team eller bureau. Alt er skrevet i klar, handlingsbar form — ingen generiske konsulent-råd.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Passer det til min branche?</span><div class="faq-ico">+</div></div><div class="faq-a">Ja. Vi har erfaring med e-commerce, service, events, B2B og meget mere. Vi tilpasser analysen præcist til dit marked og dine kunder.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvad sker der hvis jeg ikke er tilfreds?</span><div class="faq-ico">+</div></div><div class="faq-a">Du får alle pengene tilbage inden for 14 dage — uden betingelser. Send en email til mathias@marketingly.dk og pengene er tilbage inden for 3 hverdage.</div></div>
+</div>
+
+<hr>
+
+<!-- FINAL CTA -->
+<div class="w" style="text-align:center">
+  <div class="sh"><span class="e">🚀</span><h2>Hvad venter du på?</h2><p>249 kr. for en strategi der normalt koster 4.000 kr.<br>Det er ikke en beslutning. Det er matematik.</p></div>
+  <a href="#pricing" class="btn" style="max-width:500px;margin:0 auto">Ja — Jeg vil have min strategi →</a>
+  <div class="trust-row" style="margin-top:22px">
+    <span class="trust-item">Levering inden for 3 hverdage</span>
+    <span class="trust-item">14 dages garanti</span>
+    <span class="trust-item">Ingen binding</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <div class="fl-mark">M</div>
+    <span class="fl-text">Marketingly</span>
+  </div>
+  <p>
+    Marketingly Digital ApS · Kochsgade 31D, 5000 Odense C<br>
+    mathias@marketingly.dk · +45 30 20 01 21<br><br>
+    © 2025 Marketingly Digital ApS · <a href="#">Privatlivspolitik</a> · <a href="#">Handelsbetingelser</a>
+  </p>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky" id="sticky">
+  <span class="sk-t">Personlig Marketingstrategi</span>
+  <span class="sk-p">249 kr.</span>
+  <button class="sk-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Få adgang nu →</button>
+</div>
+
+<script>
+var heroBottom = document.querySelector('.hero').offsetTop + document.querySelector('.hero').offsetHeight;
+window.addEventListener('scroll', function(){
+  document.getElementById('sticky').classList.toggle('show', scrollY > heroBottom + 60);
+});
+var upsells = {}, base = 249;
+function toggleU(card, price, lineId, tickId){
+  var p = parseInt(price);
+  card.classList.toggle('on');
+  var tick = document.getElementById(tickId);
+  var line = document.getElementById(lineId);
+  if(card.classList.contains('on')){
+    upsells[price] = p; tick.textContent = '✓'; line.style.display = 'flex';
+  } else {
+    delete upsells[price]; tick.textContent = ''; line.style.display = 'none';
+  }
+  var total = base;
+  for(var k in upsells) total += upsells[k];
+  document.getElementById('tot').textContent = total + ' kr.';
+}
+</script>
+</body>
+</html>
