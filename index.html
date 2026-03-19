@@ -70,14 +70,29 @@ hr{border:none;border-top:1px solid var(--border)}
 .pain-row:last-child{border-bottom:none}
 .pain-x{width:22px;height:22px;background:rgba(232,68,58,0.12);border:1px solid rgba(232,68,58,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
 
+/* ─── COMPARE ─── */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.compare-box{border-radius:12px;padding:32px 28px}
+.compare-box--bad{background:rgba(232,68,58,0.04);border:1px solid rgba(232,68,58,0.18)}
+.compare-box--good{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.18)}
+.compare-box h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;margin-bottom:20px;letter-spacing:-0.02em}
+.compare-box--bad h3{color:var(--red)}
+.compare-box--good h3{color:var(--green)}
+.compare-row{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:#aaa;padding:10px 0;border-bottom:1px solid var(--border);font-weight:400;line-height:1.6}
+.compare-row:last-child{border-bottom:none}
+.compare-icon{flex-shrink:0;margin-top:2px;font-size:13px;font-weight:800}
+.compare-box--bad .compare-icon{color:var(--red)}
+.compare-box--good .compare-icon{color:var(--green)}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+
 /* ─── VALUE STACK ─── */
 .vrow{display:flex;align-items:flex-start;gap:20px;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:26px 30px;margin-bottom:8px;transition:border-color 0.2s,background 0.2s}
 .vrow:hover{border-color:rgba(100,46,255,0.28);background:rgba(100,46,255,0.03)}
 .vn{font-size:11px;font-weight:800;color:#333;min-width:24px;margin-top:4px;letter-spacing:0.05em}
 .vb h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;margin-bottom:6px;letter-spacing:-0.02em}
 .vb p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:12px;font-weight:400}
-.vpill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;background:rgba(100,46,255,0.08);border:1px solid rgba(100,46,255,0.18);border-radius:100px;padding:4px 12px;color:var(--purple-l);letter-spacing:0.02em}
-.vpill s{color:#fff}
+.vb .benefit{font-size:13px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:6px}
+.vb .benefit::before{content:'→';font-weight:800}
 .vi{font-size:26px;flex-shrink:0;margin-top:2px}
 .vb{flex:1}
 
@@ -134,8 +149,7 @@ hr{border:none;border-top:1px solid var(--border)}
 .price-was{font-size:15px;color:#333;margin-bottom:4px;font-weight:500}
 .price-was span{text-decoration:line-through}
 .price-label{font-size:11px;font-weight:700;color:var(--purple-l);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
-.price-main{font-family:'Manrope',sans-serif;font-weight:800;font-size:96px;line-height:1;letter-spacing:-0.05em;margin-bottom:12px}
-.price-main sub{font-size:32px;font-weight:700;vertical-align:super;color:#3a3a3a}
+.price-main{font-family:'Manrope',sans-serif;font-weight:800;font-size:72px;line-height:1;letter-spacing:-0.04em;margin-bottom:12px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .price-badge{display:inline-block;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:var(--green);font-size:13px;font-weight:700;padding:8px 20px;border-radius:100px;margin-bottom:44px;letter-spacing:0.01em}
 .cl{list-style:none;margin:0 0 44px}
 .cl li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;color:#ccc;font-weight:400}
@@ -147,28 +161,6 @@ hr{border:none;border-top:1px solid var(--border)}
 .btn:hover{background:var(--purple-l);transform:translateY(-1px);box-shadow:0 12px 40px rgba(100,46,255,0.35)}
 .btn-note{text-align:center;font-size:12px;color:#333;margin-top:12px;font-weight:500}
 
-/* ─── UPSELLS ─── */
-.ug{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:30px 0}
-.uc{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:28px 24px;cursor:pointer;position:relative;transition:all 0.2s}
-.uc:hover{border-color:rgba(100,46,255,0.3);transform:translateY(-2px)}
-.uc.on{border-color:var(--purple);background:rgba(100,46,255,0.05)}
-.u-hot{position:absolute;top:-1px;left:20px;background:var(--grad2);color:#fff;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:0 0 6px 6px}
-.u-tick{position:absolute;top:16px;right:16px;width:24px;height:24px;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--purple);font-weight:800;transition:all 0.2s}
-.uc.on .u-tick{border-color:var(--purple);background:rgba(100,46,255,0.18)}
-.u-icon{font-size:26px;margin-bottom:14px}
-.uc h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;margin-bottom:8px;padding-right:30px;letter-spacing:-0.01em}
-.uc p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px;font-weight:400}
-.u-price{display:flex;align-items:baseline;gap:10px}
-.u-old{font-size:13px;color:#fff;text-decoration:line-through;font-weight:500}
-.u-new{font-family:'Manrope',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* ─── ORDER BOX ─── */
-.ob{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-top:16px}
-.ob h4{font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#2a2a2a;margin-bottom:20px}
-.ol{display:flex;justify-content:space-between;font-size:14px;color:#555;padding:10px 0;border-bottom:1px solid var(--border);font-weight:500}
-.ol:last-of-type{border-bottom:none}
-.ol.tot{color:var(--white);font-weight:800;font-size:17px;padding-top:18px;margin-top:10px;border-top:1px solid var(--border)}
-.ol .op{color:var(--white);font-weight:800}
 
 /* ─── GUARANTEE ─── */
 .gu{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.14);border-radius:12px;padding:40px;display:flex;gap:28px;align-items:flex-start}
@@ -205,7 +197,6 @@ hr{border:none;border-top:1px solid var(--border)}
 @media(max-width:680px){
   .nav{padding:14px 20px}
   .steps{grid-template-columns:1fr}
-  .ug{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .cases{grid-template-columns:1fr}
   .pc-body{padding:36px 24px}
@@ -221,7 +212,7 @@ hr{border:none;border-top:1px solid var(--border)}
 <body>
 
 <!-- TOPBAR -->
-<div class="topbar">⚡ Begrænset tilbud — kun 20 strategier pr. måned · Prisen stiger snart</div>
+<div class="topbar">⚡ Gratis i begrænset tid — vi laver kun 20 strategier pr. måned</div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -236,12 +227,12 @@ hr{border:none;border-top:1px solid var(--border)}
 <section class="hero">
   <div class="badge"><div class="badge-dot"></div>Personlig Marketingstrategi</div>
   <h1>Stop med at gætte.<br><em>Start med at skalere.</em></h1>
-  <p class="hero-sub">Modtog en skræddersyet marketingstrategi, der kan øge jeres profit med 15-35% - helt gratis</p>
-  <a href="#pricing" class="btn" style="max-width:440px;margin:0 auto">Ja — giv mig min strategi →</a>
+  <p class="hero-sub">Få en skræddersyet marketingstrategi der kan øge jeres profit med 15-35% — <strong>helt gratis</strong> (normalt 2.995 kr.)</p>
+  <a href="#pricing" class="btn" style="max-width:440px;margin:0 auto">Ja — giv mig min gratis strategi →</a>
   <div class="trust-row">
     <span class="trust-item">Øjeblikkelig bekræftelse</span>
-    <span class="trust-item">14 dages garanti</span>
-    <span class="trust-item">Brugt af 23 virksomheder</span>
+    <span class="trust-item">100% gratis — ingen betalingskort</span>
+    <span class="trust-item">Brugt af 23+ virksomheder</span>
   </div>
 </section>
 
@@ -261,6 +252,34 @@ hr{border:none;border-top:1px solid var(--border)}
 
 <hr>
 
+<!-- COMPARE -->
+<div class="w">
+  <div class="sh">
+    <span class="e">🪞</span>
+    <h2>Forskellen er tydelig.</h2>
+  </div>
+  <div class="compare">
+    <div class="compare-box compare-box--bad">
+      <h3>✗ Hvad 9/10 virksomheder gør</h3>
+      <div class="compare-row"><span class="compare-icon">✗</span><span>Laver annoncer baseret på mavefornemmelse — og håber det virker</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span>Taler til "alle" og rammer ingen — fordi de ikke kender deres kundes sprog</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span>Kopierer konkurrenterne i stedet for at finde huller de kan eje</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span>Skifter strategi hver uge fordi de ikke har et fundament at teste fra</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span>Bruger 10-25.000 kr./md. på et bureau der leverer det samme til alle</span></div>
+    </div>
+    <div class="compare-box compare-box--good">
+      <h3>✓ Hvad vores kunder gør</h3>
+      <div class="compare-row"><span class="compare-icon">✓</span><span>Bygger annoncer på research — og ved præcis hvorfor noget virker</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span>Taler direkte til 4 specifikke kundetyper med budskaber der rammer</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span>Kender konkurrenternes svagheder og positionerer sig i hullerne</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span>Har 25 vinkler og 10 koncepts klar — og kan teste systematisk</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span>Får et stærkere fundament gratis end de fleste betaler tusindvis for</span></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
 <!-- VALUE STACK -->
 <div class="w">
   <div class="sh">
@@ -269,28 +288,28 @@ hr{border:none;border-top:1px solid var(--border)}
     <p>Dette er ikke et template. Lavet specifikt til dig — din branche, dine produkter, dine kunder.</p>
   </div>
 
-  <div class="vrow"><span class="vi">📊</span><div class="vb"><h3>Markedsanalyse</h3><p>Vi kortlægger dit marked — størrelse, trends, sæsonudsving og de muligheder dine konkurrenter ikke har opdaget endnu.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#1</span></div>
+  <div class="vrow"><span class="vi">📊</span><div class="vb"><h3>Markedsanalyse</h3><p>Du får overblik over hvad der faktisk sker i dit marked — så du stopper med at gætte og begynder at træffe beslutninger baseret på data. Du ser muligheder dine konkurrenter overser.</p><div class="benefit">Du ved præcis hvor væksten er — før dine konkurrenter gør</div></div><span class="vn">#1</span></div>
 
-  <div class="vrow"><span class="vi">🔍</span><div class="vb"><h3>Konkurrentanalyse</h3><p>Vi gennemgår dine top-konkurrenter — hvad de kommunikerer, hvad de lover og vigtigst: hvad de forsømmer, som du kan vinde på.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#2</span></div>
+  <div class="vrow"><span class="vi">🔍</span><div class="vb"><h3>Konkurrentanalyse</h3><p>Du finder ud af hvad dine konkurrenter lover, hvor de er stærke — og vigtigst: hvad de forsømmer. Det giver dig en åbning du kan positionere dig i.</p><div class="benefit">Du konkurrerer ikke på pris — du vinder på positionering</div></div><span class="vn">#2</span></div>
 
-  <div class="vrow"><span class="vi">💬</span><div class="vb"><h3>Kommunikationsstrategi</h3><p>Din tone of voice, positionering og de præcise budskaber der skaber tillid og konvertering — tilpasset dit brand.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#3</span></div>
+  <div class="vrow"><span class="vi">💬</span><div class="vb"><h3>Kommunikationsstrategi</h3><p>Du får de præcise budskaber der gør at kunder vælger dig frem for andre. Ingen flere "vi er de bedste"-tekster. Reel positionering der skaber tillid fra første sekund.</p><div class="benefit">Dine annoncer og dit indhold konverterer bedre fra dag 1</div></div><span class="vn">#3</span></div>
 
-  <div class="vrow"><span class="vi">👥</span><div class="vb"><h3>4 Kundeavatarer</h3><p>Fire dybtgående kundeprofiler med demografi, adfærd, værdier og digitale vaner — så du præcist ved hvem du taler til.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#4</span></div>
+  <div class="vrow"><span class="vi">👥</span><div class="vb"><h3>4 Kundeavatarer</h3><p>Du stopper med at tale til "alle" og begynder at tale til de 4 kundetyper der rent faktisk køber. Du ved hvad de frygter, hvad de drømmer om, og hvad der får dem til at handle.</p><div class="benefit">Du rammer plet med dit budskab — fordi du kender din kunde bedre end de kender sig selv</div></div><span class="vn">#4</span></div>
 
-  <div class="vrow"><span class="vi">🧠</span><div class="vb"><h3>Pain &amp; Desire-analyse</h3><p>De præcise frustrationer og drømme hos dine kunder — formuleret så du bruger det direkte i din annoncetekst.</p><div class="vpill">Vejl. værdi: <s>500 kr.</s></div></div><span class="vn">#5</span></div>
+  <div class="vrow"><span class="vi">🧠</span><div class="vb"><h3>Pain &amp; Desire-analyse</h3><p>Du får dine kunders frustrationer og drømme formuleret i deres eget sprog — klar til at bruge direkte i dine annoncer, emails og landingpages. Det er det der adskiller reklame fra reklame der sælger.</p><div class="benefit">Dine tekster rammer en nerve — fordi ordene kommer fra kunderne selv</div></div><span class="vn">#5</span></div>
 
-  <div class="vrow"><span class="vi">🎯</span><div class="vb"><h3>25 Annoncevinkler</h3><p>25 unikke vinkler der rammer din målgruppe på tværs af alle awareness-stadier. Aldrig løb tør for idéer igen.</p><div class="vpill">Vejl. værdi: <s>750 kr.</s></div></div><span class="vn">#6</span></div>
+  <div class="vrow"><span class="vi">🎯</span><div class="vb"><h3>25 Annoncevinkler</h3><p>Du løber aldrig tør for idéer igen. 25 forskellige vinkler der rammer kunder på alle stadier — fra dem der ikke ved de har et problem, til dem der sammenligner dig med konkurrenter lige nu.</p><div class="benefit">Du kan teste systematisk i flere måneder uden at starte fra scratch</div></div><span class="vn">#6</span></div>
 
-  <div class="vrow"><span class="vi">💡</span><div class="vb"><h3>10 Unikke Annoncekoncepts</h3><p>10 færdige annoncekoncepts — format, hook, vinkel og budskab klar til produktion. Du skal bare trykke record.</p><div class="vpill">Vejl. værdi: <s>750 kr.</s></div></div><span class="vn">#7</span></div>
+  <div class="vrow"><span class="vi">💡</span><div class="vb"><h3>10 Unikke Annoncekoncepts</h3><p>Du får 10 færdige koncepter med format, hook, vinkel og budskab — klar til at filme eller designe. Ikke vage idéer, men konkrete planer du kan handle på i morgen.</p><div class="benefit">Du går fra "hvad skal vi lave?" til "hvilken skal vi starte med?"</div></div><span class="vn">#7</span></div>
 
   <div class="total">
     <div>
       <div class="total-label">Samlet vejl. værdi</div>
-      <div class="total-amt">4.000 kr.</div>
+      <div class="total-amt">2.995 kr.</div>
     </div>
     <div style="text-align:right">
-      <div class="total-label" style="color:var(--green)">Du sparer</div>
-      <div class="total-save">3.751 kr.</div>
+      <div class="total-label" style="color:var(--green)">Din pris i dag</div>
+      <div class="total-save">Gratis</div>
     </div>
   </div>
 </div>
@@ -363,64 +382,32 @@ hr{border:none;border-top:1px solid var(--border)}
 
 <!-- PRICING -->
 <div id="pricing" class="w">
-  <div class="sh"><span class="e">🔥</span><h2>Klar til at få din strategi?</h2><p>94% rabat · 14 dages pengene tilbage garanti</p></div>
+  <div class="sh"><span class="e">🔥</span><h2>Klar til at få din strategi?</h2><p>Gratis i begrænset tid — normalt 2.995 kr.</p></div>
 
   <div class="pc">
-    <div class="pc-header">🔥 Begrænset tilbud — prisen stiger snart</div>
+    <div class="pc-header">🔥 Gratis i begrænset tid — vi laver kun 20 pr. måned</div>
     <div class="pc-body">
 
       <div style="text-align:center;margin-bottom:44px">
-        <div class="price-was">Normal pris: <span>4.000 kr.</span></div>
+        <div class="price-was">Normal pris: <span>2.995 kr.</span></div>
         <div class="price-label">Din pris i dag</div>
-        <div class="price-main"><sub>kr.</sub>249</div>
-        <div class="price-badge">✓ Du sparer 3.751 kr. — 94% rabat</div>
+        <div class="price-main">Gratis</div>
+        <div class="price-badge">✓ Du sparer 2.995 kr. — 100% gratis</div>
       </div>
 
       <ul class="cl">
-        <li><div class="ck">✓</div>Komplet markedsanalyse</li>
-        <li><div class="ck">✓</div>Konkurrentanalyse (top 3-5 konkurrenter)</li>
-        <li><div class="ck">✓</div>Kommunikationsstrategi &amp; tone of voice</li>
-        <li><div class="ck">✓</div>4 detaljerede kundeavatarer</li>
-        <li><div class="ck">✓</div>Pain &amp; Desire-analyse klar til brug i annoncer</li>
-        <li><div class="ck">✓</div>25 annoncevinkler på tværs af awareness-stadier</li>
-        <li><div class="ck">✓</div>10 unikke annoncekoncepts klar til produktion</li>
+        <li><div class="ck">✓</div>Komplet markedsanalyse — du ved præcis hvor væksten er</li>
+        <li><div class="ck">✓</div>Konkurrentanalyse — du ser hvad de gør, og hvad de overser</li>
+        <li><div class="ck">✓</div>Kommunikationsstrategi — budskaber der skaber tillid og salg</li>
+        <li><div class="ck">✓</div>4 kundeavatarer — du kender dine kunder bedre end de kender sig selv</li>
+        <li><div class="ck">✓</div>Pain &amp; Desire-analyse — klar til brug i annoncer og emails</li>
+        <li><div class="ck">✓</div>25 annoncevinkler — du løber aldrig tør for idéer igen</li>
+        <li><div class="ck">✓</div>10 færdige annoncekoncepts — klar til produktion</li>
         <li><div class="ck">✓</div>Leveres inden for 48 timer på mail</li>
       </ul>
 
-      <!-- UPSELLS -->
-      <div style="border-top:1px solid var(--border);padding-top:36px;margin-bottom:16px">
-        <div style="font-size:11px;font-weight:800;color:#2a2a2a;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:6px">Tilføj til din ordre</div>
-        <p style="font-size:14px;color:#3a3a3a;margin-bottom:24px;font-weight:500">Opgradér og få endnu mere ud af din strategi</p>
-        <div class="ug">
-          <div class="uc" onclick="toggleU(this,'99','u1l','t1')">
-            <div class="u-hot">Populær</div>
-            <div class="u-tick" id="t1"></div>
-            <div class="u-icon">🤖</div>
-            <h3>Static Ad Creator GPT</h3>
-            <p>Vores AI der genererer annonceoverskrifter og copy baseret på din strategi. Trænet på 2.384+ annoncer.</p>
-            <div class="u-price"><span class="u-old">499 kr.</span><span class="u-new">99 kr.</span></div>
-          </div>
-          <div class="uc" onclick="toggleU(this,'299','u2l','t2')">
-            <div class="u-tick" id="t2"></div>
-            <div class="u-icon">🎨</div>
-            <h3>3 Klar-til-brug Static Ads</h3>
-            <p>Vi designer 3 færdige static annoncer baseret på din strategi. Upload direkte til Meta Ads Manager.</p>
-            <div class="u-price"><span class="u-old">999 kr.</span><span class="u-new">299 kr.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ORDER SUMMARY -->
-      <div class="ob">
-        <h4>Din ordre</h4>
-        <div class="ol"><span>Personlig Marketingstrategi</span><span class="op">249 kr.</span></div>
-        <div class="ol" id="u1l" style="display:none"><span>Static Ad Creator GPT</span><span class="op">99 kr.</span></div>
-        <div class="ol" id="u2l" style="display:none"><span>3 Static Ads</span><span class="op">299 kr.</span></div>
-        <div class="ol tot"><span>Total</span><span class="op" id="tot">249 kr.</span></div>
-      </div>
-
-      <a href="https://buy.stripe.com/00wbJ3ajycfl5JBeTO5Ne07" class="btn" style="margin-top:32px">Ja — Jeg vil have min strategi nu →</a>
-      <p class="btn-note">Øjeblikkelig bekræftelse · Levering inden for 48 timer · Du værste der kan ske, er at du får nogle gode ideer med.</p>
+      <a href="https://buy.stripe.com/00wbJ3ajycfl5JBeTO5Ne07" class="btn" style="margin-top:32px">Ja — Giv mig min gratis strategi →</a>
+      <p class="btn-note">Ingen betalingskort nødvendigt · Levering inden for 48 timer · Det værste der kan ske er at du får nogle gode idéer</p>
     </div>
   </div>
 </div>
@@ -432,8 +419,8 @@ hr{border:none;border-top:1px solid var(--border)}
   <div class="gu">
     <div class="gu-icon">🛡️</div>
     <div>
-      <h3>100% Pengene tilbage garanti</h3>
-      <p>Jeg er så sikker på at denne strategi vil give dig klarhed og retning, at du får pengene tilbage hvis du ikke er tilfreds inden for 14 dage. Ingen spørgsmål. Send en email til mathias@marketingly.dk.</p>
+      <h3>Ingen risiko. Ingen hager.</h3>
+      <p>Strategien er 100% gratis. Intet betalingskort, intet abonnement, ingen forpligtelse. Du får en komplet strategi til en værdi af 2.995 kr. — fordi vi ved at når du ser kvaliteten, vil du gerne tale videre. Så simpelt er det.</p>
     </div>
   </div>
 </div>
@@ -452,7 +439,7 @@ hr{border:none;border-top:1px solid var(--border)}
 
   <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Passer det til min branche?</span><div class="faq-ico">+</div></div><div class="faq-a">Ja. Vi har erfaring med e-commerce, service, events, B2B og meget mere. Vi tilpasser analysen præcist til dit marked og dine kunder.</div></div>
 
-  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvad sker der hvis jeg ikke er tilfreds?</span><div class="faq-ico">+</div></div><div class="faq-a">Du får alle pengene tilbage inden for 14 dage — uden betingelser. Send en email til mathias@marketingly.dk og pengene er tilbage inden for 3 hverdage.</div></div>
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvorfor er det gratis?</span><div class="faq-ico">+</div></div><div class="faq-a">Fordi vi ved at når du ser kvaliteten af vores arbejde, er der en god chance for at du vil tale videre om et samarbejde. Strategien er vores måde at vise hvad vi kan — uden du skal risikere noget.</div></div>
 
   <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Kan jeg bruge strategien sammen med mit nuværende bureau?</span><div class="faq-ico">+</div></div><div class="faq-a">Absolut. Strategien er designet som et fundament du kan dele med dit team, bureau eller freelancere. Den giver alle et fælles udgangspunkt for annoncering og kommunikation.</div></div>
 
@@ -460,18 +447,18 @@ hr{border:none;border-top:1px solid var(--border)}
 
   <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvor lang tid er strategien relevant?</span><div class="faq-ico">+</div></div><div class="faq-a">Strategien er bygget til at være relevant i mindst 6-12 måneder. Markedsanalysen, kundeavatarerne og annoncevinklerne giver dig et solidt fundament du kan bygge videre på over tid.</div></div>
 
-  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvad er forskellen på dette og et traditionelt bureau?</span><div class="faq-ico">+</div></div><div class="faq-a">Et bureau koster typisk 10.000-25.000 kr./md. og kræver binding. Her får du en komplet strategi til 249 kr. — med garanti, og leveret inden for 48 timer. Du beholder fuld kontrol.</div></div>
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Hvad er forskellen på dette og et traditionelt bureau?</span><div class="faq-ico">+</div></div><div class="faq-a">Et bureau koster typisk 10.000-25.000 kr./md. og kræver binding. Her får du en komplet strategi gratis — leveret inden for 48 timer. Du beholder fuld kontrol og kan bruge den med dit nuværende team eller bureau.</div></div>
 </div>
 
 <hr>
 
 <!-- FINAL CTA -->
 <div class="w" style="text-align:center">
-  <div class="sh"><span class="e">🚀</span><h2>Hvad venter du på?</h2><p>249 kr. for en strategi der normalt koster 4.000 kr.<br>Det er ikke en beslutning. Det er matematik.</p></div>
-  <a href="#pricing" class="btn" style="max-width:500px;margin:0 auto">Ja — Jeg vil have min strategi →</a>
+  <div class="sh"><span class="e">🚀</span><h2>Hvad venter du på?</h2><p>En strategi til en værdi af 2.995 kr. — helt gratis.<br>Det er ikke en beslutning. Det er et no-brainer.</p></div>
+  <a href="#pricing" class="btn" style="max-width:500px;margin:0 auto">Ja — Giv mig min gratis strategi →</a>
   <div class="trust-row" style="margin-top:22px">
     <span class="trust-item">Levering inden for 48 timer</span>
-    <span class="trust-item">14 dages garanti</span>
+    <span class="trust-item">Intet betalingskort</span>
   </div>
 </div>
 
@@ -491,8 +478,8 @@ hr{border:none;border-top:1px solid var(--border)}
 <!-- STICKY BAR -->
 <div class="sticky" id="sticky">
   <span class="sk-t">Personlig Marketingstrategi</span>
-  <span class="sk-p">249 kr.</span>
-  <button class="sk-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Få adgang nu →</button>
+  <span class="sk-p">Gratis</span>
+  <button class="sk-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Få din gratis strategi →</button>
 </div>
 
 <script>
@@ -500,21 +487,6 @@ var heroBottom = document.querySelector('.hero').offsetTop + document.querySelec
 window.addEventListener('scroll', function(){
   document.getElementById('sticky').classList.toggle('show', scrollY > heroBottom + 60);
 });
-var upsells = {}, base = 249;
-function toggleU(card, price, lineId, tickId){
-  var p = parseInt(price);
-  card.classList.toggle('on');
-  var tick = document.getElementById(tickId);
-  var line = document.getElementById(lineId);
-  if(card.classList.contains('on')){
-    upsells[price] = p; tick.textContent = '✓'; line.style.display = 'flex';
-  } else {
-    delete upsells[price]; tick.textContent = ''; line.style.display = 'none';
-  }
-  var total = base;
-  for(var k in upsells) total += upsells[k];
-  document.getElementById('tot').textContent = total + ' kr.';
-}
 </script>
 </body>
 </html>
