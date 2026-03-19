@@ -227,6 +227,9 @@ hr{border:none;border-top:1px solid var(--border)}
   .pain-box{padding:28px 22px}
   .w{padding:56px 20px}
   h1{letter-spacing:-0.03em}
+  .about-box{flex-direction:column!important;gap:20px!important;padding:28px 22px!important;text-align:center}
+  .about-box .about-avatar{margin:0 auto}
+  .about-stats{grid-template-columns:repeat(2,1fr)!important}
 }
 </style>
 </head>
@@ -347,9 +350,32 @@ hr{border:none;border-top:1px solid var(--border)}
 
 <hr>
 
+<!-- WHO'S BEHIND -->
+<div class="w">
+  <div class="sh"><span class="e">👋</span><h2>Hvem står bag din strategi?</h2></div>
+  <div class="about-box" style="background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:44px;display:flex;gap:36px;align-items:flex-start">
+    <div class="about-avatar" style="flex-shrink:0;width:96px;height:96px;border-radius:50%;background:var(--grad2);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:#fff;font-family:'Manrope',sans-serif">M</div>
+    <div>
+      <h3 style="font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em;margin-bottom:14px">Mathias Petersen — Stifter, Marketingly</h3>
+      <p style="font-size:15px;color:#aaa;line-height:1.75;margin-bottom:20px">Jeg har hjulpet virksomheder med <strong style="color:#fff">+2 mia. kr. i samlet årlig omsætning</strong> med at skalere deres annoncering. Fra Friluftsland og GrejFreak til Out of Bounds og Tajmer — Danmarks største booking-bureau.</p>
+      <p style="font-size:15px;color:#aaa;line-height:1.75;margin-bottom:20px">Jeg har produceret <strong style="color:#fff">2.384+ annoncer</strong> med et gennemsnitligt afkast på <strong style="color:#fff">6.71x ROAS</strong>. Min første kunde har været hos mig i over 5 år — uden kontrakt. Den gennemsnitlige klientrelation er 2.8 år. Og jeg har <strong style="color:#fff">0 negative anmeldelser</strong>.</p>
+      <p style="font-size:15px;color:#aaa;line-height:1.75;margin-bottom:0">Det er mig der personligt bygger din strategi. Ikke en praktikant. Ikke en AI. Mig — og det samme team af specialister der har leveret resultaterne nedenfor.</p>
+    </div>
+  </div>
+
+  <div class="about-stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-top:20px">
+    <div class="stat"><span class="stat-n">2 mia+</span><span class="stat-l">Klient-omsætning</span></div>
+    <div class="stat"><span class="stat-n">6.71x</span><span class="stat-l">Gns. ROAS</span></div>
+    <div class="stat"><span class="stat-n">2.384+</span><span class="stat-l">Annoncer produceret</span></div>
+    <div class="stat"><span class="stat-n">2.8 år</span><span class="stat-l">Gns. klientrelation</span></div>
+  </div>
+</div>
+
+<hr>
+
 <!-- TESTIMONIALS -->
 <div class="w">
-  <div class="sh"><span class="e">📈</span><h2>Tallene taler for sig selv.</h2></div>
+  <div class="sh"><span class="e">📈</span><h2>Her er beviserne.</h2></div>
   <div class="testi-grid">
 
     <!-- Out of Bounds — lead with most dramatic result -->
