@@ -168,6 +168,14 @@ hr{border:none;border-top:1px solid var(--border)}
 .cl li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;color:#ccc;font-weight:400}
 .cl li:last-child{border-bottom:none}
 .ck{width:20px;height:20px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+.cl li{justify-content:space-between}
+.vs-price{font-family:'Manrope',sans-serif;font-weight:600;font-size:14px;color:#666;text-decoration:line-through;white-space:nowrap;margin-left:auto;padding-left:16px}
+.vs-total{border-top:2px solid var(--border);margin-top:8px;padding-top:20px}
+.vs-total-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-family:'Manrope',sans-serif;font-size:15px;font-weight:600;color:#999}
+.vs-total-price{text-decoration:line-through;color:#666}
+.vs-free{padding-top:12px}
+.vs-free span:first-child{font-size:18px;font-weight:800;color:#fff}
+.vs-free-price{font-size:24px;font-weight:800;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* ─── CAPACITY COUNTER ─── */
 .capacity{background:rgba(232,68,58,0.06);border:1px solid rgba(232,68,58,0.18);border-radius:10px;padding:18px 22px;margin-bottom:32px;text-align:center}
@@ -454,10 +462,10 @@ hr{border:none;border-top:1px solid var(--border)}
     <div class="pc-body">
 
       <div style="text-align:center;margin-bottom:44px">
-        <div class="price-was">Normal pris: <span>2.995 kr.</span></div>
+        <div class="price-was">Samlet værdi: <span>14.500 kr.</span></div>
         <div class="price-label">Din pris i dag</div>
         <div class="price-main">Gratis</div>
-        <div class="price-badge">✓ Du sparer 2.995 kr. — 100% gratis</div>
+        <div class="price-badge">✓ Du sparer 14.500 kr. — 100% gratis</div>
       </div>
 
       <div class="capacity">
@@ -467,15 +475,20 @@ hr{border:none;border-top:1px solid var(--border)}
       </div>
 
       <ul class="cl">
-        <li><div class="ck">✓</div>Komplet markedsanalyse — du ved præcis hvor væksten gemmer sig</li>
-        <li><div class="ck">✓</div>Konkurrentanalyse — du ser hvad de gør, og de blinde vinkler de overser</li>
-        <li><div class="ck">✓</div>Kommunikationsstrategi — budskaber der stopper scrollet og starter salget</li>
-        <li><div class="ck">✓</div>4 kundeavatarer — du kender dine kunder bedre end de kender sig selv</li>
-        <li><div class="ck">✓</div>Pain &amp; Desire-analyse — klar til at copy-paste i annoncer og emails</li>
-        <li><div class="ck">✓</div>25 annoncevinkler — du løber aldrig tør for idéer igen</li>
-        <li><div class="ck">✓</div>10 færdige annoncekoncepts — klar til produktion i morgen</li>
-        <li><div class="ck">✓</div>I din indbakke inden for 48 timer</li>
+        <li><div class="ck">✓</div><span>Komplet markedsanalyse — du ved præcis hvor væksten er</span><span class="vs-price">1.500 kr.</span></li>
+        <li><div class="ck">✓</div><span>Konkurrentanalyse — du ser hvad de gør, og hvad de overser</span><span class="vs-price">1.500 kr.</span></li>
+        <li><div class="ck">✓</div><span>Kommunikationsstrategi — budskaber der skaber tillid og salg</span><span class="vs-price">2.000 kr.</span></li>
+        <li><div class="ck">✓</div><span>4 kundeavatarer — du kender dine kunder bedre end de kender sig selv</span><span class="vs-price">2.000 kr.</span></li>
+        <li><div class="ck">✓</div><span>Pain &amp; Desire-analyse — klar til brug i annoncer og emails</span><span class="vs-price">1.500 kr.</span></li>
+        <li><div class="ck">✓</div><span>25 annoncevinkler — du løber aldrig tør for idéer igen</span><span class="vs-price">2.500 kr.</span></li>
+        <li><div class="ck">✓</div><span>10 færdige annoncekoncepts — klar til produktion</span><span class="vs-price">3.500 kr.</span></li>
+        <li><div class="ck">✓</div><span>Leveres inden for 48 timer på mail</span></li>
       </ul>
+
+      <div class="vs-total">
+        <div class="vs-total-row"><span>Samlet værdi</span><span class="vs-total-price">14.500 kr.</span></div>
+        <div class="vs-total-row vs-free"><span>Din pris i dag</span><span class="vs-free-price">GRATIS</span></div>
+      </div>
 
       <a href="https://buy.stripe.com/00wbJ3ajycfl5JBeTO5Ne07" class="btn" style="margin-top:32px">Vis mig hvad jeg gør forkert — gratis →</a>
       <p class="btn-note">Intet betalingskort · Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
