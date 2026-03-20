@@ -139,6 +139,15 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
 .testi-quote{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.75;font-weight:500;letter-spacing:0.01em;padding:16px 0;border-top:1px solid rgba(255,255,255,0.1);font-style:italic}
 .testi-author{font-size:13px;color:rgba(255,255,255,0.5);font-weight:600}
 .testi-author strong{color:rgba(255,255,255,0.8);font-weight:700}
+@media(max-width:680px){
+  .testi-card-inner{padding:28px 22px;min-height:auto;gap:18px}
+  .testi-headline{font-size:17px}
+  .testi-metrics{gap:10px}
+  .testi-metric{flex:1 1 calc(33.333% - 8px);min-width:0;padding:12px 14px;text-align:center;align-items:center}
+  .testi-metric-value{font-size:18px}
+  .testi-metric-label{font-size:10px}
+  .testi-quote{font-size:13px;padding:14px 0}
+}
 
 /* ─── QUOTE STRIP ─── */
 .quote-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
