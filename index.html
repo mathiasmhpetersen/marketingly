@@ -188,11 +188,11 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
 .btn:hover::after{left:100%}
 .btn-note{text-align:center;font-size:12px;color:#fff;margin-top:14px;font-weight:500}
 
-/* ─── GUARANTEE ─── */
-.gu{background:rgba(34,197,94,0.03);border:1px solid rgba(34,197,94,0.1);border-radius:16px;padding:40px;display:flex;gap:28px;align-items:flex-start}
-.gu-icon{font-size:48px;flex-shrink:0;line-height:1}
-.gu h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;margin-bottom:12px;letter-spacing:-0.02em}
-.gu p{font-size:15px;color:#fff;line-height:1.75;font-weight:400}
+/* ─── FORM SECTION ─── */
+.form-section{background:linear-gradient(180deg,rgba(100,46,255,0.06) 0%,rgba(100,46,255,0.02) 100%);padding:100px 24px;position:relative}
+.form-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(100,46,255,0.1) 0%,transparent 70%);pointer-events:none}
+.form-section-inner{max-width:560px;margin:0 auto;position:relative;z-index:1}
+.form-section .form-card{margin-top:0}
 
 /* ─── FAQ ─── */
 .faq-item{border-bottom:1px solid rgba(255,255,255,0.04);padding:22px 0;cursor:pointer}
@@ -304,7 +304,7 @@ textarea.form-input{resize:vertical;min-height:100px}
   <h1>Få en skræddersyet analyse der kan øge din ROI med 15-35% fra dag 1 — <em>helt gratis</em> (værdi: 7.995 kr.)</h1>
   <p class="hero-sub">Ingen 45 minutters 'præsentation af strategi'. Du får analysen på mail og kan skrive til os, hvis du vil have vores hjælp efterfølgende</p>
   <div class="hero-video" style="width:100%;max-width:640px;margin:0 auto;aspect-ratio:16/9;background:var(--s1);border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:0.9rem">Video placeholder</div>
-  <a href="#pricing" class="btn" style="max-width:440px;margin:0 auto" onclick="setTimeout(function(){document.querySelector('#strategyForm input[name=name]').focus()},400)">Giv mig strategien</a>
+  <a href="#formSection" class="btn" style="max-width:440px;margin:0 auto" onclick="setTimeout(function(){document.querySelector('#strategyForm input[name=name]').focus()},400)">Giv mig strategien</a>
   <div class="trust-row">
     <span class="trust-item">100% gratis</span>
     <span class="trust-item">I din indbakke inden for 48 timer</span>
@@ -492,120 +492,114 @@ textarea.form-input{resize:vertical;min-height:100px}
         <div class="vs-total-row vs-free"><span>Din pris i dag</span><span class="vs-free-price">GRATIS</span></div>
       </div>
 
-      <div class="form-card">
-        <div class="form-card-title">Udfyld og få din strategi inden for 48 timer</div>
-        <div class="form-card-sub">3 minutter. Det er det.</div>
-        <div class="form-progress" id="formProgress">
-          <div class="form-progress-bar done"></div>
-          <div class="form-progress-bar"></div>
-          <div class="form-progress-bar"></div>
-          <div class="form-progress-bar"></div>
-          <div class="form-progress-bar"></div>
-          <div class="form-progress-bar"></div>
-          <div class="form-progress-bar"></div>
-          <div class="form-progress-bar"></div>
-        </div>
-        <form id="strategyForm" onsubmit="return handleForm(event)">
-          <!-- Step 1: Navn -->
-          <div class="form-step active" data-step="0">
-            <div class="form-step-label">Hvad hedder du?</div>
-            <input type="text" class="form-input" name="name" placeholder="Dit fulde navn" required>
-            <div class="form-nav">
-              <button type="button" class="btn" onclick="nextStep(0)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 2: Email -->
-          <div class="form-step" data-step="1">
-            <div class="form-step-label">Hvad er din email?</div>
-            <input type="email" class="form-input" name="email" placeholder="din@email.dk" required>
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(1)">←</button>
-              <button type="button" class="btn" onclick="nextStep(1)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 3: Telefon -->
-          <div class="form-step" data-step="2">
-            <div class="form-step-label">Hvad er dit telefonnummer?</div>
-            <input type="tel" class="form-input" name="phone" placeholder="Dit telefonnummer">
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(2)">←</button>
-              <button type="button" class="btn" onclick="nextStep(2)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 4: Virksomhed -->
-          <div class="form-step" data-step="3">
-            <div class="form-step-label">Hvad hedder din virksomhed?</div>
-            <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(3)">←</button>
-              <button type="button" class="btn" onclick="nextStep(3)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 5: Omsætning -->
-          <div class="form-step" data-step="4">
-            <div class="form-step-label">Hvor meget omsætter I for?</div>
-            <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(4)">←</button>
-              <button type="button" class="btn" onclick="nextStep(4)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 6: Budget -->
-          <div class="form-step" data-step="5">
-            <div class="form-step-label">Hvad er jeres marketing budget?</div>
-            <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(5)">←</button>
-              <button type="button" class="btn" onclick="nextStep(5)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 7: Marketing færdigheder -->
-          <div class="form-step" data-step="6">
-            <div class="form-step-label">Hvordan vil du vurdere dine færdigheder inden for markedsføring?</div>
-            <div class="form-step-hint">Hvis du svarer under 5, sender vi en personlig video hvor vi gennemgår det for dig, så vi er sikre på du ikke har nogle spørgsmål.</div>
-            <input type="hidden" name="marketing_skill" id="marketingSkill">
-            <div class="rating-grid">
-              <button type="button" class="rating-btn" onclick="selectRating(1)">1</button>
-              <button type="button" class="rating-btn" onclick="selectRating(2)">2</button>
-              <button type="button" class="rating-btn" onclick="selectRating(3)">3</button>
-              <button type="button" class="rating-btn" onclick="selectRating(4)">4</button>
-              <button type="button" class="rating-btn" onclick="selectRating(5)">5</button>
-              <button type="button" class="rating-btn" onclick="selectRating(6)">6</button>
-              <button type="button" class="rating-btn" onclick="selectRating(7)">7</button>
-              <button type="button" class="rating-btn" onclick="selectRating(8)">8</button>
-              <button type="button" class="rating-btn" onclick="selectRating(9)">9</button>
-              <button type="button" class="rating-btn" onclick="selectRating(10)">10</button>
-            </div>
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(6)">←</button>
-              <button type="button" class="btn" onclick="nextStep(6)">Næste →</button>
-            </div>
-          </div>
-          <!-- Step 8: Noter -->
-          <div class="form-step" data-step="7">
-            <div class="form-step-label">Er der andet du vil have vi skal tage højde for?</div>
-            <textarea class="form-input" name="notes" placeholder="Skriv her (valgfrit)"></textarea>
-            <div class="form-nav">
-              <button type="button" class="form-back" onclick="prevStep(7)">←</button>
-              <button type="submit" class="btn">Giv mig strategien</button>
-            </div>
-          </div>
-        </form>
-        <p class="btn-note">Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
-      </div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- GUARANTEE -->
-<div class="ws">
-  <div class="gu">
-    <div class="gu-icon">🛡️</div>
-    <div>
-      <h3>Nul risiko. Nul hager. Nul salgstrick.</h3>
-      <p>Der er intet betalingskort. Intet abonnement. Ingen forpligtelse. Du får en komplet strategi til en værdi af 7.995 kr. — og du kan bruge den med dit team, dit bureau, eller helt alene. Hvorfor giver vi den gratis? Fordi vi ved at når du ser kvaliteten af vores arbejde, behøver vi ikke sælge dig noget. Du kommer selv tilbage.</p>
+<!-- FORM SECTION -->
+<div id="formSection" class="form-section">
+  <div class="form-section-inner">
+    <div class="sh"><span class="e">📋</span><h2>Få din gratis strategi</h2><p>Udfyld formularen — det tager under 3 minutter. Du hører fra os inden for 48 timer.</p></div>
+    <div class="form-card">
+      <div class="form-progress" id="formProgress">
+        <div class="form-progress-bar done"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+      </div>
+      <form id="strategyForm" onsubmit="return handleForm(event)">
+        <!-- Step 1: Navn -->
+        <div class="form-step active" data-step="0">
+          <div class="form-step-label">Hvad hedder du?</div>
+          <input type="text" class="form-input" name="name" placeholder="Dit fulde navn" required>
+          <div class="form-nav">
+            <button type="button" class="btn" onclick="nextStep(0)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 2: Email -->
+        <div class="form-step" data-step="1">
+          <div class="form-step-label">Hvad er din email?</div>
+          <input type="email" class="form-input" name="email" placeholder="din@email.dk" required>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(1)">←</button>
+            <button type="button" class="btn" onclick="nextStep(1)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 3: Telefon -->
+        <div class="form-step" data-step="2">
+          <div class="form-step-label">Hvad er dit telefonnummer?</div>
+          <input type="tel" class="form-input" name="phone" placeholder="Dit telefonnummer">
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(2)">←</button>
+            <button type="button" class="btn" onclick="nextStep(2)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 4: Virksomhed -->
+        <div class="form-step" data-step="3">
+          <div class="form-step-label">Hvad hedder din virksomhed?</div>
+          <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(3)">←</button>
+            <button type="button" class="btn" onclick="nextStep(3)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 5: Omsætning -->
+        <div class="form-step" data-step="4">
+          <div class="form-step-label">Hvor meget omsætter I for?</div>
+          <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(4)">←</button>
+            <button type="button" class="btn" onclick="nextStep(4)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 6: Budget -->
+        <div class="form-step" data-step="5">
+          <div class="form-step-label">Hvad er jeres marketing budget?</div>
+          <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(5)">←</button>
+            <button type="button" class="btn" onclick="nextStep(5)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 7: Marketing færdigheder -->
+        <div class="form-step" data-step="6">
+          <div class="form-step-label">Hvordan vil du vurdere dine færdigheder inden for markedsføring?</div>
+          <div class="form-step-hint">Hvis du svarer under 5, sender vi en personlig video hvor vi gennemgår det for dig, så vi er sikre på du ikke har nogle spørgsmål.</div>
+          <input type="hidden" name="marketing_skill" id="marketingSkill">
+          <div class="rating-grid">
+            <button type="button" class="rating-btn" onclick="selectRating(1)">1</button>
+            <button type="button" class="rating-btn" onclick="selectRating(2)">2</button>
+            <button type="button" class="rating-btn" onclick="selectRating(3)">3</button>
+            <button type="button" class="rating-btn" onclick="selectRating(4)">4</button>
+            <button type="button" class="rating-btn" onclick="selectRating(5)">5</button>
+            <button type="button" class="rating-btn" onclick="selectRating(6)">6</button>
+            <button type="button" class="rating-btn" onclick="selectRating(7)">7</button>
+            <button type="button" class="rating-btn" onclick="selectRating(8)">8</button>
+            <button type="button" class="rating-btn" onclick="selectRating(9)">9</button>
+            <button type="button" class="rating-btn" onclick="selectRating(10)">10</button>
+          </div>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(6)">←</button>
+            <button type="button" class="btn" onclick="nextStep(6)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 8: Noter -->
+        <div class="form-step" data-step="7">
+          <div class="form-step-label">Er der andet du vil have vi skal tage højde for?</div>
+          <textarea class="form-input" name="notes" placeholder="Skriv her (valgfrit)"></textarea>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(7)">←</button>
+            <button type="submit" class="btn">Giv mig strategien</button>
+          </div>
+        </div>
+      </form>
+      <p class="btn-note">Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
     </div>
   </div>
 </div>
