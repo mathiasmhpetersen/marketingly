@@ -204,20 +204,32 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
 .faq-item.open .faq-a{max-height:400px;padding-top:16px}
 
 /* ─── FORM ─── */
-.form-card{background:#fff;border-radius:20px;padding:40px 36px;margin-top:32px;box-shadow:0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06)}
+.form-card{background:#fff;border-radius:20px;padding:40px 36px;margin-top:32px;box-shadow:0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06);overflow:hidden}
 .form-card-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#111;text-align:center;margin-bottom:6px;letter-spacing:-0.02em}
 .form-card-sub{font-size:13px;color:#888;text-align:center;margin-bottom:28px;font-weight:500}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group--full{grid-column:1/-1}
+.form-progress{display:flex;gap:6px;margin-bottom:32px}
+.form-progress-bar{flex:1;height:4px;border-radius:100px;background:#e8e8ec;transition:background 0.3s}
+.form-progress-bar.done{background:var(--purple)}
+.form-step{display:none;animation:stepIn 0.3s ease}
+.form-step.active{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.form-step-label{font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;color:#111;margin-bottom:6px;letter-spacing:-0.02em}
+.form-step-hint{font-size:13px;color:#888;margin-bottom:20px;font-weight:400;line-height:1.6}
 .form-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;letter-spacing:0.01em}
-.form-input{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#111;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.form-input{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#111;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
 .form-input::placeholder{color:#999;font-weight:400}
 .form-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(100,46,255,0.12);background:#fff}
 textarea.form-input{resize:vertical;min-height:100px}
-.form-card .btn{margin-top:24px}
+.form-nav{display:flex;gap:12px;margin-top:24px}
+.form-nav .btn{flex:1}
+.form-back{flex:0 0 auto;background:none;border:1.5px solid #e0e0e4;padding:16px 24px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;color:#666;border-radius:12px;cursor:pointer;transition:all 0.2s}
+.form-back:hover{border-color:#ccc;color:#333}
+.rating-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.rating-btn{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:18px 0;font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#333;cursor:pointer;transition:all 0.2s;text-align:center}
+.rating-btn:hover{border-color:var(--purple);color:var(--purple);background:rgba(100,46,255,0.04)}
+.rating-btn.selected{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 4px 16px rgba(100,46,255,0.3)}
 .form-card .btn-note{color:#999}
-@media(max-width:680px){.form-grid{grid-template-columns:1fr}.form-card{padding:28px 20px}}
+@media(max-width:680px){.form-card{padding:28px 20px}.rating-grid{grid-template-columns:repeat(5,1fr);gap:8px}}
 
 /* ─── EXIT POPUP ─── */
 .exit-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
@@ -483,38 +495,101 @@ textarea.form-input{resize:vertical;min-height:100px}
       <div class="form-card">
         <div class="form-card-title">Udfyld og få din strategi inden for 48 timer</div>
         <div class="form-card-sub">3 minutter. Det er det.</div>
+        <div class="form-progress" id="formProgress">
+          <div class="form-progress-bar done"></div>
+          <div class="form-progress-bar"></div>
+          <div class="form-progress-bar"></div>
+          <div class="form-progress-bar"></div>
+          <div class="form-progress-bar"></div>
+          <div class="form-progress-bar"></div>
+          <div class="form-progress-bar"></div>
+          <div class="form-progress-bar"></div>
+        </div>
         <form id="strategyForm" onsubmit="return handleForm(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">Navn</label>
-              <input type="text" class="form-input" name="name" placeholder="Dit navn" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-input" name="email" placeholder="Din email" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Telefon</label>
-              <input type="tel" class="form-input" name="phone" placeholder="Dit telefon nummer">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Virksomhed</label>
-              <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Hvor meget omsætter i for?</label>
-              <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Hvad er jeres marketing budget?</label>
-              <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
-            </div>
-            <div class="form-group form-group--full">
-              <label class="form-label">Er der andet du vil have vi skal tage højde for?</label>
-              <textarea class="form-input" name="notes" placeholder="Skriv her"></textarea>
+          <!-- Step 1: Navn -->
+          <div class="form-step active" data-step="0">
+            <div class="form-step-label">Hvad hedder du?</div>
+            <input type="text" class="form-input" name="name" placeholder="Dit fulde navn" required>
+            <div class="form-nav">
+              <button type="button" class="btn" onclick="nextStep(0)">Næste →</button>
             </div>
           </div>
-          <button type="submit" class="btn">Giv mig strategien</button>
+          <!-- Step 2: Email -->
+          <div class="form-step" data-step="1">
+            <div class="form-step-label">Hvad er din email?</div>
+            <input type="email" class="form-input" name="email" placeholder="din@email.dk" required>
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(1)">←</button>
+              <button type="button" class="btn" onclick="nextStep(1)">Næste →</button>
+            </div>
+          </div>
+          <!-- Step 3: Telefon -->
+          <div class="form-step" data-step="2">
+            <div class="form-step-label">Hvad er dit telefonnummer?</div>
+            <input type="tel" class="form-input" name="phone" placeholder="Dit telefonnummer">
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(2)">←</button>
+              <button type="button" class="btn" onclick="nextStep(2)">Næste →</button>
+            </div>
+          </div>
+          <!-- Step 4: Virksomhed -->
+          <div class="form-step" data-step="3">
+            <div class="form-step-label">Hvad hedder din virksomhed?</div>
+            <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(3)">←</button>
+              <button type="button" class="btn" onclick="nextStep(3)">Næste →</button>
+            </div>
+          </div>
+          <!-- Step 5: Omsætning -->
+          <div class="form-step" data-step="4">
+            <div class="form-step-label">Hvor meget omsætter I for?</div>
+            <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(4)">←</button>
+              <button type="button" class="btn" onclick="nextStep(4)">Næste →</button>
+            </div>
+          </div>
+          <!-- Step 6: Budget -->
+          <div class="form-step" data-step="5">
+            <div class="form-step-label">Hvad er jeres marketing budget?</div>
+            <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(5)">←</button>
+              <button type="button" class="btn" onclick="nextStep(5)">Næste →</button>
+            </div>
+          </div>
+          <!-- Step 7: Marketing færdigheder -->
+          <div class="form-step" data-step="6">
+            <div class="form-step-label">Hvordan vil du vurdere dine færdigheder inden for markedsføring?</div>
+            <div class="form-step-hint">Hvis du svarer under 5, sender vi en personlig video hvor vi gennemgår det for dig, så vi er sikre på du ikke har nogle spørgsmål.</div>
+            <input type="hidden" name="marketing_skill" id="marketingSkill">
+            <div class="rating-grid">
+              <button type="button" class="rating-btn" onclick="selectRating(1)">1</button>
+              <button type="button" class="rating-btn" onclick="selectRating(2)">2</button>
+              <button type="button" class="rating-btn" onclick="selectRating(3)">3</button>
+              <button type="button" class="rating-btn" onclick="selectRating(4)">4</button>
+              <button type="button" class="rating-btn" onclick="selectRating(5)">5</button>
+              <button type="button" class="rating-btn" onclick="selectRating(6)">6</button>
+              <button type="button" class="rating-btn" onclick="selectRating(7)">7</button>
+              <button type="button" class="rating-btn" onclick="selectRating(8)">8</button>
+              <button type="button" class="rating-btn" onclick="selectRating(9)">9</button>
+              <button type="button" class="rating-btn" onclick="selectRating(10)">10</button>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(6)">←</button>
+              <button type="button" class="btn" onclick="nextStep(6)">Næste →</button>
+            </div>
+          </div>
+          <!-- Step 8: Noter -->
+          <div class="form-step" data-step="7">
+            <div class="form-step-label">Er der andet du vil have vi skal tage højde for?</div>
+            <textarea class="form-input" name="notes" placeholder="Skriv her (valgfrit)"></textarea>
+            <div class="form-nav">
+              <button type="button" class="form-back" onclick="prevStep(7)">←</button>
+              <button type="submit" class="btn">Giv mig strategien</button>
+            </div>
+          </div>
         </form>
         <p class="btn-note">Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
       </div>
@@ -606,7 +681,53 @@ window.addEventListener('scroll', function(){
   document.getElementById('sticky').classList.toggle('show', scrollY > heroBottom + 60);
 });
 
-/* ─── FORM HANDLER ─── */
+/* ─── MULTI-STEP FORM ─── */
+var totalSteps = 8;
+var currentStep = 0;
+
+function updateProgress() {
+  var bars = document.querySelectorAll('.form-progress-bar');
+  for (var i = 0; i < bars.length; i++) {
+    bars[i].classList.toggle('done', i <= currentStep);
+  }
+}
+
+function showStep(n) {
+  var steps = document.querySelectorAll('.form-step');
+  for (var i = 0; i < steps.length; i++) {
+    steps[i].classList.remove('active');
+  }
+  steps[n].classList.add('active');
+  currentStep = n;
+  updateProgress();
+  var input = steps[n].querySelector('.form-input');
+  if (input) input.focus();
+}
+
+function nextStep(from) {
+  var step = document.querySelector('.form-step[data-step="'+from+'"]');
+  var input = step.querySelector('.form-input');
+  if (input && input.required && !input.value.trim()) {
+    input.focus();
+    input.style.borderColor = 'var(--red)';
+    setTimeout(function(){ input.style.borderColor = ''; }, 1500);
+    return;
+  }
+  if (from < totalSteps - 1) showStep(from + 1);
+}
+
+function prevStep(from) {
+  if (from > 0) showStep(from - 1);
+}
+
+function selectRating(val) {
+  document.getElementById('marketingSkill').value = val;
+  var btns = document.querySelectorAll('.rating-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('selected', parseInt(btns[i].textContent) === val);
+  }
+}
+
 function handleForm(e) {
   e.preventDefault();
   var form = e.target;
@@ -615,7 +736,8 @@ function handleForm(e) {
   btn.disabled = true;
   // TODO: wire up to backend/webhook
   setTimeout(function() {
-    form.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:48px;margin-bottom:16px">✓</div><h3 style="font-family:Manrope,sans-serif;font-weight:800;font-size:24px;margin-bottom:12px">Tak! Vi har modtaget din ansøgning</h3><p style="color:#666;font-size:15px">Du hører fra os inden for 48 timer med din skræddersyede strategi.</p></div>';
+    var card = form.closest('.form-card');
+    card.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:48px;margin-bottom:16px">✓</div><h3 style="font-family:Manrope,sans-serif;font-weight:800;font-size:24px;margin-bottom:12px">Tak! Vi har modtaget din ansøgning</h3><p style="color:#666;font-size:15px">Du hører fra os inden for 48 timer med din skræddersyede strategi.</p></div>';
   }, 800);
   return false;
 }
