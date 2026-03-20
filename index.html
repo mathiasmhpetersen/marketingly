@@ -203,6 +203,34 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
 .faq-item.open .faq-ico{transform:rotate(45deg);background:rgba(100,46,255,0.15);border-color:rgba(100,46,255,0.25)}
 .faq-item.open .faq-a{max-height:400px;padding-top:16px}
 
+/* ─── FORM ─── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group--full{grid-column:1/-1}
+.form-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:#aaa;letter-spacing:0.01em}
+.form-input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#fff;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.form-input::placeholder{color:#444;font-weight:400}
+.form-input:focus{border-color:rgba(100,46,255,0.4);box-shadow:0 0 0 3px rgba(100,46,255,0.1)}
+textarea.form-input{resize:vertical;min-height:100px}
+@media(max-width:680px){.form-grid{grid-template-columns:1fr}}
+
+/* ─── EXIT POPUP ─── */
+.exit-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
+.exit-overlay.show{display:flex}
+.exit-popup{background:#fff;border-radius:20px;max-width:520px;width:100%;position:relative;overflow:hidden;text-align:center;animation:popIn 0.3s ease}
+@keyframes popIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+.exit-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:rgba(0,0,0,0.06);border:none;border-radius:50%;cursor:pointer;font-size:18px;color:#666;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:2}
+.exit-close:hover{background:rgba(0,0,0,0.12)}
+.exit-top{background:var(--grad);padding:40px 36px 32px;color:#fff}
+.exit-top h2{font-family:'Manrope',sans-serif;font-weight:900;font-size:clamp(28px,5vw,36px);letter-spacing:-0.03em;line-height:1.1;margin-bottom:16px;text-transform:uppercase}
+.exit-top p{font-size:15px;line-height:1.7;color:rgba(255,255,255,0.9);font-weight:500;max-width:400px;margin:0 auto}
+.exit-bottom{padding:32px 36px 36px}
+.exit-btn{display:block;width:100%;background:var(--red);color:#fff;border:none;padding:20px;font-family:'Manrope',sans-serif;font-size:17px;font-weight:800;letter-spacing:0.01em;border-radius:12px;cursor:pointer;transition:all 0.2s;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(232,68,58,0.3)}
+.exit-btn:hover{background:#d03830;transform:translateY(-2px);box-shadow:0 8px 32px rgba(232,68,58,0.4)}
+.exit-sub{font-size:12px;color:#999;margin-top:14px;font-weight:500}
+.exit-dismiss{background:none;border:none;font-size:13px;color:#bbb;cursor:pointer;margin-top:10px;font-weight:500;font-family:'Manrope',sans-serif}
+.exit-dismiss:hover{color:#888}
+
 /* ─── FOOTER ─── */
 .footer{border-top:1px solid var(--border);padding:56px 24px;text-align:center}
 .footer-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
@@ -259,7 +287,7 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
   <h1>Få en skræddersyet analyse der kan øge din ROI med 15-35% fra dag 1 — <em>helt gratis</em> (værdi: 7.995 kr.)</h1>
   <p class="hero-sub">Ingen 45 minutters 'præsentation af strategi'. Du får analysen på mail og kan skrive til os, hvis du vil have vores hjælp efterfølgende</p>
   <div class="hero-video" style="width:100%;max-width:640px;margin:0 auto;aspect-ratio:16/9;background:var(--s1);border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:0.9rem">Video placeholder</div>
-  <a href="#pricing" class="btn" style="max-width:440px;margin:0 auto">Giv mig strategien</a>
+  <a href="#pricing" class="btn" style="max-width:440px;margin:0 auto" onclick="setTimeout(function(){document.querySelector('#strategyForm input[name=name]').focus()},400)">Giv mig strategien</a>
   <div class="trust-row">
     <span class="trust-item">100% gratis</span>
     <span class="trust-item">I din indbakke inden for 48 timer</span>
@@ -447,7 +475,39 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
         <div class="vs-total-row vs-free"><span>Din pris i dag</span><span class="vs-free-price">GRATIS</span></div>
       </div>
 
-      <a href="https://buy.stripe.com/00wbJ3ajycfl5JBeTO5Ne07" class="btn" style="margin-top:32px">Giv mig strategien</a>
+      <form id="strategyForm" style="margin-top:32px" onsubmit="return handleForm(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Navn</label>
+            <input type="text" class="form-input" name="name" placeholder="Dit navn" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" name="email" placeholder="Din email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefon</label>
+            <input type="tel" class="form-input" name="phone" placeholder="Dit telefon nummer">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Virksomhed</label>
+            <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hvor meget omsætter i for?</label>
+            <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hvad er jeres marketing budget?</label>
+            <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
+          </div>
+          <div class="form-group form-group--full">
+            <label class="form-label">Er der andet du vil have vi skal tage højde for?</label>
+            <textarea class="form-input" name="notes" placeholder="Skriv her"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn" style="margin-top:24px">Giv mig strategien</button>
+      </form>
       <p class="btn-note">Intet betalingskort · Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
     </div>
   </div>
@@ -515,10 +575,61 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
   <button class="sk-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Se om du kvalificerer dig</button>
 </div>
 
+<!-- EXIT INTENT POPUP -->
+<div class="exit-overlay" id="exitPopup">
+  <div class="exit-popup">
+    <button class="exit-close" onclick="closeExit()">&times;</button>
+    <div class="exit-top">
+      <h2>Vent! Inden du går...</h2>
+      <p>Du er ved at forlade siden uden at få din gratis strategi til en værdi af 7.995 kr. — den strategi der kan sænke dit CPA og skalere din omsætning allerede denne måned.</p>
+    </div>
+    <div class="exit-bottom">
+      <a href="#pricing" class="exit-btn" onclick="closeExit()">Giv mig strategien — gratis</a>
+      <p class="exit-sub">100% gratis · Ingen forpligtelser · I din indbakke inden for 48 timer</p>
+      <button class="exit-dismiss" onclick="closeExit()">Nej tak, jeg har ikke brug for flere kunder</button>
+    </div>
+  </div>
+</div>
+
 <script>
 var heroBottom = document.querySelector('.hero').offsetTop + document.querySelector('.hero').offsetHeight;
 window.addEventListener('scroll', function(){
   document.getElementById('sticky').classList.toggle('show', scrollY > heroBottom + 60);
+});
+
+/* ─── FORM HANDLER ─── */
+function handleForm(e) {
+  e.preventDefault();
+  var form = e.target;
+  var btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Sender...';
+  btn.disabled = true;
+  // TODO: wire up to backend/webhook
+  setTimeout(function() {
+    form.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:48px;margin-bottom:16px">✓</div><h3 style="font-family:Manrope,sans-serif;font-weight:800;font-size:24px;margin-bottom:12px">Tak! Vi har modtaget din ansøgning</h3><p style="color:#666;font-size:15px">Du hører fra os inden for 48 timer med din skræddersyede strategi.</p></div>';
+  }, 800);
+  return false;
+}
+
+/* ─── EXIT INTENT ─── */
+var exitShown = false;
+var pageReady = false;
+setTimeout(function(){ pageReady = true; }, 10000);
+
+document.addEventListener('mouseout', function(e) {
+  if (exitShown || !pageReady) return;
+  if (e.clientY <= 0 && e.relatedTarget === null) {
+    document.getElementById('exitPopup').classList.add('show');
+    exitShown = true;
+  }
+});
+
+function closeExit() {
+  document.getElementById('exitPopup').classList.remove('show');
+}
+
+document.getElementById('exitPopup').addEventListener('click', function(e) {
+  if (e.target === this) closeExit();
 });
 </script>
 </body>
