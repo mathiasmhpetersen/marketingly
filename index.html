@@ -203,21 +203,28 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
 .faq-item.open .faq-ico{transform:rotate(45deg);background:rgba(100,46,255,0.15);border-color:rgba(100,46,255,0.25)}
 .faq-item.open .faq-a{max-height:400px;padding-top:16px}
 
-/* ─── FORM ─── */
-.form-card{background:#fff;border-radius:20px;padding:40px 36px;margin-top:32px;box-shadow:0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06)}
+/* ─── FORM WIZARD ─── */
+.form-card{background:#fff;border-radius:20px;padding:40px 36px;margin-top:32px;box-shadow:0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06);min-height:320px}
 .form-card-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#111;text-align:center;margin-bottom:6px;letter-spacing:-0.02em}
-.form-card-sub{font-size:13px;color:#888;text-align:center;margin-bottom:28px;font-weight:500}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group--full{grid-column:1/-1}
-.form-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;letter-spacing:0.01em}
-.form-input{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#111;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.form-card-sub{font-size:13px;color:#888;text-align:center;margin-bottom:24px;font-weight:500}
+.form-progress{height:6px;background:#eee;border-radius:100px;overflow:hidden;margin-bottom:32px}
+.form-progress-fill{height:100%;background:var(--grad2);border-radius:100px;transition:width 0.4s ease}
+.form-step{display:none;animation:fadeStep 0.3s ease}
+.form-step.active{display:block}
+@keyframes fadeStep{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.form-step-label{font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;color:#111;margin-bottom:8px;letter-spacing:-0.02em}
+.form-step-hint{font-size:13px;color:#888;margin-bottom:20px;font-weight:500}
+.form-input{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:18px 20px;font-family:'Manrope',sans-serif;font-size:16px;font-weight:500;color:#111;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
 .form-input::placeholder{color:#999;font-weight:400}
 .form-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(100,46,255,0.12);background:#fff}
 textarea.form-input{resize:vertical;min-height:100px}
-.form-card .btn{margin-top:24px}
+.form-nav{display:flex;gap:12px;margin-top:24px}
+.form-nav .btn{width:auto;flex:1}
+.form-nav .form-back{flex:0 0 auto;width:auto;background:transparent;color:#888;border:1.5px solid #e0e0e4;box-shadow:none;padding:18px 28px;font-size:14px}
+.form-nav .form-back:hover{background:#f5f5f7;color:#555;transform:none;box-shadow:none}
+.form-step-counter{font-size:11px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
 .form-card .btn-note{color:#999}
-@media(max-width:680px){.form-grid{grid-template-columns:1fr}.form-card{padding:28px 20px}}
+@media(max-width:680px){.form-card{padding:28px 20px}}
 
 /* ─── EXIT POPUP ─── */
 .exit-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
@@ -369,7 +376,7 @@ textarea.form-input{resize:vertical;min-height:100px}
 <div class="w">
   <div class="sh"><span class="e">⚡</span><h2>3 trin. Ingen bullshit.</h2></div>
   <div class="steps">
-    <div class="step"><span class="step-n">01</span><h3>Fortæl os om din forretning</h3><p>Udfyld en kort formular med din branche, produkter og hvem du sælger til. 3 minutter. Det er det.</p><div class="step-arrow">→</div></div>
+    <div class="step"><span class="step-n">01</span><h3>Fortæl os om din forretning</h3><p>Udfyld en kort formular med din branche, produkter og hvem du sælger til. 60 sekunder. Det er det.</p><div class="step-arrow">→</div></div>
     <div class="step"><span class="step-n">02</span><h3>Vi dissekerer dit marked</h3><p>Vi analyserer dine konkurrenter, dine kunder og dit marked — og bygger en komplet strategi du kan handle på med det samme.</p><div class="step-arrow">→</div></div>
     <div class="step"><span class="step-n">03</span><h3>Du får analysen på mail</h3><p>Inden for 48 timer har du en færdig strategi — klar til at implementere selv, med dit team eller dit bureau.</p></div>
   </div>
@@ -480,43 +487,65 @@ textarea.form-input{resize:vertical;min-height:100px}
         <div class="vs-total-row vs-free"><span>Din pris i dag</span><span class="vs-free-price">GRATIS</span></div>
       </div>
 
-      <div class="form-card">
+      <div class="form-card" id="formCard">
         <div class="form-card-title">Udfyld og få din strategi inden for 48 timer</div>
-        <div class="form-card-sub">3 minutter. Det er det.</div>
-        <form id="strategyForm" onsubmit="return handleForm(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">Navn</label>
-              <input type="text" class="form-input" name="name" placeholder="Dit navn" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-input" name="email" placeholder="Din email" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Telefon</label>
-              <input type="tel" class="form-input" name="phone" placeholder="Dit telefon nummer">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Virksomhed</label>
-              <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Hvor meget omsætter i for?</label>
-              <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Hvad er jeres marketing budget?</label>
-              <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
-            </div>
-            <div class="form-group form-group--full">
-              <label class="form-label">Er der andet du vil have vi skal tage højde for?</label>
-              <textarea class="form-input" name="notes" placeholder="Skriv her"></textarea>
-            </div>
+        <div class="form-card-sub">Tager under 60 sekunder.</div>
+        <div class="form-progress"><div class="form-progress-fill" id="formProgress" style="width:14%"></div></div>
+
+        <form id="strategyForm">
+          <div class="form-step active" data-step="1">
+            <div class="form-step-counter">Trin 1 af 7</div>
+            <div class="form-step-label">Hvad hedder du?</div>
+            <input type="text" class="form-input" name="name" placeholder="Dit fulde navn" required>
+            <div class="form-nav"><button type="button" class="btn" onclick="nextStep(1)">Næste</button></div>
           </div>
-          <button type="submit" class="btn">Giv mig strategien</button>
+
+          <div class="form-step" data-step="2">
+            <div class="form-step-counter">Trin 2 af 7</div>
+            <div class="form-step-label">Hvad er din email?</div>
+            <input type="email" class="form-input" name="email" placeholder="din@email.dk" required>
+            <div class="form-nav"><button type="button" class="btn form-back" onclick="prevStep(2)">Tilbage</button><button type="button" class="btn" onclick="nextStep(2)">Næste</button></div>
+          </div>
+
+          <div class="form-step" data-step="3">
+            <div class="form-step-counter">Trin 3 af 7</div>
+            <div class="form-step-label">Hvad er dit telefonnummer?</div>
+            <input type="tel" class="form-input" name="phone" placeholder="Dit telefon nummer" required>
+            <div class="form-nav"><button type="button" class="btn form-back" onclick="prevStep(3)">Tilbage</button><button type="button" class="btn" onclick="nextStep(3)">Næste</button></div>
+          </div>
+
+          <div class="form-step" data-step="4">
+            <div class="form-step-counter">Trin 4 af 7</div>
+            <div class="form-step-label">Hvad hedder din virksomhed?</div>
+            <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
+            <div class="form-nav"><button type="button" class="btn form-back" onclick="prevStep(4)">Tilbage</button><button type="button" class="btn" onclick="nextStep(4)">Næste</button></div>
+          </div>
+
+          <div class="form-step" data-step="5">
+            <div class="form-step-counter">Trin 5 af 7</div>
+            <div class="form-step-label">Hvor meget omsætter I for?</div>
+            <div class="form-step-hint">Giver os et billede af din forretnings størrelse</div>
+            <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
+            <div class="form-nav"><button type="button" class="btn form-back" onclick="prevStep(5)">Tilbage</button><button type="button" class="btn" onclick="nextStep(5)">Næste</button></div>
+          </div>
+
+          <div class="form-step" data-step="6">
+            <div class="form-step-counter">Trin 6 af 7</div>
+            <div class="form-step-label">Hvad er jeres marketing budget?</div>
+            <div class="form-step-hint">Hjælper os med at skræddersy strategien til dit budget</div>
+            <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
+            <div class="form-nav"><button type="button" class="btn form-back" onclick="prevStep(6)">Tilbage</button><button type="button" class="btn" onclick="nextStep(6)">Næste</button></div>
+          </div>
+
+          <div class="form-step" data-step="7">
+            <div class="form-step-counter">Trin 7 af 7 — næsten færdig!</div>
+            <div class="form-step-label">Er der andet vi skal tage højde for?</div>
+            <div class="form-step-hint">Valgfrit — alt der kan hjælpe os med at lave en bedre strategi</div>
+            <textarea class="form-input" name="notes" placeholder="Skriv her"></textarea>
+            <div class="form-nav"><button type="button" class="btn form-back" onclick="prevStep(7)">Tilbage</button><button type="button" class="btn" onclick="submitWizard()">Giv mig strategien</button></div>
+          </div>
         </form>
-        <p class="btn-note">Intet betalingskort · Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
+        <p class="btn-note" style="margin-top:20px">Intet betalingskort · Levering inden for 48 timer</p>
       </div>
     </div>
   </div>
@@ -606,19 +635,48 @@ window.addEventListener('scroll', function(){
   document.getElementById('sticky').classList.toggle('show', scrollY > heroBottom + 60);
 });
 
-/* ─── FORM HANDLER ─── */
-function handleForm(e) {
-  e.preventDefault();
-  var form = e.target;
-  var btn = form.querySelector('button[type="submit"]');
-  btn.textContent = 'Sender...';
-  btn.disabled = true;
-  // TODO: wire up to backend/webhook
-  setTimeout(function() {
-    form.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:48px;margin-bottom:16px">✓</div><h3 style="font-family:Manrope,sans-serif;font-weight:800;font-size:24px;margin-bottom:12px">Tak! Vi har modtaget din ansøgning</h3><p style="color:#666;font-size:15px">Du hører fra os inden for 48 timer med din skræddersyede strategi.</p></div>';
-  }, 800);
-  return false;
+/* ─── FORM WIZARD ─── */
+var totalSteps = 7;
+
+function showStep(n) {
+  var steps = document.querySelectorAll('.form-step');
+  steps.forEach(function(s){ s.classList.remove('active'); });
+  var target = document.querySelector('.form-step[data-step="'+n+'"]');
+  if (target) {
+    target.classList.add('active');
+    var input = target.querySelector('.form-input');
+    if (input) setTimeout(function(){ input.focus(); }, 100);
+  }
+  document.getElementById('formProgress').style.width = Math.round((n / totalSteps) * 100) + '%';
 }
+
+function nextStep(current) {
+  var step = document.querySelector('.form-step[data-step="'+current+'"]');
+  var input = step.querySelector('.form-input[required]');
+  if (input && !input.value.trim()) { input.focus(); input.style.borderColor='var(--red)'; setTimeout(function(){input.style.borderColor='';},1500); return; }
+  showStep(current + 1);
+}
+
+function prevStep(current) {
+  showStep(current - 1);
+}
+
+function submitWizard() {
+  var card = document.getElementById('formCard');
+  // TODO: wire up to backend/webhook
+  card.innerHTML = '<div style="text-align:center;padding:60px 20px"><div style="font-size:56px;margin-bottom:20px">✓</div><h3 style="font-family:Manrope,sans-serif;font-weight:800;font-size:26px;margin-bottom:12px;color:#111">Tak! Vi har modtaget din ansøgning</h3><p style="color:#888;font-size:15px;line-height:1.7">Du hører fra os inden for 48 timer med din skræddersyede strategi.</p></div>';
+}
+
+document.getElementById('strategyForm').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    var step = e.target.closest('.form-step');
+    if (step) {
+      var n = parseInt(step.dataset.step);
+      if (n < totalSteps) nextStep(n); else submitWizard();
+    }
+  }
+});
 
 /* ─── EXIT INTENT ─── */
 var exitShown = false;
