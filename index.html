@@ -204,15 +204,20 @@ h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-we
 .faq-item.open .faq-a{max-height:400px;padding-top:16px}
 
 /* ─── FORM ─── */
+.form-card{background:#fff;border-radius:20px;padding:40px 36px;margin-top:32px;box-shadow:0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06)}
+.form-card-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#111;text-align:center;margin-bottom:6px;letter-spacing:-0.02em}
+.form-card-sub{font-size:13px;color:#888;text-align:center;margin-bottom:28px;font-weight:500}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-group{display:flex;flex-direction:column;gap:6px}
 .form-group--full{grid-column:1/-1}
-.form-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:#aaa;letter-spacing:0.01em}
-.form-input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#fff;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
-.form-input::placeholder{color:#444;font-weight:400}
-.form-input:focus{border-color:rgba(100,46,255,0.4);box-shadow:0 0 0 3px rgba(100,46,255,0.1)}
+.form-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;letter-spacing:0.01em}
+.form-input{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#111;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.form-input::placeholder{color:#999;font-weight:400}
+.form-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(100,46,255,0.12);background:#fff}
 textarea.form-input{resize:vertical;min-height:100px}
-@media(max-width:680px){.form-grid{grid-template-columns:1fr}}
+.form-card .btn{margin-top:24px}
+.form-card .btn-note{color:#999}
+@media(max-width:680px){.form-grid{grid-template-columns:1fr}.form-card{padding:28px 20px}}
 
 /* ─── EXIT POPUP ─── */
 .exit-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
@@ -475,40 +480,44 @@ textarea.form-input{resize:vertical;min-height:100px}
         <div class="vs-total-row vs-free"><span>Din pris i dag</span><span class="vs-free-price">GRATIS</span></div>
       </div>
 
-      <form id="strategyForm" style="margin-top:32px" onsubmit="return handleForm(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Navn</label>
-            <input type="text" class="form-input" name="name" placeholder="Dit navn" required>
+      <div class="form-card">
+        <div class="form-card-title">Udfyld og få din strategi inden for 48 timer</div>
+        <div class="form-card-sub">3 minutter. Det er det.</div>
+        <form id="strategyForm" onsubmit="return handleForm(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Navn</label>
+              <input type="text" class="form-input" name="name" placeholder="Dit navn" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" name="email" placeholder="Din email" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon</label>
+              <input type="tel" class="form-input" name="phone" placeholder="Dit telefon nummer">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Virksomhed</label>
+              <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hvor meget omsætter i for?</label>
+              <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Hvad er jeres marketing budget?</label>
+              <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
+            </div>
+            <div class="form-group form-group--full">
+              <label class="form-label">Er der andet du vil have vi skal tage højde for?</label>
+              <textarea class="form-input" name="notes" placeholder="Skriv her"></textarea>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" name="email" placeholder="Din email" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Telefon</label>
-            <input type="tel" class="form-input" name="phone" placeholder="Dit telefon nummer">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Virksomhed</label>
-            <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Hvor meget omsætter i for?</label>
-            <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Hvad er jeres marketing budget?</label>
-            <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
-          </div>
-          <div class="form-group form-group--full">
-            <label class="form-label">Er der andet du vil have vi skal tage højde for?</label>
-            <textarea class="form-input" name="notes" placeholder="Skriv her"></textarea>
-          </div>
-        </div>
-        <button type="submit" class="btn" style="margin-top:24px">Giv mig strategien</button>
-      </form>
-      <p class="btn-note">Intet betalingskort · Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
+          <button type="submit" class="btn">Giv mig strategien</button>
+        </form>
+        <p class="btn-note">Intet betalingskort · Levering inden for 48 timer · Det værste der kan ske er at du får en strategi du kan bruge med det samme</p>
+      </div>
     </div>
   </div>
 </div>
