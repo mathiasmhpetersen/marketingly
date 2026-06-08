@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Din Personlige Marketinganalyse — Marketingly</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0a;
+  --s1:#141414;
+  --s2:#1a1a1a;
+  --border:rgba(255,255,255,0.06);
+  --purple:#642eff;
+  --purple-l:#7c4fff;
+  --purple-d:#4d1fd4;
+  --red:#e8443a;
+  --white:#ffffff;
+  --off:#f0f0ee;
+  --muted:#666;
+  --muted2:#3a3a3a;
+  --green:#22c55e;
+  --grad:linear-gradient(135deg,#5b1bd5 0%,#832383 55%,#aa2a2c 100%);
+  --grad2:linear-gradient(135deg,#5b1bd5 0%,#642eff 100%);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Manrope',sans-serif;font-size:16px;font-weight:400;line-height:1.65;overflow-x:hidden}
+
+/* ─── NAV ─── */
+.nav{background:rgba(10,10,10,0.8);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white)}
+.logo-mark{width:38px;height:38px;background:var(--grad2);border-radius:9px;display:flex;align-items:center;justify-content:center;position:relative;font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#fff;letter-spacing:-0.04em;flex-shrink:0;box-shadow:0 0 20px rgba(100,46,255,0.3)}
+.logo-mark::after{content:'';position:absolute;top:-3px;right:-3px;width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+.logo-text{font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;letter-spacing:-0.03em;color:var(--white)}
+.nav-btn{background:var(--purple);color:#fff;border:none;padding:11px 24px;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;border-radius:7px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;letter-spacing:0.01em;box-shadow:0 0 20px rgba(100,46,255,0.2)}
+.nav-btn:hover{background:var(--purple-l);box-shadow:0 0 32px rgba(100,46,255,0.45)}
+
+/* ─── TOPBAR ─── */
+.topbar{background:var(--grad);color:#fff;text-align:center;padding:11px 24px;font-size:13px;font-weight:700;letter-spacing:0.02em}
+
+/* ─── HERO ─── */
+.hero{padding:100px 24px 80px;text-align:center;max-width:860px;margin:0 auto;position:relative}
+.hero::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(100,46,255,0.12) 0%,rgba(100,46,255,0.04) 35%,transparent 70%);pointer-events:none;z-index:0}
+.hero>*{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(100,46,255,0.08);border:1px solid rgba(100,46,255,0.2);color:#a07fff;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:32px;backdrop-filter:blur(8px)}
+.badge-dot{width:6px;height:6px;background:var(--purple);border-radius:50%;animation:blink 2s infinite;box-shadow:0 0 8px rgba(100,46,255,0.6)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(38px,6.5vw,68px);line-height:1.08;letter-spacing:-0.04em;margin-bottom:28px}
+h1 em{font-style:normal;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:18px;color:#fff;max-width:540px;margin:0 auto 48px;line-height:1.75;font-weight:400}
+.hero-sub strong{color:var(--white);font-weight:700}
+.trust-row{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:22px;flex-wrap:wrap}
+.trust-item{font-size:12px;color:#fff;font-weight:600;display:flex;align-items:center;gap:6px}
+.trust-item::before{content:'';width:16px;height:16px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.trust-item::after{content:'';display:none}
+
+/* ─── LAYOUT ─── */
+.w{max-width:860px;margin:0 auto;padding:80px 24px}
+.ws{max-width:860px;margin:0 auto;padding:44px 24px}
+
+/* section dividers */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(100,46,255,0.15) 30%,rgba(100,46,255,0.15) 70%,transparent);border:none;margin:0}
+
+/* ─── SECTION HEADLINE ─── */
+.sh{text-align:center;margin-bottom:56px}
+.sh .e{display:block;margin-bottom:12px;line-height:1;color:var(--purple-l)}.sh .e svg{width:36px;height:36px}
+.vcard-icon svg{width:22px;height:22px;color:var(--purple-l)}
+.sh h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(32px,5vw,52px);letter-spacing:-0.035em;line-height:1.05}
+.sh p{font-size:16px;color:#fff;margin-top:14px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:400}
+
+/* ─── COMPARE ─── */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.compare-box{border-radius:16px;padding:36px 30px;position:relative;overflow:hidden}
+.compare-box::before{content:'';position:absolute;inset:0;border-radius:16px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.compare-box--bad{background:rgba(232,68,58,0.03);border:1px solid rgba(232,68,58,0.12)}
+.compare-box--good{background:rgba(34,197,94,0.03);border:1px solid rgba(34,197,94,0.12)}
+.compare-box h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;margin-bottom:20px;letter-spacing:0.08em;text-transform:uppercase}
+.compare-box--bad h3{color:var(--red)}
+.compare-box--good h3{color:var(--green)}
+.compare-row{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:#fff;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-weight:400;line-height:1.6}
+.compare-row:last-child{border-bottom:none}
+.compare-icon{flex-shrink:0;margin-top:2px;font-size:13px;font-weight:800}
+.compare-row strong{display:block;color:#ddd;font-weight:700;font-size:15px;margin-bottom:2px}
+.compare-box--bad .compare-icon{color:var(--red)}
+.compare-box--good .compare-icon{color:var(--green)}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+
+/* ─── VALUE STACK ─── */
+.vstack{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vcard{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:32px 28px;transition:all 0.3s;position:relative;overflow:hidden}
+.vcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad2);opacity:0;transition:opacity 0.3s}
+.vcard:hover{border-color:rgba(100,46,255,0.2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.vcard:hover::before{opacity:1}
+.vcard-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.vcard-icon{width:44px;height:44px;background:rgba(100,46,255,0.08);border:1px solid rgba(100,46,255,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.vcard-head h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:16px;letter-spacing:-0.02em}
+.vcard p{font-size:13px;color:#fff;line-height:1.7;margin-bottom:14px}
+.vcard .benefit{font-size:12px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:6px;padding-top:14px;border-top:1px solid var(--border)}
+.vcard .benefit::before{content:'';width:4px;height:4px;background:var(--green);border-radius:50%;flex-shrink:0}
+.vcard--full{grid-column:1/-1}
+@media(max-width:680px){.vstack{grid-template-columns:1fr} .vcard--full{grid-column:auto}}
+
+/* ─── TOTAL ─── */
+.total{display:flex;justify-content:space-between;align-items:center;background:rgba(100,46,255,0.04);border:1px solid rgba(100,46,255,0.12);border-radius:16px;padding:32px;margin-top:16px;flex-wrap:wrap;gap:14px;position:relative;overflow:hidden}
+.total::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad2)}
+.total-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#fff;margin-bottom:6px}
+.total-amt{font-family:'Manrope',sans-serif;font-weight:800;font-size:44px;letter-spacing:-0.04em;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:line-through;-webkit-text-decoration-color:rgba(255,255,255,0.15);text-decoration-color:rgba(255,255,255,0.15)}
+.total-save{font-family:'Manrope',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.04em;color:var(--green)}
+
+/* ─── STEPS ─── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.step{background:var(--s1);border:1px solid var(--border);padding:36px 28px;text-align:center;position:relative;overflow:hidden}
+.step:first-child{border-radius:16px 0 0 16px}
+.step:last-child{border-radius:0 16px 16px 0}
+.step:not(:last-child){border-right:none}
+.step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad2)}
+.step-n{font-family:'Manrope',sans-serif;font-weight:800;font-size:48px;line-height:1;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:16px;letter-spacing:-0.04em}
+.step h3{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;margin-bottom:10px;letter-spacing:-0.01em}
+.step p{font-size:13px;color:#fff;line-height:1.65;font-weight:400}
+.step-arrow{position:absolute;right:-13px;top:50%;transform:translateY(-50%);width:26px;height:26px;background:var(--bg);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;z-index:2}
+
+/* ─── TESTIMONIALS ─── */
+.testi-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.testi-card{border-radius:20px;overflow:hidden;position:relative;transition:transform 0.3s,box-shadow 0.3s}
+.testi-card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.3)}
+.testi-card-inner{padding:40px 36px;position:relative;z-index:1;display:flex;flex-direction:column;gap:24px;min-height:300px}
+.testi-card--tajmer{background:linear-gradient(135deg,#2d1b4e 0%,#4a2080 40%,#6b3fa0 100%)}
+.testi-card--grejfreak{background:linear-gradient(135deg,#4e1b1b 0%,#802d2d 40%,#a03f3f 100%)}
+.testi-card--oob{background:linear-gradient(135deg,#1b2a4e 0%,#2d4080 40%,#3f5fa0 100%)}
+.testi-card--friluftsland{background:linear-gradient(135deg,#1b4e2d 0%,#2a6b3f 40%,#3f8055 100%)}
+.testi-headline{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(18px,3.5vw,22px);line-height:1.3;letter-spacing:-0.02em;color:#fff}
+.testi-headline span{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0;margin-top:6px}
+.testi-metrics{display:flex;gap:28px;flex-wrap:wrap}
+.testi-metric{display:flex;flex-direction:column;padding:16px 20px;background:rgba(255,255,255,0.15);border-radius:12px;backdrop-filter:blur(4px)}
+.testi-metric-value{font-family:'Manrope',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.03em;color:#fff;line-height:1.1}
+.testi-metric-label{font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;margin-top:4px}
+.testi-quote{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.75;font-weight:500;letter-spacing:0.01em;padding:16px 0;border-top:1px solid rgba(255,255,255,0.1);font-style:italic}
+.testi-author{font-size:13px;color:rgba(255,255,255,0.5);font-weight:600}
+.testi-author strong{color:rgba(255,255,255,0.8);font-weight:700}
+@media(max-width:680px){
+  .testi-card-inner{padding:28px 22px;min-height:auto;gap:18px}
+  .testi-headline{font-size:17px}
+  .testi-metrics{gap:10px}
+  .testi-metric{flex:1 1 calc(33.333% - 8px);min-width:0;padding:12px 14px;text-align:center;align-items:center}
+  .testi-metric-value{font-size:18px}
+  .testi-metric-label{font-size:10px}
+  .testi-quote{font-size:13px;padding:14px 0}
+}
+
+/* ─── QUOTE STRIP ─── */
+.quote-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.quote-card{text-align:center;padding:36px 24px;background:var(--s1);border:1px solid var(--border);border-radius:16px;transition:all 0.3s;position:relative;overflow:hidden}
+.quote-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--grad2);opacity:0;transition:opacity 0.3s}
+.quote-card:hover{border-color:rgba(100,46,255,0.2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+.quote-card:hover::before{opacity:1}
+.quote-avatar{width:72px;height:72px;border-radius:50%;border:2px solid rgba(100,46,255,0.2);margin:0 auto 16px;overflow:hidden;background:linear-gradient(135deg,rgba(100,46,255,0.1),rgba(100,46,255,0.05));display:flex;align-items:center;justify-content:center;font-size:24px;color:rgba(100,46,255,0.3)}
+.quote-avatar img{width:100%;height:100%;object-fit:cover}
+.quote-company{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#fff;margin-bottom:14px}
+.quote-text{font-family:'Manrope',sans-serif;font-weight:700;font-size:15px;line-height:1.55;letter-spacing:-0.01em;color:#ccc;margin-bottom:20px}
+.quote-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px}
+.quote-role{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--purple-l)}
+@media(max-width:680px){.quote-strip{grid-template-columns:1fr}}
+
+/* ─── PRICING ─── */
+.pc{background:var(--s1);border:1px solid rgba(100,46,255,0.2);border-radius:20px;overflow:hidden;box-shadow:0 0 100px rgba(100,46,255,0.08);position:relative}
+.pc::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(100,46,255,0.08) 0%,transparent 70%);pointer-events:none}
+.pc-header{background:var(--grad2);padding:16px 36px;text-align:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#fff}
+.pc-body{padding:56px 48px;position:relative}
+.price-was{font-size:15px;color:#fff;margin-bottom:4px;font-weight:500}
+.price-was span{text-decoration:line-through}
+.price-label{font-size:11px;font-weight:700;color:var(--purple-l);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
+.price-main{font-family:'Manrope',sans-serif;font-weight:800;font-size:80px;line-height:1;letter-spacing:-0.04em;margin-bottom:12px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.price-badge{display:inline-block;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:var(--green);font-size:13px;font-weight:700;padding:8px 20px;border-radius:100px;margin-bottom:44px;letter-spacing:0.01em}
+.cl{list-style:none;margin:0 0 44px}
+.cl li{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:15px;color:#aaa;font-weight:400}
+.cl li:last-child{border-bottom:none}
+.ck{width:22px;height:22px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;font-weight:800;flex-shrink:0}
+.vs-total{border-top:1px solid var(--border);margin-top:8px;padding-top:24px}
+.vs-total-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-family:'Manrope',sans-serif;font-size:15px;font-weight:600;color:#fff}
+.vs-total-price{text-decoration:line-through;color:#fff}
+.vs-free{padding-top:12px}
+.vs-free span:first-child{font-size:18px;font-weight:800;color:#fff}
+.vs-free-price{font-size:28px;font-weight:800;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ─── CAPACITY COUNTER ─── */
+.capacity{background:rgba(232,68,58,0.04);border:1px solid rgba(232,68,58,0.12);border-radius:12px;padding:20px 24px;margin-bottom:36px;text-align:center}
+.capacity-label{font-size:12px;color:#aaa;font-weight:600;margin-bottom:10px}
+.capacity-label strong{color:var(--red);font-weight:800}
+.capacity-bar{height:8px;background:rgba(255,255,255,0.04);border-radius:100px;overflow:hidden;margin-bottom:6px}
+.capacity-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--red),#ff6b5a);transition:width 0.6s ease}
+.capacity-note{font-size:11px;color:#fff;font-weight:500}
+
+/* ─── MAIN BUTTON ─── */
+.btn{display:block;width:100%;background:var(--purple);color:#fff;border:none;padding:22px;font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.02em;border-radius:12px;cursor:pointer;text-align:center;text-decoration:none;transition:all 0.25s;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(100,46,255,0.25)}
+.btn:hover{background:var(--purple-l);transform:translateY(-2px);box-shadow:0 12px 48px rgba(100,46,255,0.4)}
+.btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:left 0.5s}
+.btn:hover::after{left:100%}
+.btn-note{text-align:center;font-size:12px;color:#fff;margin-top:14px;font-weight:500}
+
+/* ─── FORM SECTION ─── */
+.form-section{background:linear-gradient(180deg,rgba(100,46,255,0.06) 0%,rgba(100,46,255,0.02) 100%);padding:100px 24px;position:relative}
+.form-section::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(circle,rgba(100,46,255,0.1) 0%,transparent 70%);pointer-events:none}
+.form-section-inner{max-width:560px;margin:0 auto;position:relative;z-index:1}
+.form-section .form-card{margin-top:0}
+.form-social{margin-top:32px;display:flex;flex-direction:column;gap:20px;align-items:center}
+.form-social-text{font-size:13px;color:rgba(255,255,255,0.7);font-weight:500;text-align:center;line-height:1.6}
+.form-social-text strong{color:#fff;font-weight:700}
+
+/* ─── FAQ ─── */
+.faq-item{border-bottom:1px solid rgba(255,255,255,0.04);padding:22px 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;gap:16px;letter-spacing:-0.01em;transition:color 0.2s}
+.faq-q:hover{color:var(--purple-l)}
+.faq-ico{width:28px;height:28px;background:rgba(100,46,255,0.06);border:1px solid rgba(100,46,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--purple-l);font-size:18px;flex-shrink:0;transition:all 0.25s;line-height:1}
+.faq-a{font-size:15px;color:#fff;line-height:1.75;overflow:hidden;max-height:0;transition:max-height 0.35s ease,padding-top 0.35s;font-weight:400}
+.faq-item.open .faq-ico{transform:rotate(45deg);background:rgba(100,46,255,0.15);border-color:rgba(100,46,255,0.25)}
+.faq-item.open .faq-a{max-height:400px;padding-top:16px}
+
+/* ─── FORM ─── */
+.form-card{background:#fff;border-radius:20px;padding:40px 36px;margin-top:32px;box-shadow:0 8px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(255,255,255,0.06);overflow:hidden}
+.form-card-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#111;text-align:center;margin-bottom:6px;letter-spacing:-0.02em}
+.form-card-sub{font-size:13px;color:#888;text-align:center;margin-bottom:28px;font-weight:500}
+.form-progress{display:flex;gap:6px;margin-bottom:32px}
+.form-progress-bar{flex:1;height:4px;border-radius:100px;background:#e8e8ec;transition:background 0.3s}
+.form-progress-bar.done{background:var(--purple)}
+.form-step{display:none;animation:stepIn 0.3s ease}
+.form-step.active{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.form-step-label{font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;color:#111;margin-bottom:6px;letter-spacing:-0.02em}
+.form-step-hint{font-size:13px;color:#888;margin-bottom:20px;font-weight:400;line-height:1.6}
+.form-label{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;letter-spacing:0.01em}
+.form-input{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:16px 20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;color:#111;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
+.form-input::placeholder{color:#999;font-weight:400}
+.form-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(100,46,255,0.12);background:#fff}
+textarea.form-input{resize:vertical;min-height:100px}
+.form-nav{display:flex;gap:12px;margin-top:24px}
+.form-nav .btn{flex:1}
+.form-back{flex:0 0 auto;background:none;border:1.5px solid #e0e0e4;padding:16px 24px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;color:#666;border-radius:12px;cursor:pointer;transition:all 0.2s}
+.form-back:hover{border-color:#ccc;color:#333}
+.rating-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.rating-btn{background:#f5f5f7;border:1.5px solid #e0e0e4;border-radius:12px;padding:18px 0;font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#333;cursor:pointer;transition:all 0.2s;text-align:center}
+.rating-btn:hover{border-color:var(--purple);color:var(--purple);background:rgba(100,46,255,0.04)}
+.rating-btn.selected{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 4px 16px rgba(100,46,255,0.3)}
+.form-card .btn-note{color:#999}
+@media(max-width:680px){.form-card{padding:28px 20px}.rating-grid{grid-template-columns:repeat(5,1fr);gap:8px}}
+
+/* ─── EXIT POPUP ─── */
+.exit-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
+.exit-overlay.show{display:flex}
+.exit-popup{background:#fff;border-radius:20px;max-width:520px;width:100%;position:relative;overflow:hidden;text-align:center;animation:popIn 0.3s ease}
+@keyframes popIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+.exit-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:rgba(0,0,0,0.06);border:none;border-radius:50%;cursor:pointer;font-size:18px;color:#666;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:2}
+.exit-close:hover{background:rgba(0,0,0,0.12)}
+.exit-top{background:var(--grad);padding:40px 36px 32px;color:#fff}
+.exit-top h2{font-family:'Manrope',sans-serif;font-weight:900;font-size:clamp(28px,5vw,36px);letter-spacing:-0.03em;line-height:1.1;margin-bottom:16px;text-transform:uppercase}
+.exit-top p{font-size:15px;line-height:1.7;color:rgba(255,255,255,0.9);font-weight:500;max-width:400px;margin:0 auto}
+.exit-bottom{padding:32px 36px 36px}
+.exit-btn{display:block;width:100%;background:var(--purple);color:#fff;border:none;padding:20px;font-family:'Manrope',sans-serif;font-size:17px;font-weight:800;letter-spacing:0.01em;border-radius:12px;cursor:pointer;transition:all 0.2s;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(100,46,255,0.3)}
+.exit-btn:hover{background:var(--purple-l);transform:translateY(-2px);box-shadow:0 8px 32px rgba(100,46,255,0.4)}
+.exit-sub{font-size:12px;color:#999;margin-top:14px;font-weight:500}
+.exit-dismiss{background:none;border:none;font-size:13px;color:#bbb;cursor:pointer;margin-top:10px;font-weight:500;font-family:'Manrope',sans-serif}
+.exit-dismiss:hover{color:#888}
+
+/* ─── FOOTER ─── */
+.footer{border-top:1px solid var(--border);padding:56px 24px;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.fl-mark{width:34px;height:34px;background:var(--grad2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;color:#fff;position:relative;letter-spacing:-0.03em;box-shadow:0 0 16px rgba(100,46,255,0.2)}
+.fl-mark::after{content:'';position:absolute;top:-2px;right:-2px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+.fl-text{font-family:'Manrope',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.03em;color:var(--white)}
+.footer p{font-size:13px;color:rgba(255,255,255,0.45);line-height:2.2;font-weight:500}
+.footer a{color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s}
+.footer a:hover{color:var(--purple-l)}
+
+/* ─── STICKY BAR ─── */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.95);border-top:1px solid var(--border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:14px 32px;display:flex;align-items:center;justify-content:center;gap:24px;z-index:200;transform:translateY(100%);transition:transform 0.3s;flex-wrap:wrap}
+.sticky.show{transform:translateY(0)}
+.sk-t{font-family:'Manrope',sans-serif;font-weight:700;font-size:15px}
+.sk-p{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.03em;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sk-btn{background:var(--purple);color:#fff;border:none;padding:13px 30px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;transition:all 0.2s;white-space:nowrap;box-shadow:0 4px 20px rgba(100,46,255,0.25)}
+.sk-btn:hover{background:var(--purple-l);box-shadow:0 4px 28px rgba(100,46,255,0.4)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:680px){
+  .nav{padding:14px 20px}
+  .steps{grid-template-columns:1fr;gap:12px}
+  .step{border-radius:16px !important}
+  .step:not(:last-child){border-right:1px solid var(--border)}
+  .step-arrow{display:none}
+  .cases{grid-template-columns:1fr}
+  .pc-body{padding:36px 24px}
+  .price-main{font-size:64px}
+  .gu{flex-direction:column;gap:16px;padding:28px}
+  .total{flex-direction:column;gap:8px}
+  .w{padding:56px 20px}
+  h1{letter-spacing:-0.03em}
+  .hero::before{width:400px;height:400px}
+  .footer{padding:36px 20px 80px}
+  .footer p{font-size:12px;line-height:2}
+  .sticky{padding:10px 16px;gap:12px}
+  .sk-t{font-size:13px}
+  .sk-p{font-size:22px}
+  .sk-btn{padding:10px 20px;font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">Stor efterspørgsel: 13 ud af 20 analyser er allerede sendt denne måned</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark">M</div>
+    <span class="logo-text">Marketingly</span>
+  </a>
+  <a href="#pricing" class="nav-btn">Se om du kvalificerer dig</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><div class="badge-dot"></div>Beta version: Få det gratis i en begrænset periode</div>
+  <h1>Få en skræddersyet analyse der kan øge din ROI med 15-35% fra dag 1 — <em>helt gratis</em> <span style="font-size:0.45em;font-weight:500;color:#777;letter-spacing:0">(værdi: 7.995 kr.)</span></h1>
+  <p class="hero-sub">Ingen 45 minutters 'præsentation af analyse'. Du får analysen på mail og kan skrive til os, hvis du vil have vores hjælp efterfølgende</p>
+  <div class="hero-video" style="width:100%;max-width:640px;margin:0 auto;aspect-ratio:16/9;background:var(--s1);border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:0.9rem">Video placeholder</div>
+  <a href="#formSection" class="btn" style="max-width:440px;margin:0 auto" onclick="setTimeout(function(){document.querySelector('#strategyForm input[name=name]').focus()},400)">Giv mig analysen</a>
+  <div class="trust-row">
+    <span class="trust-item">100% gratis</span>
+    <span class="trust-item">I din indbakke inden for 48 timer</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARE -->
+<div class="w">
+  <div class="sh">
+    <span class="e"><i data-lucide="scale"></i></span>
+    <h2>De fleste bløder langsomt.<br>Få stopper blodet.</h2>
+  </div>
+  <div class="compare">
+    <div class="compare-box compare-box--bad">
+      <h3>Hvad 9/10 virksomheder gør</h3>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Skyder i blinde med annoncer</strong>Ingen research. Ingen data. Bare "lad os teste det her og se." Hver gang de skalerer, stiger CPA — og ingen ved hvorfor.</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Taler om sig selv i stedet for kunden</strong>"Vi er grundlagt i 2019..." — Stop. Kunden er ligeglad. De vil vide hvad du gør for DEM.</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Rammer kun dem der allerede vil købe</strong>De fisker i en lille pøl — 3-7% af markedet. Resten? Ignoreret. Og de undrer sig over hvorfor væksten er gået i stå.</span></div>
+      <div class="compare-row"><span class="compare-icon">✗</span><span><strong>Giver Meta skylden når det ikke virker</strong>"Algoritmen er fucked." Nej. Dit fundament er svagt. Og det afsløres hver gang platformen ændrer sig.</span></div>
+    </div>
+    <div class="compare-box compare-box--good">
+      <h3>Dem der bruger vores framework</h3>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De forstår alt om deres kunder</strong>De ved hvad der holder kunden vågen kl. 02 om natten. De skaber kortsigtet salg OG langsigtet brand — samtidig.</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De sælger identitet — ikke features</strong>De konkurrerer ikke på pris eller features. De sælger en følelse. En forandring.</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De rammer hele deres målgruppe</strong>Annoncer til alle 5 awareness-stadier. Dét er forskellen på at skalere fra 250k til 2 mio om måneden.</span></div>
+      <div class="compare-row"><span class="compare-icon">✓</span><span><strong>De vokser UANSET hvordan markedet er</strong>Fordi deres analyse er bygget på fundamentale marketingprincipper kundeforståelse - ikke på algoritme-hacks der ændrer sig hvert år.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- VALUE STACK -->
+<div class="w">
+  <div class="sh">
+    <span class="e"><i data-lucide="gift"></i></span>
+    <h2>Her er præcis hvad du får.<br>Bygget til DIN forretning.</h2>
+    <p>Ikke et template. Ikke en generisk PDF. En komplet analyse baseret på din branche, dine produkter og dine kunder.</p>
+  </div>
+
+  <div class="vstack">
+    <div class="vcard"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="bar-chart-3"></i></div><h3>Markedsanalyse</h3></div><p>Vi kigger på dit marked og finder de åbninger dine konkurrenter har overset. Hvad virker, hvad virker ikke, og hvor der er plads til dig.</p><div class="benefit">Du ved hvor pengene er — og hvordan du tager dem</div></div>
+
+    <div class="vcard"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="search"></i></div><h3>Konkurrentanalyse</h3></div><p>Vi graver i hvad dine konkurrenter gør godt, hvad de gør dårligt, og hvor de slet ikke er til stede. Det er dér dit vindue er.</p><div class="benefit">Du finder de åbninger de andre har misset</div></div>
+
+    <div class="vcard"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="message-square"></i></div><h3>Kommunikationsanalyse</h3></div><p>De konkrete budskaber og vinkler der får din målgruppe til at stoppe op. Positionering der giver tillid før de overhovedet klikker.</p><div class="benefit">Bedre konvertering fra dag 1</div></div>
+
+    <div class="vcard"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="users"></i></div><h3>4 Kundeavatarer</h3></div><p>De 4 kundetyper der rent faktisk køber hos dig. Hvad de tænker, hvad de frygter, og hvilke ord der virker på dem.</p><div class="benefit">Du taler direkte til dem der køber — ikke til "alle"</div></div>
+
+    <div class="vcard"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="brain"></i></div><h3>Pain &amp; Desire-analyse</h3></div><p>Dine kunders frustrationer og ønsker — i deres egne ord. Klar til at bruge direkte i annoncer, emails og landingpages.</p><div class="benefit">Copy-paste ind i dine annoncer. Ordene kommer fra kunderne selv</div></div>
+
+    <div class="vcard"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="target"></i></div><h3>25 Annoncevinkler</h3></div><p>25 vinkler der dækker hele kunderejsen — fra dem der ikke ved de har et problem, til dem der sidder og sammenligner dig med en konkurrent lige nu.</p><div class="benefit">Materiale nok til at teste i månedsvis uden at starte forfra</div></div>
+
+    <div class="vcard vcard--full"><div class="vcard-head"><div class="vcard-icon"><i data-lucide="lightbulb"></i></div><h3>10 Unikke Annoncekoncepts</h3></div><p>Ikke vage idéer. 10 færdige koncepter med format, hook, vinkel og budskab — klar til at filme eller designe i morgen. Du åbner dokumentet og ved præcis hvad du skal producere.</p><div class="benefit">Fra "hvad fanden skal vi lave?" til "hvilken starter vi med?"</div></div>
+  </div>
+
+  <div class="total">
+    <div>
+      <div class="total-label">Samlet vejl. værdi</div>
+      <div class="total-amt">7.995 kr.</div>
+    </div>
+    <div style="text-align:right">
+      <div class="total-label" style="color:var(--green)">Din pris i dag</div>
+      <div class="total-save">Gratis</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:32px">
+    <a href="#formSection" class="btn" style="max-width:440px;margin:0 auto" onclick="setTimeout(function(){document.querySelector('#strategyForm input[name=name]').focus()},400)">Giv mig analysen</a>
+    <div class="trust-row" style="margin-top:14px">
+      <span class="trust-item">100% gratis</span>
+      <span class="trust-item">I din indbakke inden for 48 timer</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="w">
+  <div class="sh"><span class="e"><i data-lucide="zap"></i></span><h2>Sådan får du din analyse</h2></div>
+  <div class="steps">
+    <div class="step"><span class="step-n">01</span><h3>Fortæl os om din forretning</h3><p>Udfyld en kort formular med din branche, produkter og hvem du sælger til. 3 minutter. Det er det.</p><div class="step-arrow">→</div></div>
+    <div class="step"><span class="step-n">02</span><h3>Vi dissekerer dit marked</h3><p>Vi analyserer dine konkurrenter, dine kunder og dit marked — og bygger en komplet analyse du kan handle på med det samme.</p><div class="step-arrow">→</div></div>
+    <div class="step"><span class="step-n">03</span><h3>Du får analysen på mail</h3><p>Inden for 48 timer har du en færdig analyse — klar til at implementere selv, med dit team eller dit bureau.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<div class="w">
+  <div class="sh"><span class="e"><i data-lucide="trending-up"></i></span><h2>Tallene taler for sig selv.</h2></div>
+  <div class="testi-grid">
+
+    <!-- Out of Bounds -->
+    <div class="testi-card testi-card--oob">
+      <div class="testi-card-inner">
+        <div class="testi-headline">14.43x ROAS og fra 30 til 100 mio i årlig omsætning — på tværs af 4 markeder<span>Out of Bounds · 5 års samarbejde</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">14.43x</span><span class="testi-metric-label">i gns. ROAS</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">4 markeder</span><span class="testi-metric-label">skaleret</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">30–100 mio</span><span class="testi-metric-label">i årlig oms.</span></div>
+        </div>
+        <div class="testi-quote">"Over de sidste fem år har Mathias været en afgørende faktor i vores succesfulde ekspansion over fire markeder."</div>
+        <div class="testi-author"><strong>Alexander Edsmyr</strong> · Stifter og CMO</div>
+      </div>
+    </div>
+
+    <!-- Tajmer Booking & Management -->
+    <div class="testi-card testi-card--tajmer">
+      <div class="testi-card-inner">
+        <div class="testi-headline">288% højere CTR og 114% flere billetter solgt for Danmarks førende komikere og foredragsholdere<span>Tajmer Booking & Management · 3 års samarbejde</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">288%</span><span class="testi-metric-label">højere CTR</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">73%</span><span class="testi-metric-label">lavere CPM priser</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">114%</span><span class="testi-metric-label">flere billetter solgt</span></div>
+        </div>
+        <div class="testi-quote">"Mathias' ægte interesse i sit arbejde og i os som kunde skinnede igennem fra første møde — et geniuint match."</div>
+        <div class="testi-author"><strong>Sofie Bennedsen</strong> · Produktion og markedsføring</div>
+      </div>
+    </div>
+
+    <!-- GrejFreak -->
+    <div class="testi-card testi-card--grejfreak">
+      <div class="testi-card-inner">
+        <div class="testi-headline">GrejFreak sænkede deres CAC, øgede profit pr. kunde, samtidig med at de styrkede deres langsigtet brand<span>GrejFreak · 2,5 års samarbejde</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">40%</span><span class="testi-metric-label">stigning i omsætning</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">+20 mio</span><span class="testi-metric-label">genereret fra Meta</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">243%</span><span class="testi-metric-label">højere ROAS</span></div>
+        </div>
+        <div class="testi-quote">"Det føles langt hen ad vejen som om, at vi er Mathias' eneste kunde. Og det er rart."</div>
+        <div class="testi-author"><strong>Casper Pedersen</strong> · Stifter & Medejer</div>
+      </div>
+    </div>
+
+    <!-- Friluftsland -->
+    <div class="testi-card testi-card--friluftsland">
+      <div class="testi-card-inner">
+        <div class="testi-headline">379% stigning i ROAS og 5 mio ekstra i omsætning — på 4 måneder med 5 annoncer<span>Friluftsland A/S · Uden at udskifte deres in-house team</span></div>
+        <div class="testi-metrics">
+          <div class="testi-metric"><span class="testi-metric-value">379%</span><span class="testi-metric-label">stigning i ROAS</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">109%</span><span class="testi-metric-label">lavere Cost Per Lead</span></div>
+          <div class="testi-metric"><span class="testi-metric-value">Uddannelse</span><span class="testi-metric-label">af in-house team</span></div>
+        </div>
+        <div class="testi-quote">"Mathias har hjulpet os med at skabe en yderst succesfuld top-funnel analyse på Meta-platformene."</div>
+        <div class="testi-author"><strong>Mikkel Mandrup Vogt</strong> · Digital Marketing Manager</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<div id="pricing" class="w">
+  <div class="sh"><span class="e"><i data-lucide="flame"></i></span><h2>Du har to valg lige nu.</h2><p>Fortsæt med at gætte. Eller få et klart svar på hvad der holder dig tilbage — gratis.</p></div>
+
+  <div class="pc">
+    <div class="pc-header">Kun 20 analyser pr. måned — vi laver dem manuelt, én ad gangen</div>
+    <div class="pc-body">
+
+      <div style="text-align:center;margin-bottom:44px">
+        <div class="price-was">Samlet værdi: <span>7.995 kr.</span></div>
+        <div class="price-label">Din pris i dag</div>
+        <div class="price-main">Gratis</div>
+        <div class="price-badge">Du sparer 7.995 kr. — 100% gratis</div>
+      </div>
+
+      <div class="capacity">
+        <div class="capacity-label">Stor efterspørgsel: <strong>13 ud af 20</strong> analyser er allerede sendt denne måned</div>
+        <div class="capacity-bar"><div class="capacity-fill" style="width:65%"></div></div>
+        <div class="capacity-note">Hver analyse kræver 1 1/2 timers manuelt arbejde — derfor er kapaciteten begrænset</div>
+      </div>
+
+      <ul class="cl">
+        <li><div class="ck">✓</div><span>Komplet markedsanalyse — du ved præcis hvor væksten er</span></li>
+        <li><div class="ck">✓</div><span>Konkurrentanalyse — du ser hvad de gør, og hvad de overser</span></li>
+        <li><div class="ck">✓</div><span>Kommunikationsanalyse — budskaber der skaber tillid og salg</span></li>
+        <li><div class="ck">✓</div><span>4 kundeavatarer — du kender dine kunder bedre end de kender sig selv</span></li>
+        <li><div class="ck">✓</div><span>Pain &amp; Desire-analyse — klar til brug i annoncer og emails</span></li>
+        <li><div class="ck">✓</div><span>25 annoncevinkler — du løber aldrig tør for idéer igen</span></li>
+        <li><div class="ck">✓</div><span>10 færdige annoncekoncepts — klar til produktion</span></li>
+      </ul>
+
+      <div class="vs-total">
+        <div class="vs-total-row"><span>Samlet værdi</span><span class="vs-total-price">7.995 kr.</span></div>
+        <div class="vs-total-row vs-free"><span>Din pris i dag</span><span class="vs-free-price">GRATIS</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FORM SECTION -->
+<div id="formSection" class="form-section">
+  <div class="form-section-inner">
+    <div class="sh"><span class="e"><i data-lucide="clipboard-list"></i></span><h2>Få din gratis analyse</h2><p>Udfyld formularen — det tager under 3 minutter. Du hører fra os inden for 48 timer.</p></div>
+    <div class="form-card">
+      <div class="form-progress" id="formProgress">
+        <div class="form-progress-bar done"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+        <div class="form-progress-bar"></div>
+      </div>
+      <form id="strategyForm" onsubmit="return handleForm(event)">
+        <!-- Step 1: Navn -->
+        <div class="form-step active" data-step="0">
+          <div class="form-step-label">Hvad hedder du?</div>
+          <input type="text" class="form-input" name="name" placeholder="Dit fulde navn" required>
+          <div class="form-nav">
+            <button type="button" class="btn" onclick="nextStep(0)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 2: Email -->
+        <div class="form-step" data-step="1">
+          <div class="form-step-label">Hvad er din email?</div>
+          <input type="email" class="form-input" name="email" placeholder="din@email.dk" required>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(1)">←</button>
+            <button type="button" class="btn" onclick="nextStep(1)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 3: Telefon -->
+        <div class="form-step" data-step="2">
+          <div class="form-step-label">Hvad er dit telefonnummer?</div>
+          <input type="tel" class="form-input" name="phone" placeholder="Dit telefonnummer">
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(2)">←</button>
+            <button type="button" class="btn" onclick="nextStep(2)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 4: Virksomhed -->
+        <div class="form-step" data-step="3">
+          <div class="form-step-label">Hvad hedder din virksomhed?</div>
+          <input type="text" class="form-input" name="company" placeholder="Virksomhedsnavn" required>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(3)">←</button>
+            <button type="button" class="btn" onclick="nextStep(3)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 5: Omsætning -->
+        <div class="form-step" data-step="4">
+          <div class="form-step-label">Hvor meget omsætter I for?</div>
+          <input type="text" class="form-input" name="revenue" placeholder="Ex. 2.000.000 kr/md">
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(4)">←</button>
+            <button type="button" class="btn" onclick="nextStep(4)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 6: Budget -->
+        <div class="form-step" data-step="5">
+          <div class="form-step-label">Hvad er jeres marketing budget?</div>
+          <input type="text" class="form-input" name="budget" placeholder="Ex. 150.000 kr/md">
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(5)">←</button>
+            <button type="button" class="btn" onclick="nextStep(5)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 7: Marketing færdigheder -->
+        <div class="form-step" data-step="6">
+          <div class="form-step-label">Hvordan vil du vurdere dine færdigheder inden for markedsføring?</div>
+          <div class="form-step-hint">Hvis du svarer under 5, sender vi en personlig video hvor vi gennemgår det for dig, så vi er sikre på du ikke har nogle spørgsmål.</div>
+          <input type="hidden" name="marketing_skill" id="marketingSkill">
+          <div class="rating-grid">
+            <button type="button" class="rating-btn" onclick="selectRating(1)">1</button>
+            <button type="button" class="rating-btn" onclick="selectRating(2)">2</button>
+            <button type="button" class="rating-btn" onclick="selectRating(3)">3</button>
+            <button type="button" class="rating-btn" onclick="selectRating(4)">4</button>
+            <button type="button" class="rating-btn" onclick="selectRating(5)">5</button>
+            <button type="button" class="rating-btn" onclick="selectRating(6)">6</button>
+            <button type="button" class="rating-btn" onclick="selectRating(7)">7</button>
+            <button type="button" class="rating-btn" onclick="selectRating(8)">8</button>
+            <button type="button" class="rating-btn" onclick="selectRating(9)">9</button>
+            <button type="button" class="rating-btn" onclick="selectRating(10)">10</button>
+          </div>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(6)">←</button>
+            <button type="button" class="btn" onclick="nextStep(6)">Næste →</button>
+          </div>
+        </div>
+        <!-- Step 8: Noter -->
+        <div class="form-step" data-step="7">
+          <div class="form-step-label">Er der andet du vil have vi skal tage højde for?</div>
+          <textarea class="form-input" name="notes" placeholder="Skriv her (valgfrit)"></textarea>
+          <div class="form-nav">
+            <button type="button" class="form-back" onclick="prevStep(7)">←</button>
+            <button type="submit" class="btn">Giv mig analysen</button>
+          </div>
+        </div>
+      </form>
+      <div class="form-social-text" style="font-size:14px;color:rgba(0,0,0,0.5);font-style:italic;margin-top:16px;text-align:center">Analysens principper er testet og valideret gennem 6 års arbejde med virksomheder, der omsætter op til 2 mia. kr. årligt.</div>
+    </div>
+
+    <div class="form-social">
+      <div class="form-social-text">"På under 24 timer havde vi analysen. Det åbnede virkelig øjnene for, hvor stor en vækst vi havde efterladt på bordet. Fast forward til en måned efter, har vi <strong>øget vores ROAS med 23%</strong> og løftet <strong>CTR fra 0,77 til 1,92</strong>" — <strong>Growtek</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<div class="w">
+  <div class="sh"><span class="e"><i data-lucide="message-circle"></i></span><h2>Stadig i tvivl? Godt.</h2><p>Du bør stille spørgsmål. Her er de mest stillede.</p></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Er det virkelig gratis — hvad får I ud af det?</span><div class="faq-ico">+</div></div><div class="faq-a">Ja, det er 100% gratis. Vi laver analysen fordi vi ved at når du ser kvaliteten af arbejdet, er der en reel chance for at du ønsker at vi implementere det for dig. Det er vores måde at bevise hvad vi kan, uden du skal sidde på endnu et "inspirationsmøde", som vi alle godt kender den skjulte agenda bag.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Er det skræddersyet — eller bare et fancy template med mit navn på?</span><div class="faq-ico">+</div></div><div class="faq-a">Det er ikke et template. Vi analyserer dit specifikke marked, dine konkurrenter og dine kunder fra bunden. Du angiver din virksomhed, vi bygger derfra. Det er derfor vi kun laver 20 analyser om måneden — det tager tid at gøre det ordentligt. Vi bruger som minimum 2 timer på hver analyse</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Kan 48 timer virkelig give noget gennemarbejdet?</span><div class="faq-ico">+</div></div><div class="faq-a">Vi har hjulpet virksomheder der omsætter for +2 mia/årligt. Vi ved præcis hvor vi skal kigge, hvad vi skal måle og hvad der rent faktisk rykker nålen i forretninger. 48 timer er muligt fordi vi har investeret +100 timer i at bygge AI-systemer, der kombineres med vores praktiske erfaring.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Jeg ved godt hvad mit problem er — jeg mangler bare eksekveringen</span><div class="faq-ico">+</div></div><div class="faq-a">Det tror de fleste. Men når vi leverer analysen, opdager næsten alle noget de ikke vidste. En konkurrent der vinder på et område de ikke havde overvejet. En kundesegment de taler forbi. En vinkel der kunne halvere deres CPA. Analysen er ikke til dem der ikke ved noget — den er til dem der vil vide mere end deres konkurrenter.</div></div>
+
+  <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q"><span>Jeg har ikke tid til at implementere endnu en analyse</span><div class="faq-ico">+</div></div><div class="faq-a">Så burde du prioritere bedre.</div></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FINAL CTA -->
+<div class="w" style="text-align:center">
+  <div class="sh"><span class="e"><i data-lucide="hourglass"></i></span><h2>Hver dag du venter koster dig penge.</h2><p>Dine konkurrenter skalerer. Dit CPA stiger. Og den analyse du mangler? Den ligger klar til dig — gratis.<br>Det eneste du skal gøre er at sige ja.</p></div>
+  <a href="#pricing" class="btn" style="max-width:500px;margin:0 auto">Giv mig analysen</a>
+  <div class="trust-row" style="margin-top:22px">
+    <span class="trust-item">I din indbakke inden for 48 timer</span>
+    <span class="trust-item">Intet betalingskort</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <div class="fl-mark">M</div>
+    <span class="fl-text">Marketingly</span>
+  </div>
+  <p>
+    Marketingly Digital ApS · Kochsgade 31D, 5000 Odense C<br>
+    mathias@marketingly.dk · +45 30 20 01 21<br><br>
+    &copy; 2025 Marketingly Digital ApS · <a href="#">Privatlivspolitik</a> · <a href="#">Handelsbetingelser</a>
+  </p>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky" id="sticky">
+  <span class="sk-t">Din gratis analyse venter</span>
+  <span class="sk-p">Gratis</span>
+  <button class="sk-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Se om du kvalificerer dig</button>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div class="exit-overlay" id="exitPopup">
+  <div class="exit-popup">
+    <button class="exit-close" onclick="closeExit()">&times;</button>
+    <div class="exit-top">
+      <h2>Vent! Inden du går...</h2>
+      <p>Du er ved at forlade siden uden at få din gratis analyse til en værdi af 7.995 kr. — den analyse der kan sænke dit CPA og skalere din omsætning allerede denne måned.</p>
+    </div>
+    <div class="exit-bottom">
+      <a href="#pricing" class="exit-btn" onclick="closeExit()">Giv mig analysen — gratis</a>
+      <p class="exit-sub">100% gratis · I din indbakke inden for 48 timer</p>
+      <button class="exit-dismiss" onclick="closeExit()">Nej tak, jeg har ikke brug for flere kunder</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var heroBottom = document.querySelector('.hero').offsetTop + document.querySelector('.hero').offsetHeight;
+window.addEventListener('scroll', function(){
+  document.getElementById('sticky').classList.toggle('show', scrollY > heroBottom + 60);
+});
+
+/* ─── MULTI-STEP FORM ─── */
+var totalSteps = 8;
+var currentStep = 0;
+
+function updateProgress() {
+  var bars = document.querySelectorAll('.form-progress-bar');
+  for (var i = 0; i < bars.length; i++) {
+    bars[i].classList.toggle('done', i <= currentStep);
+  }
+}
+
+function showStep(n) {
+  var steps = document.querySelectorAll('.form-step');
+  for (var i = 0; i < steps.length; i++) {
+    steps[i].classList.remove('active');
+  }
+  steps[n].classList.add('active');
+  currentStep = n;
+  updateProgress();
+  var input = steps[n].querySelector('.form-input');
+  if (input) input.focus();
+}
+
+function nextStep(from) {
+  var step = document.querySelector('.form-step[data-step="'+from+'"]');
+  var input = step.querySelector('.form-input');
+  if (input && input.required && !input.value.trim()) {
+    input.focus();
+    input.style.borderColor = 'var(--red)';
+    setTimeout(function(){ input.style.borderColor = ''; }, 1500);
+    return;
+  }
+  if (from < totalSteps - 1) showStep(from + 1);
+}
+
+function prevStep(from) {
+  if (from > 0) showStep(from - 1);
+}
+
+function selectRating(val) {
+  document.getElementById('marketingSkill').value = val;
+  var btns = document.querySelectorAll('.rating-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('selected', parseInt(btns[i].textContent) === val);
+  }
+}
+
+function handleForm(e) {
+  e.preventDefault();
+  var form = e.target;
+  var btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Sender...';
+  btn.disabled = true;
+  // TODO: wire up to backend/webhook
+  setTimeout(function() {
+    var card = form.closest('.form-card');
+    card.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:48px;margin-bottom:16px">✓</div><h3 style="font-family:Manrope,sans-serif;font-weight:800;font-size:24px;margin-bottom:12px">Tak! Vi har modtaget din ansøgning</h3><p style="color:#666;font-size:15px">Du hører fra os inden for 48 timer med din skræddersyede analyse.</p></div>';
+  }, 800);
+  return false;
+}
+
+/* ─── EXIT INTENT ─── */
+var exitShown = false;
+var pageReady = false;
+setTimeout(function(){ pageReady = true; }, 10000);
+
+document.addEventListener('mouseout', function(e) {
+  if (exitShown || !pageReady) return;
+  if (e.clientY <= 0 && e.relatedTarget === null) {
+    document.getElementById('exitPopup').classList.add('show');
+    exitShown = true;
+  }
+});
+
+function closeExit() {
+  document.getElementById('exitPopup').classList.remove('show');
+}
+
+document.getElementById('exitPopup').addEventListener('click', function(e) {
+  if (e.target === this) closeExit();
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>
