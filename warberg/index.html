@@ -4,90 +4,178 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thomas Warberg — Fuldt show: "Perfektion, overskud og andre lorteord"</title>
-<meta name="description" content="Se Thomas Warbergs fulde show 'Perfektion, overskud og andre lorteord' — og find billetter til det nye show.">
+<meta name="description" content='Se Thomas Warbergs fulde show "Perfektion, overskud og andre lorteord" — og find billetter til det nye show.'>
 
-<!-- Open Graph (for paid social) -->
+<!-- Open Graph (paid social) -->
 <meta property="og:title" content="Thomas Warberg — Fuldt show">
 <meta property="og:description" content='Se hele showet "Perfektion, overskud og andre lorteord" — og find billetter til det nye show.'>
 <meta property="og:type" content="video.other">
 <meta property="og:image" content="https://i.ytimg.com/vi/hRVRtHOxXrM/maxresdefault.jpg">
 
+<!-- Performance: preconnect + preload hero poster -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://use.typekit.net">
 <link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://www.youtube-nocookie.com">
 <link rel="preload" as="image" href="https://i.ytimg.com/vi/hRVRtHOxXrM/maxresdefault.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Real Warberg fonts (Adobe Typekit kit ufy7uiz) — may be domain-locked.
+     Google Font fallbacks (Oswald + Inter) match the comedy-poster + humanist feel. -->
+<link rel="stylesheet" href="https://use.typekit.net/ufy7uiz.css">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ─── EDIT-ME CONSTANTS (also in JS below) ─────────────────── */
-/* TICKET_URL  : change href on the CTA button below */
-/* YOUTUBE_ID  : hRVRtHOxXrM — change in 3 places: <link preload>, og:image, and the .video data-id */
-/* ──────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   EDIT-ME CONSTANTS
+   - TICKET_URL : the live billet URL — set below in the <script>
+   - YOUTUBE_ID : the embedded show video ID — set below in the <script>
+   ───────────────────────────────────────────────────────────── */
 
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0b;
-  --bg-soft:#101013;
-  --ink:#f5f3ef;
-  --ink-soft:#b6b3ac;
-  --muted:#6e6a62;
-  --blue:#2563ff;
-  --blue-l:#3d76ff;
-  --blue-glow:rgba(37,99,255,0.45);
-  --rule:rgba(255,255,255,0.08);
+  /* Real Warberg brand palette, lifted from his theme CSS */
+  --bg:#ffffff;
+  --paper:#f7f9fb;
+  --ink:#0f172a;
+  --ink-soft:#334155;
+  --muted:#64748b;
+  --blue:#007cc6;
+  --blue-l:#0091c7;
+  --blue-d:#155b79;
+  --navy:#003367;
+  --pink:#ef5587;
+  --line:rgba(15,23,42,0.10);
 }
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.6;font-weight:400;overflow-x:hidden;min-height:100vh;position:relative}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'massilia','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:16px;line-height:1.55;font-weight:400;
+  overflow-x:hidden;min-height:100vh;position:relative;
+}
 
-/* Subtle vignette + grain for the cinematic feel */
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%);pointer-events:none;z-index:1}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+/* Subtle paper grain — keeps the comedy-poster feel without going dark/SaaS */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  opacity:0.035;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
 
-main{position:relative;z-index:3;max-width:1080px;margin:0 auto;padding:48px 22px 64px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
-@media(min-width:768px){main{padding:64px 32px 80px}}
+main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:40px 22px 56px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+@media(min-width:768px){main{padding:56px 32px 72px}}
 
-/* ─── HEADLINE ─── */
-.eyebrow{font-family:'Anton',Impact,sans-serif;font-size:clamp(14px,2.2vw,18px);letter-spacing:0.32em;color:var(--blue-l);text-transform:uppercase;margin-bottom:14px;text-align:center}
-h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:clamp(34px,7vw,76px);line-height:0.96;letter-spacing:0.005em;text-transform:uppercase;text-align:center;max-width:14ch;margin:0 auto 32px;color:var(--ink);text-wrap:balance}
-h1 .quote{color:var(--ink-soft);font-weight:400}
-@media(min-width:768px){h1{margin-bottom:44px;max-width:18ch}}
+/* ─── HEADLINE / POSTER ─── */
+.eyebrow{
+  font-family:'pilsner','Oswald',Impact,sans-serif;
+  font-weight:700;
+  font-size:clamp(13px,1.6vw,16px);
+  letter-spacing:0.32em;
+  color:var(--blue);
+  text-transform:uppercase;
+  margin-bottom:14px;text-align:center;
+}
+h1{
+  font-family:'pilsner','Oswald',Impact,sans-serif;
+  font-weight:700;
+  font-size:clamp(40px,8.5vw,96px);
+  line-height:0.92;
+  letter-spacing:-0.005em;
+  text-transform:uppercase;
+  text-align:center;
+  color:var(--navy);
+  margin:0 auto 32px;
+  max-width:14ch;
+  text-wrap:balance;
+}
+h1 .q{color:var(--blue);font-weight:700}
+@media(min-width:768px){h1{margin-bottom:44px;max-width:16ch}}
 
-/* ─── VIDEO ─── */
-.video-wrap{width:100%;max-width:960px;margin:0 auto}
-.video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;cursor:pointer;box-shadow:0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04)}
-.video img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(.2,.6,.2,1), filter 0.3s ease;filter:brightness(0.85) saturate(1.05)}
-.video:hover img{transform:scale(1.02);filter:brightness(0.95) saturate(1.05)}
+/* ─── VIDEO with brand radial-gradient frame ─── */
+.video-frame{
+  width:100%;max-width:980px;margin:0 auto;
+  padding:14px;border-radius:6px;position:relative;
+  background:radial-gradient(circle at 50% 50%, #0091c7 0%, #007cc6 55%, #155b79 100%);
+  box-shadow:0 30px 80px -24px rgba(0,51,103,0.45), 0 2px 0 rgba(255,255,255,0.4) inset;
+}
+@media(min-width:768px){.video-frame{padding:18px}}
+.video{
+  position:relative;width:100%;aspect-ratio:16/9;background:#000;
+  border-radius:3px;overflow:hidden;cursor:pointer;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.5), 0 20px 50px -10px rgba(0,0,0,0.4);
+}
+.video img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 0.6s cubic-bezier(.2,.6,.2,1), filter 0.3s ease;
+  filter:brightness(0.92) saturate(1.04);
+}
+.video:hover img{transform:scale(1.02);filter:brightness(1) saturate(1.05)}
 .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(255,255,255,0.08), 0 20px 50px var(--blue-glow);transition:transform 0.25s ease,box-shadow 0.25s ease;z-index:2}
-.video:hover .play{transform:translate(-50%,-50%) scale(1.06);box-shadow:0 0 0 10px rgba(255,255,255,0.12), 0 24px 60px var(--blue-glow)}
-.play svg{width:30px;height:30px;fill:#fff;margin-left:4px}
-.play-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,0.35);animation:ping 2.6s ease-out infinite;z-index:1}
-@keyframes ping{0%{transform:scale(1);opacity:0.8}100%{transform:scale(1.45);opacity:0}}
-.video-meta{position:absolute;bottom:14px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-end;font-family:'Inter',sans-serif;z-index:2;pointer-events:none}
-.video-meta .runtime{background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;letter-spacing:0.02em}
-.video-meta .show-name{background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;letter-spacing:0.02em;font-style:italic}
-@media(max-width:520px){.play{width:64px;height:64px}.play svg{width:22px;height:22px;margin-left:3px}.video-meta{bottom:10px;left:10px;right:10px}}
+.play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:96px;height:96px;border-radius:50%;
+  background:#fff;color:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 10px rgba(255,255,255,0.18), 0 20px 50px rgba(0,0,0,0.45);
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  z-index:2;
+}
+.video:hover .play{transform:translate(-50%,-50%) scale(1.06);box-shadow:0 0 0 12px rgba(255,255,255,0.25), 0 24px 60px rgba(0,0,0,0.5)}
+.play svg{width:34px;height:34px;fill:currentColor;margin-left:5px}
+.play-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,0.6);animation:ping 2.6s ease-out infinite;z-index:1}
+@keyframes ping{0%{transform:scale(1);opacity:0.85}100%{transform:scale(1.5);opacity:0}}
+.video-tag{
+  position:absolute;bottom:14px;left:14px;
+  background:rgba(0,51,103,0.85);backdrop-filter:blur(8px);
+  color:#fff;font-family:'pilsner','Oswald',sans-serif;font-weight:700;
+  font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+  padding:6px 11px;border-radius:3px;z-index:2;pointer-events:none;
+}
+@media(max-width:520px){
+  .play{width:68px;height:68px}
+  .play svg{width:24px;height:24px;margin-left:3px}
+  .video-frame{padding:10px}
+}
 
-/* ─── CTA ─── */
-.cta{margin-top:44px;text-align:center;max-width:680px}
+/* ─── CTA BLOCK ─── */
+.cta{margin-top:40px;text-align:center;max-width:680px}
 @media(min-width:768px){.cta{margin-top:56px}}
-.cta-line{font-family:'Inter',sans-serif;font-weight:500;font-size:clamp(17px,2.4vw,22px);line-height:1.4;color:var(--ink);margin-bottom:22px;text-wrap:balance}
-.cta-line strong{font-weight:700;color:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--blue);color:#fff;font-family:'Anton',Impact,sans-serif;font-size:clamp(18px,2.4vw,22px);font-weight:400;letter-spacing:0.15em;text-transform:uppercase;padding:20px 42px;border-radius:6px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 18px 50px -10px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,0.18);transition:transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;position:relative;overflow:hidden;min-width:280px}
-.btn:hover{background:var(--blue-l);transform:translateY(-2px);box-shadow:0 24px 60px -8px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,0.22)}
-.btn:active{transform:translateY(0)}
-.btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cta-line{
+  font-family:'massilia','Inter',sans-serif;font-weight:500;
+  font-size:clamp(17px,2.4vw,22px);line-height:1.4;
+  color:var(--ink);margin-bottom:24px;text-wrap:balance;
+}
+.cta-line strong{font-weight:700;color:var(--navy)}
 
-.stars{margin-top:26px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase}
-.stars-group{display:flex;align-items:center;gap:6px;color:var(--ink-soft)}
-.stars-group .s{display:inline-flex;gap:2px;color:#f5c542}
-.stars-group .s svg{width:13px;height:13px;fill:currentColor}
-.stars-group .src{color:var(--muted);font-family:'Inter',sans-serif;letter-spacing:0.08em}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:14px;
+  background:var(--blue);color:#fff;
+  font-family:'pilsner','Oswald',Impact,sans-serif;
+  font-size:clamp(20px,2.6vw,26px);font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:22px 44px;border-radius:4px;
+  text-decoration:none;border:none;cursor:pointer;
+  box-shadow:0 14px 40px -8px rgba(0,124,198,0.55), inset 0 -3px 0 rgba(0,0,0,0.15);
+  transition:transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  min-width:280px;
+}
+.btn:hover{background:var(--blue-l);transform:translateY(-2px);box-shadow:0 20px 50px -6px rgba(0,124,198,0.65), inset 0 -3px 0 rgba(0,0,0,0.18)}
+.btn:active{transform:translateY(0)}
+.btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ─── CRITIC STARS (Warberg uses these on his real site) ─── */
+.stars{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.stars-row{display:flex;gap:3px;color:var(--blue)}
+.stars-row svg{width:18px;height:18px;fill:currentColor}
+.stars-cap{font-family:'massilia','Inter',sans-serif;font-size:12px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;font-weight:600}
 
 /* ─── FOOTER ─── */
 footer{margin-top:auto;padding-top:64px;width:100%;display:flex;justify-content:center}
-.wordmark{font-family:'Anton',Impact,sans-serif;font-size:15px;letter-spacing:0.42em;color:var(--muted);text-transform:uppercase;text-decoration:none}
+.wordmark{
+  font-family:'pilsner','Oswald',Impact,sans-serif;
+  font-size:18px;letter-spacing:0.4em;
+  color:var(--blue);text-transform:uppercase;text-decoration:none;font-weight:700;
+}
 </style>
 </head>
 <body>
@@ -95,9 +183,9 @@ footer{margin-top:auto;padding-top:64px;width:100%;display:flex;justify-content:
 <main>
 
   <div class="eyebrow">Fuldt show · Optaget live</div>
-  <h1><span class="quote">"</span>Perfektion, overskud<br>og andre lorteord<span class="quote">"</span></h1>
+  <h1><span class="q">"</span>Perfektion, overskud<br>og andre lorteord<span class="q">"</span></h1>
 
-  <div class="video-wrap">
+  <div class="video-frame">
     <div class="video" id="video" data-id="hRVRtHOxXrM" role="button" aria-label='Afspil show: "Perfektion, overskud og andre lorteord"' tabindex="0">
       <img src="https://i.ytimg.com/vi/hRVRtHOxXrM/maxresdefault.jpg"
            alt='Thomas Warberg — "Perfektion, overskud og andre lorteord"'
@@ -107,10 +195,7 @@ footer{margin-top:auto;padding-top:64px;width:100%;display:flex;justify-content:
         <span class="play-ring"></span>
         <svg viewBox="0 0 24 24"><path d="M7 5v14l12-7z"/></svg>
       </span>
-      <div class="video-meta">
-        <span class="show-name">Thomas Warberg</span>
-        <span class="runtime">Fuldt show</span>
-      </div>
+      <span class="video-tag">Fuldt show</span>
     </div>
   </div>
 
@@ -122,16 +207,14 @@ footer{margin-top:auto;padding-top:64px;width:100%;display:flex;justify-content:
     </a>
 
     <div class="stars" aria-label="Anmelderstjerner">
-      <span class="stars-group">
-        <span class="s">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-        </span>
-        <span class="src">Roser fra publikum &amp; presse</span>
-      </span>
+      <div class="stars-row">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+      </div>
+      <div class="stars-cap">Scenekanten · iScene · Magasinet KBH</div>
     </div>
   </section>
 
@@ -143,7 +226,7 @@ footer{margin-top:auto;padding-top:64px;width:100%;display:flex;justify-content:
 
 <script>
 /* ─────────────────────────────────────────────────────────────
-   EDIT ME — set the live ticket URL here.
+   EDIT ME
    ───────────────────────────────────────────────────────────── */
 const TICKET_URL = "TODO_TICKET_URL"; // ← paste the live billet URL here
 const YOUTUBE_ID = "hRVRtHOxXrM";
