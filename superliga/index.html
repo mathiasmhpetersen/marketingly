@@ -871,6 +871,18 @@ html,body{
           <span class="setting-label">Ny Sæson</span>
           <span class="setting-val" style="color:var(--red)">Nulstil alt</span>
         </div>
+        <div class="setting-item" id="fb-status-item">
+          <span class="setting-label">Firebase</span>
+          <span class="setting-val" id="fb-status-val">—</span>
+        </div>
+        <div class="setting-item admin-only" id="fb-disconnect-item" style="display:none" onclick="disconnectFirebase();renderSettings()">
+          <span class="setting-label" style="color:var(--red)">Frakobel Firebase</span>
+          <span class="setting-val"></span>
+        </div>
+        <div class="setting-item admin-only" id="fb-connect-item" style="display:none" onclick="document.getElementById('firebase-setup').style.display='flex'">
+          <span class="setting-label" style="color:var(--green)">Forbind Firebase</span>
+          <span class="setting-val">→</span>
+        </div>
         <div class="setting-item" onclick="doLogout()">
           <span class="setting-label" style="color:var(--red)">Log ud</span>
           <span class="setting-val"></span>
@@ -925,11 +937,67 @@ html,body{
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- FIREBASE SETUP SCREEN -->
+<div id="firebase-setup" style="display:none;position:fixed;inset:0;z-index:400;background:linear-gradient(160deg,var(--navy) 0%,#0D2445 50%,var(--navy-light) 100%);display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;overflow-y:auto">
+  <div style="max-width:360px;width:100%">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:4px">SUPER<span style="color:var(--yellow)">LIGA</span></div>
+    <p style="color:rgba(255,255,255,0.45);font-size:0.85rem;margin-bottom:28px">Firebase Setup — Følg de 3 trin</p>
+
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:left;margin-bottom:16px">
+      <div style="font-weight:700;color:var(--yellow);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Trin 1 — Opret Firebase Projekt</div>
+      <ol style="color:rgba(255,255,255,0.7);font-size:0.82rem;line-height:1.7;padding-left:18px">
+        <li>Gå til <strong style="color:#fff">console.firebase.google.com</strong></li>
+        <li>Klik <strong style="color:#fff">"Add project"</strong> → navngiv det "Superliga"</li>
+        <li>Slå Google Analytics fra (unødvendigt) → Create</li>
+      </ol>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:left;margin-bottom:16px">
+      <div style="font-weight:700;color:var(--yellow);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Trin 2 — Opret Database</div>
+      <ol style="color:rgba(255,255,255,0.7);font-size:0.82rem;line-height:1.7;padding-left:18px">
+        <li>I venstre menu: <strong style="color:#fff">Build → Realtime Database</strong></li>
+        <li>Klik <strong style="color:#fff">"Create Database"</strong></li>
+        <li>Vælg <strong style="color:#fff">"europe-west1"</strong> som region</li>
+        <li>Vælg <strong style="color:#fff">"Start in test mode"</strong> → Enable</li>
+      </ol>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:left;margin-bottom:20px">
+      <div style="font-weight:700;color:var(--yellow);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Trin 3 — Hent Config</div>
+      <ol style="color:rgba(255,255,255,0.7);font-size:0.82rem;line-height:1.7;padding-left:18px">
+        <li>Klik tandhjulet ⚙️ → <strong style="color:#fff">Project settings</strong></li>
+        <li>Scroll ned → klik <strong style="color:#fff">"&lt;/&gt;"</strong> (Web) ikonet</li>
+        <li>Navngiv appen "Superliga" → Register</li>
+        <li>Kopiér hele <strong style="color:#fff">firebaseConfig</strong> blokken nedenfor</li>
+      </ol>
+    </div>
+
+    <textarea id="fb-config-input" style="width:100%;height:140px;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-family:'SF Mono',monospace;font-size:0.78rem;resize:none;outline:none" placeholder='Indsæt din firebaseConfig her, f.eks:
+
+{
+  apiKey: "AIza...",
+  authDomain: "superliga-xxx.firebaseapp.com",
+  databaseURL: "https://superliga-xxx-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "superliga-xxx",
+  storageBucket: "superliga-xxx.appspot.com",
+  messagingSenderId: "123...",
+  appId: "1:123...:web:abc..."
+}'></textarea>
+
+    <button onclick="saveFirebaseConfig()" style="width:100%;padding:14px;border-radius:10px;border:none;background:var(--yellow);color:var(--navy);font-size:1rem;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;margin-top:12px;letter-spacing:-0.01em">Forbind Firebase</button>
+    <button onclick="skipFirebaseSetup()" style="width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.5);font-size:0.85rem;font-family:inherit;cursor:pointer;margin-top:8px">Brug offline-tilstand (kun denne enhed)</button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
 <script>
 // ═══════════════════════════════════════
-// DATA LAYER
+// DATA LAYER (Firebase + localStorage fallback)
 // ═══════════════════════════════════════
 const STORAGE_KEY = 'superliga_data';
+const FB_CONFIG_KEY = 'superliga_fb_config';
 
 const DEFAULT_PLAYERS = [
   {id:'p1',nickname:'Mathias',realName:'Mathias',admin:true,emoji:'🎾'},
@@ -968,7 +1036,12 @@ function defaultData(){
   };
 }
 
-function loadData(){
+let DATA = defaultData();
+let currentUser = null;
+let firebaseReady = false;
+let dbRef = null;
+
+function loadLocalData(){
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw) return JSON.parse(raw);
@@ -978,15 +1051,124 @@ function loadData(){
 
 function saveData(d){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+  if(firebaseReady && dbRef){
+    dbRef.set(d);
+  }
 }
-
-let DATA = loadData();
-let currentUser = null;
 
 function genId(){
   DATA.nextId = (DATA.nextId||100) + 1;
   saveData(DATA);
   return 'id_'+DATA.nextId;
+}
+
+// ═══════════════════════════════════════
+// FIREBASE
+// ═══════════════════════════════════════
+function parseFirebaseConfig(raw){
+  try {
+    let cleaned = raw.trim();
+    // Handle if they pasted the full const block
+    const match = cleaned.match(/\{[\s\S]*\}/);
+    if(match) cleaned = match[0];
+    // Convert JS object notation to valid JSON
+    cleaned = cleaned.replace(/(['"])?(\w+)(['"])?\s*:/g, '"$2":');
+    cleaned = cleaned.replace(/,\s*\}/g, '}');
+    cleaned = cleaned.replace(/'/g, '"');
+    return JSON.parse(cleaned);
+  } catch(e){
+    return null;
+  }
+}
+
+function initFirebase(config){
+  try {
+    if(!firebase.apps.length){
+      firebase.initializeApp(config);
+    }
+    const db = firebase.database();
+    dbRef = db.ref('superliga');
+
+    dbRef.on('value', snapshot => {
+      const val = snapshot.val();
+      if(val){
+        // Merge arrays properly (Firebase drops empty arrays)
+        DATA = {
+          players: val.players || DEFAULT_PLAYERS,
+          rules: val.rules || DEFAULT_RULES,
+          fines: val.fines || [],
+          payments: val.payments || [],
+          expenses: val.expenses || [],
+          matches: val.matches || [],
+          votes: val.votes || [],
+          nextId: val.nextId || 100
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+        if(currentUser){
+          // Re-find user in updated data
+          currentUser = DATA.players.find(p=>p.id===currentUser.id) || currentUser;
+          refreshCurrentScreen();
+        }
+        populateLogin();
+      }
+    });
+
+    firebaseReady = true;
+    console.log('Firebase connected');
+    return true;
+  } catch(e){
+    console.error('Firebase init failed:', e);
+    return false;
+  }
+}
+
+function saveFirebaseConfig(){
+  const raw = document.getElementById('fb-config-input').value;
+  if(!raw.trim()) return toast('Indsæt din Firebase config');
+  const config = parseFirebaseConfig(raw);
+  if(!config || !config.apiKey || !config.databaseURL){
+    return toast('Ugyldig config — tjek at du kopierede hele blokken inkl. databaseURL');
+  }
+  localStorage.setItem(FB_CONFIG_KEY, JSON.stringify(config));
+  const ok = initFirebase(config);
+  if(!ok) return toast('Kunne ikke forbinde — tjek config');
+
+  // Push default data if database is empty
+  dbRef.once('value', snap => {
+    if(!snap.val()){
+      const initial = loadLocalData();
+      if(initial.fines.length || initial.players.length > 0){
+        dbRef.set(initial);
+      } else {
+        dbRef.set(defaultData());
+      }
+    }
+    document.getElementById('firebase-setup').style.display='none';
+    document.getElementById('login-screen').style.display='flex';
+    toast('Firebase forbundet! Data deles nu mellem alle spillere');
+  });
+}
+
+function skipFirebaseSetup(){
+  localStorage.setItem(FB_CONFIG_KEY, 'skip');
+  document.getElementById('firebase-setup').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  DATA = loadLocalData();
+  populateLogin();
+}
+
+function refreshCurrentScreen(){
+  if(!currentUser) return;
+  applyPermissions();
+  renderTab(currentTab);
+}
+
+function disconnectFirebase(){
+  if(dbRef) dbRef.off();
+  firebaseReady = false;
+  dbRef = null;
+  localStorage.removeItem(FB_CONFIG_KEY);
+  toast('Firebase frakoblet — skifter til offline-tilstand');
 }
 
 // ═══════════════════════════════════════
@@ -1374,6 +1556,20 @@ function deleteRule(rid){
 // ═══════════════════════════════════════
 function renderSettings(){
   document.getElementById('player-count').textContent = DATA.players.length+' spillere';
+  const statusVal = document.getElementById('fb-status-val');
+  const disconnectItem = document.getElementById('fb-disconnect-item');
+  const connectItem = document.getElementById('fb-connect-item');
+  if(firebaseReady){
+    statusVal.textContent = 'Forbundet ✓';
+    statusVal.style.color = 'var(--green)';
+    disconnectItem.style.display = '';
+    connectItem.style.display = 'none';
+  } else {
+    statusVal.textContent = 'Offline';
+    statusVal.style.color = 'var(--text-3)';
+    disconnectItem.style.display = 'none';
+    connectItem.style.display = '';
+  }
   applyPermissions();
 }
 
@@ -1669,7 +1865,26 @@ if ('serviceWorker' in navigator) {
 // ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
-populateLogin();
+(function init(){
+  const fbConfig = localStorage.getItem(FB_CONFIG_KEY);
+  if(fbConfig && fbConfig !== 'skip'){
+    try {
+      const config = JSON.parse(fbConfig);
+      DATA = loadLocalData();
+      initFirebase(config);
+      populateLogin();
+    } catch(e){
+      localStorage.removeItem(FB_CONFIG_KEY);
+      document.getElementById('firebase-setup').style.display='flex';
+    }
+  } else if(fbConfig === 'skip'){
+    DATA = loadLocalData();
+    populateLogin();
+  } else {
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('firebase-setup').style.display='flex';
+  }
+})();
 </script>
 </body>
 </html>
