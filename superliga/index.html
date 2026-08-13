@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B1D3A">
+<meta name="apple-mobile-web-app-title" content="Superliga">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Superliga Bødekasse</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --navy:#0B1D3A;
+  --navy-light:#132B52;
+  --blue:#1565C0;
+  --blue-light:#1E88E5;
+  --yellow:#E8D44D;
+  --yellow-glow:#F5E87A;
+  --red:#C62828;
+  --red-light:#E53935;
+  --green:#2E7D32;
+  --green-light:#43A047;
+  --gold:#BFA045;
+  --gold-light:#D4B84A;
+  --bg:#F2F4F7;
+  --card:#FFFFFF;
+  --card-raised:#FFFFFF;
+  --text:#111827;
+  --text-2:#4B5563;
+  --text-3:#9CA3AF;
+  --border:#E5E7EB;
+  --border-light:#F3F4F6;
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg:0 4px 14px rgba(0,0,0,0.08);
+  --radius:14px;
+  --radius-sm:10px;
+  --tab-height:72px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+
+html,body{
+  height:100%;
+  overflow:hidden;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── APP SHELL ── */
+#app{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  max-width:430px;
+  margin:0 auto;
+  position:relative;
+  background:var(--bg);
+}
+
+/* ── HEADER ── */
+.header{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+  padding:calc(env(safe-area-inset-top,12px) + 12px) 20px 16px;
+  flex-shrink:0;
+  position:relative;
+}
+.header-title{
+  color:#fff;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.15rem;
+  font-weight:700;
+  text-align:center;
+  letter-spacing:-0.01em;
+}
+.header-back{
+  position:absolute;
+  left:12px;
+  bottom:14px;
+  background:none;
+  border:none;
+  color:rgba(255,255,255,0.7);
+  font-size:0.9rem;
+  font-weight:600;
+  cursor:pointer;
+  display:none;
+  align-items:center;
+  gap:4px;
+  padding:4px 8px;
+}
+.header-back svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5}
+
+/* ── SCREENS ── */
+.screen{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  display:none;
+  padding-bottom:calc(var(--tab-height) + var(--safe-bottom) + 16px);
+}
+.screen.active{display:block}
+.screen-pad{padding:0 16px}
+
+/* ── TAB BAR ── */
+.tab-bar{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:calc(var(--tab-height) + var(--safe-bottom));
+  background:var(--card);
+  border-top:1px solid var(--border);
+  display:flex;
+  padding-bottom:var(--safe-bottom);
+  flex-shrink:0;
+  z-index:100;
+}
+.tab{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  cursor:pointer;
+  border:none;
+  background:none;
+  color:var(--text-3);
+  font-size:0.62rem;
+  font-weight:600;
+  letter-spacing:0.02em;
+  transition:color 0.15s;
+  position:relative;
+  padding:6px 2px;
+}
+.tab.active{color:var(--blue)}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;transition:stroke 0.15s}
+.tab.active svg{stroke-width:2.2}
+.tab--add{color:var(--yellow)}
+.tab--add.active{color:var(--yellow)}
+.tab--add .tab-icon-wrap{
+  background:var(--navy);
+  width:44px;height:44px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:-18px;
+  box-shadow:0 2px 10px rgba(11,29,58,0.3);
+}
+.tab--add .tab-icon-wrap svg{stroke:var(--yellow);width:24px;height:24px;stroke-width:2.5}
+.tab.admin-only-tab{display:none}
+.tab.admin-only-tab.show{display:flex}
+
+/* ── LOGIN SCREEN ── */
+#login-screen{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  background:linear-gradient(160deg,var(--navy) 0%,#0D2445 50%,var(--navy-light) 100%);
+  padding:32px 24px;
+  text-align:center;
+}
+#login-screen .logo{
+  width:90px;height:90px;
+  background:var(--yellow);
+  border-radius:22px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+  box-shadow:0 8px 32px rgba(232,212,77,0.2);
+}
+#login-screen .logo span{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.8rem;
+  font-weight:700;
+  color:var(--navy);
+  letter-spacing:-0.03em;
+}
+#login-screen h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:2rem;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-0.02em;
+  margin-bottom:4px;
+}
+#login-screen h1 span{color:var(--yellow)}
+#login-screen .login-sub{color:rgba(255,255,255,0.45);font-size:0.9rem;margin-bottom:36px}
+#login-screen select{
+  width:100%;
+  max-width:300px;
+  padding:14px 16px;
+  border-radius:var(--radius-sm);
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:1rem;
+  font-family:inherit;
+  appearance:none;
+  cursor:pointer;
+  margin-bottom:16px;
+  outline:none;
+}
+#login-screen select option{background:var(--navy);color:#fff}
+#login-screen .btn-login{
+  width:100%;
+  max-width:300px;
+  padding:14px;
+  border-radius:var(--radius-sm);
+  border:none;
+  background:var(--yellow);
+  color:var(--navy);
+  font-size:1rem;
+  font-weight:700;
+  font-family:'Space Grotesk',sans-serif;
+  cursor:pointer;
+  letter-spacing:-0.01em;
+  transition:transform 0.1s,box-shadow 0.15s;
+}
+.btn-login:active{transform:scale(0.97)}
+
+/* ── CARDS ── */
+.crd{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  margin:12px 16px;
+  overflow:hidden;
+}
+.crd-pad{padding:18px 20px}
+
+/* ── OVERVIEW ── */
+.overview-hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+  margin:0;
+  border-radius:0 0 24px 24px;
+  padding:20px 20px 24px;
+  text-align:center;
+}
+.overview-team{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.6rem;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-0.02em;
+  text-transform:uppercase;
+}
+.overview-team span{color:var(--yellow)}
+.overview-welcome{
+  color:rgba(255,255,255,0.5);
+  font-size:0.85rem;
+  margin-top:4px;
+}
+.finance-row{
+  display:flex;
+  gap:12px;
+  margin:16px 16px 0;
+}
+.finance-card{
+  flex:1;
+  background:var(--card);
+  border-radius:var(--radius-sm);
+  padding:16px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.finance-label{
+  font-size:0.65rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  margin-bottom:6px;
+}
+.finance-value{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--blue);
+  letter-spacing:-0.02em;
+}
+.finance-value.red{color:var(--red)}
+.finance-value.green{color:var(--green)}
+
+.section-label{
+  font-size:0.7rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  padding:20px 20px 8px;
+}
+
+/* ── BUTTONS ── */
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  padding:14px;
+  border-radius:var(--radius-sm);
+  border:none;
+  font-size:0.95rem;
+  font-weight:700;
+  font-family:'Space Grotesk',sans-serif;
+  cursor:pointer;
+  transition:transform 0.1s;
+  letter-spacing:-0.01em;
+}
+.btn:active{transform:scale(0.97)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-yellow{background:var(--yellow);color:var(--navy)}
+.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text)}
+.btn-sm{padding:10px 16px;font-size:0.85rem;width:auto;border-radius:8px}
+.btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5}
+.admin-only{display:none}
+.admin-only.show{display:flex}
+
+/* ── FINE LIST ITEMS ── */
+.fine-item{
+  display:flex;
+  align-items:center;
+  padding:14px 20px;
+  gap:12px;
+  border-bottom:1px solid var(--border-light);
+}
+.fine-item:last-child{border-bottom:none}
+.fine-icon{
+  width:36px;height:36px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.85rem;
+  flex-shrink:0;
+}
+.fine-icon.plus{background:rgba(46,125,50,0.1);color:var(--green)}
+.fine-icon.minus{background:rgba(198,40,40,0.1);color:var(--red)}
+.fine-icon.check{background:rgba(21,101,192,0.1);color:var(--blue)}
+.fine-info{flex:1;min-width:0}
+.fine-name{font-size:0.88rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fine-meta{font-size:0.75rem;color:var(--text-3);margin-top:1px}
+.fine-amount{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;white-space:nowrap;margin-left:8px}
+.fine-amount.pos{color:var(--green)}
+.fine-amount.neg{color:var(--red)}
+.fine-amount.blue{color:var(--blue)}
+
+/* ── WALL OF SHAME ── */
+.shame-header{
+  background:linear-gradient(135deg,var(--red) 0%,#B71C1C 100%);
+  margin:0;border-radius:0 0 24px 24px;
+  padding:24px 20px;
+  text-align:center;
+}
+.shame-header h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.3rem;
+  font-weight:700;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+}
+.shame-header p{color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:4px}
+.rank-item{
+  display:flex;
+  align-items:center;
+  padding:14px 20px;
+  gap:12px;
+  border-bottom:1px solid var(--border-light);
+}
+.rank-item:last-child{border-bottom:none}
+.rank-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  width:30px;
+  text-align:center;
+  flex-shrink:0;
+}
+.rank-num.r1{color:var(--red)}
+.rank-num.r2{color:var(--gold)}
+.rank-num.r3{color:#CD7F32}
+.rank-num.rn{color:var(--text-3)}
+.rank-avatar{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+  flex-shrink:0;
+  overflow:hidden;
+  color:var(--text-3);
+  font-weight:700;
+}
+.rank-info{flex:1;min-width:0}
+.rank-name{font-size:0.9rem;font-weight:700;color:var(--text)}
+.rank-sub{font-size:0.75rem;color:var(--text-3);margin-top:1px}
+.rank-total{
+  text-align:right;
+  flex-shrink:0;
+}
+.rank-total .val{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--red);
+}
+.rank-total .lbl{font-size:0.6rem;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+
+.season-bar{
+  background:var(--red);
+  margin:16px 16px 0;
+  border-radius:var(--radius-sm);
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.season-bar .lbl{
+  font-size:0.7rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.7);
+}
+.season-bar .val{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.3rem;
+  font-weight:700;
+  color:#fff;
+}
+
+/* ── WALL OF FAME ── */
+.fame-header{
+  background:linear-gradient(135deg,var(--gold) 0%,#8B6914 100%);
+  margin:0;border-radius:0 0 24px 24px;
+  padding:28px 20px;
+  text-align:center;
+}
+.fame-header .trophy{font-size:2rem;margin-bottom:4px}
+.fame-header h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.2rem;
+  font-weight:700;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+.fame-header p{color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:4px}
+.star-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:rgba(191,160,69,0.12);
+  color:var(--gold);
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:0.85rem;
+  padding:4px 10px;
+  border-radius:20px;
+}
+.match-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border-light);
+  cursor:pointer;
+}
+.match-item:last-child{border-bottom:none}
+.match-name{font-size:0.9rem;font-weight:600;color:var(--text)}
+.match-date{font-size:0.75rem;color:var(--text-3);margin-top:2px}
+.match-arrow{color:var(--text-3);font-size:1.2rem}
+
+/* ── FINE CATALOG ── */
+.catalog-item{
+  display:flex;
+  align-items:center;
+  padding:14px 20px;
+  gap:12px;
+  border-bottom:1px solid var(--border-light);
+}
+.catalog-item:last-child{border-bottom:none}
+.catalog-info{flex:1}
+.catalog-name{font-size:0.9rem;font-weight:600;color:var(--text)}
+.catalog-amount{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem;
+  font-weight:700;
+  color:var(--red);
+  flex-shrink:0;
+}
+.catalog-del{
+  width:32px;height:32px;
+  border-radius:8px;
+  border:none;
+  background:rgba(198,40,40,0.08);
+  color:var(--red);
+  cursor:pointer;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.catalog-del.show{display:flex}
+.catalog-del svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ── ADD FINE SCREEN ── */
+.form-group{margin-bottom:18px}
+.form-label{
+  font-size:0.75rem;
+  font-weight:700;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  margin-bottom:6px;
+  display:block;
+}
+.form-select,.form-input{
+  width:100%;
+  padding:13px 14px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  font-size:0.95rem;
+  font-family:inherit;
+  outline:none;
+  appearance:none;
+  transition:border-color 0.15s;
+}
+.form-select:focus,.form-input:focus{border-color:var(--blue)}
+.form-input::placeholder{color:var(--text-3)}
+
+/* ── SETTINGS ── */
+.setting-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border-light);
+  cursor:pointer;
+}
+.setting-item:last-child{border-bottom:none}
+.setting-label{font-size:0.9rem;font-weight:600;color:var(--text)}
+.setting-val{font-size:0.85rem;color:var(--text-3)}
+
+/* ── MODAL / OVERLAY ── */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:200;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+.modal-overlay.active{display:flex}
+.modal{
+  background:var(--card);
+  border-radius:20px 20px 0 0;
+  width:100%;
+  max-width:430px;
+  max-height:85vh;
+  overflow-y:auto;
+  padding:24px 20px calc(20px + var(--safe-bottom));
+  animation:slideUp 0.25s ease-out;
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{
+  width:36px;height:4px;
+  background:var(--border);
+  border-radius:2px;
+  margin:0 auto 18px;
+}
+.modal h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.1rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;
+  top:calc(env(safe-area-inset-top,12px) + 12px);
+  left:50%;
+  transform:translateX(-50%) translateY(-100px);
+  background:var(--navy);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:var(--radius-sm);
+  font-size:0.88rem;
+  font-weight:600;
+  z-index:300;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+  transition:transform 0.3s ease;
+  white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:40px 20px;color:var(--text-3)}
+.empty-icon{font-size:2rem;margin-bottom:8px}
+.empty-text{font-size:0.9rem}
+
+/* ── ECONOMY SUB-SCREEN ── */
+.eco-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:1px;
+  background:var(--border-light);
+  margin-top:12px;
+  border-radius:0 0 var(--radius) var(--radius);
+  overflow:hidden;
+}
+.eco-stat{
+  background:var(--card);
+  padding:14px 8px;
+  text-align:center;
+}
+.eco-stat .lbl{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3)}
+.eco-stat .val{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;margin-top:4px}
+.eco-stat .val.green{color:var(--green)}
+.eco-stat .val.red{color:var(--red)}
+.eco-stat .val.orange{color:#E65100}
+
+/* ── SCROLLBAR ── */
+.screen::-webkit-scrollbar{width:0;background:transparent}
+
+/* ── PLAYER SELECTOR CHIPS ── */
+.player-chips{display:flex;flex-wrap:wrap;gap:8px}
+.player-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;
+  border-radius:20px;
+  border:1.5px solid var(--border);
+  background:var(--card);
+  cursor:pointer;
+  font-size:0.85rem;
+  font-weight:600;
+  color:var(--text);
+  transition:all 0.15s;
+}
+.player-chip.selected{border-color:var(--blue);background:rgba(21,101,192,0.06);color:var(--blue)}
+.player-chip .chip-avatar{width:24px;height:24px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--text-3)}
+
+/* ── FINE RULE CHIPS ── */
+.rule-chip{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);
+  background:var(--card);
+  cursor:pointer;
+  margin-bottom:8px;
+  transition:all 0.15s;
+}
+.rule-chip.selected{border-color:var(--blue);background:rgba(21,101,192,0.06)}
+.rule-chip .rname{font-size:0.88rem;font-weight:600;color:var(--text)}
+.rule-chip .ramount{font-family:'Space Grotesk',sans-serif;font-size:0.88rem;font-weight:700;color:var(--red)}
+.rule-chip.selected .rname{color:var(--blue)}
+
+/* ── TAB BADGE ── */
+.tab-badge{
+  position:absolute;
+  top:6px;right:calc(50% - 18px);
+  min-width:16px;height:16px;
+  background:var(--red);
+  color:#fff;
+  font-size:0.6rem;
+  font-weight:700;
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 4px;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="logo"><span>SL</span></div>
+    <h1>SUPER<span>LIGA</span></h1>
+    <p class="login-sub">Bødekasse</p>
+    <select id="login-select"></select>
+    <button class="btn-login" onclick="doLogin()">Log ind</button>
+  </div>
+
+  <!-- MAIN APP (hidden until login) -->
+  <div id="main-app" style="display:none;height:100%;flex-direction:column">
+    <div class="header">
+      <button class="header-back" id="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Tilbage
+      </button>
+      <div class="header-title" id="header-title">Oversigt</div>
+    </div>
+
+    <!-- SCREEN: OVERSIGT -->
+    <div class="screen active" id="screen-oversigt">
+      <div class="overview-hero">
+        <div class="overview-team">SUPER<span>LIGA</span></div>
+        <div class="overview-welcome" id="welcome-msg"></div>
+      </div>
+      <div class="finance-row">
+        <div class="finance-card">
+          <div class="finance-label">Kassebeholdning</div>
+          <div class="finance-value" id="ov-balance">0 kr</div>
+        </div>
+        <div class="finance-card">
+          <div class="finance-label">Udestående</div>
+          <div class="finance-value red" id="ov-outstanding">0 kr</div>
+        </div>
+      </div>
+      <div style="padding:16px 16px 0">
+        <button class="btn btn-outline" onclick="showEconomy()" style="font-size:0.85rem">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--text-2)"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Hold Økonomi
+        </button>
+      </div>
+      <div style="padding:12px 16px 0">
+        <button class="btn btn-green admin-only" id="btn-add-fine-ov" onclick="switchTab('tilfoej')">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tilføj Ny Bøde
+        </button>
+      </div>
+      <div class="section-label">Seneste Udestående Bøder</div>
+      <div class="crd" style="margin-top:0">
+        <div id="recent-fines-list"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN: ECONOMY (sub) -->
+    <div class="screen" id="screen-economy">
+      <div class="crd" style="margin-top:16px">
+        <div class="crd-pad">
+          <div class="finance-label">Nuværende Kassebeholdning</div>
+          <div class="finance-value" id="eco-balance" style="font-size:2rem">0 kr</div>
+        </div>
+        <div class="eco-stats">
+          <div class="eco-stat">
+            <div class="lbl">Indsamlet</div>
+            <div class="val green" id="eco-collected">+0</div>
+          </div>
+          <div class="eco-stat">
+            <div class="lbl">Udgifter</div>
+            <div class="val red" id="eco-expenses">-0</div>
+          </div>
+          <div class="eco-stat">
+            <div class="lbl">Udestående</div>
+            <div class="val orange" id="eco-outstanding">0</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:12px 16px 0">
+        <button class="btn btn-red admin-only" id="btn-expense" onclick="showExpenseModal()">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Registrer Udgift
+        </button>
+      </div>
+      <div style="padding:12px 16px 0">
+        <button class="btn btn-primary admin-only" id="btn-payment" onclick="showPaymentModal()">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Registrer Betaling
+        </button>
+      </div>
+      <div class="section-label">Transaktionshistorik</div>
+      <div class="crd" style="margin-top:0">
+        <div id="transaction-list"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN: WALL OF SHAME -->
+    <div class="screen" id="screen-shame">
+      <div class="shame-header">
+        <h2>Wall of Shame</h2>
+        <p>Hvem skylder mest?</p>
+      </div>
+      <div class="crd" style="margin-top:16px">
+        <div id="shame-list"></div>
+      </div>
+      <div class="season-bar" id="season-bar">
+        <span class="lbl">Sæson Omsætning</span>
+        <span class="val" id="season-total">0 kr</span>
+      </div>
+    </div>
+
+    <!-- SCREEN: WALL OF FAME -->
+    <div class="screen" id="screen-fame">
+      <div class="fame-header">
+        <div class="trophy">🏆</div>
+        <h2>Sæsonens MVP</h2>
+        <p id="mvp-name">Ingen stemmer endnu</p>
+      </div>
+      <div style="padding:12px 16px 0">
+        <button class="btn btn-yellow admin-only" id="btn-new-vote" onclick="showVoteModal()">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Ny Kamp Afstemning
+        </button>
+      </div>
+      <div class="section-label">Top Spillere</div>
+      <div class="crd" style="margin-top:0">
+        <div id="fame-list"></div>
+      </div>
+      <div class="section-label">Kamphistorik</div>
+      <div class="crd" style="margin-top:0">
+        <div id="match-list"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN: TILFØJ BØDE -->
+    <div class="screen" id="screen-tilfoej">
+      <div class="crd" style="margin-top:16px">
+        <div class="crd-pad">
+          <div class="form-group">
+            <label class="form-label">Vælg Spiller</label>
+            <div class="player-chips" id="player-chips"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vælg Bøde</label>
+            <div id="rule-chips"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dato</label>
+            <input type="date" class="form-input" id="fine-date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Note (valgfrit)</label>
+            <input type="text" class="form-input" id="fine-note" placeholder="F.eks. 'Glemte ketsjeren til kamp'">
+          </div>
+          <button class="btn btn-green" onclick="issueFine()">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Giv Bøde
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN: BØDEKATALOG -->
+    <div class="screen" id="screen-katalog">
+      <div style="padding:16px 16px 0">
+        <button class="btn btn-primary admin-only" id="btn-add-rule" onclick="showRuleModal()">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tilføj Regel
+        </button>
+      </div>
+      <div class="crd" style="margin-top:12px">
+        <div id="catalog-list"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN: SETTINGS -->
+    <div class="screen" id="screen-settings">
+      <div class="crd" style="margin-top:16px">
+        <div class="setting-item" onclick="showPlayersModal()">
+          <span class="setting-label">Spillere</span>
+          <span class="setting-val" id="player-count">0 spillere</span>
+        </div>
+        <div class="setting-item admin-only" onclick="showAddPlayerModal()">
+          <span class="setting-label">Tilføj Spiller</span>
+          <span class="setting-val">+</span>
+        </div>
+        <div class="setting-item admin-only" onclick="newSeason()">
+          <span class="setting-label">Ny Sæson</span>
+          <span class="setting-val" style="color:var(--red)">Nulstil alt</span>
+        </div>
+        <div class="setting-item" id="fb-status-item">
+          <span class="setting-label">Firebase</span>
+          <span class="setting-val" id="fb-status-val">—</span>
+        </div>
+        <div class="setting-item admin-only" id="fb-disconnect-item" style="display:none" onclick="disconnectFirebase();renderSettings()">
+          <span class="setting-label" style="color:var(--red)">Frakobel Firebase</span>
+          <span class="setting-val"></span>
+        </div>
+        <div class="setting-item admin-only" id="fb-connect-item" style="display:none" onclick="document.getElementById('firebase-setup').style.display='flex'">
+          <span class="setting-label" style="color:var(--green)">Forbind Firebase</span>
+          <span class="setting-val">→</span>
+        </div>
+        <div class="setting-item" onclick="doLogout()">
+          <span class="setting-label" style="color:var(--red)">Log ud</span>
+          <span class="setting-val"></span>
+        </div>
+      </div>
+      <div style="text-align:center;padding:32px 20px;color:var(--text-3);font-size:0.75rem">
+        <strong style="font-family:'Space Grotesk',sans-serif;color:var(--text-2)">SUPERLIGA</strong> Bødekasse<br>
+        Padel Tennis · Sæson 2026
+      </div>
+    </div>
+
+    <!-- TAB BAR -->
+    <nav class="tab-bar">
+      <button class="tab active" data-tab="oversigt" onclick="switchTab('oversigt')">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Oversigt</span>
+      </button>
+      <button class="tab" data-tab="shame" onclick="switchTab('shame')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+        <span>Shame</span>
+      </button>
+      <button class="tab tab--add admin-only-tab" data-tab="tilfoej" onclick="switchTab('tilfoej')">
+        <div class="tab-icon-wrap">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <span>Bøde</span>
+      </button>
+      <button class="tab" data-tab="fame" onclick="switchTab('fame')">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>Fame</span>
+      </button>
+      <button class="tab" data-tab="katalog" onclick="switchTab('katalog')">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Katalog</span>
+      </button>
+      <button class="tab" data-tab="settings" onclick="switchTab('settings')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span>Indstillinger</span>
+      </button>
+    </nav>
+  </div>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE SETUP SCREEN -->
+<div id="firebase-setup" style="display:none;position:fixed;inset:0;z-index:400;background:linear-gradient(160deg,var(--navy) 0%,#0D2445 50%,var(--navy-light) 100%);display:none;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;overflow-y:auto">
+  <div style="max-width:360px;width:100%">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:4px">SUPER<span style="color:var(--yellow)">LIGA</span></div>
+    <p style="color:rgba(255,255,255,0.45);font-size:0.85rem;margin-bottom:28px">Firebase Setup — Følg de 3 trin</p>
+
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:left;margin-bottom:16px">
+      <div style="font-weight:700;color:var(--yellow);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Trin 1 — Opret Firebase Projekt</div>
+      <ol style="color:rgba(255,255,255,0.7);font-size:0.82rem;line-height:1.7;padding-left:18px">
+        <li>Gå til <strong style="color:#fff">console.firebase.google.com</strong></li>
+        <li>Klik <strong style="color:#fff">"Add project"</strong> → navngiv det "Superliga"</li>
+        <li>Slå Google Analytics fra (unødvendigt) → Create</li>
+      </ol>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:left;margin-bottom:16px">
+      <div style="font-weight:700;color:var(--yellow);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Trin 2 — Opret Database</div>
+      <ol style="color:rgba(255,255,255,0.7);font-size:0.82rem;line-height:1.7;padding-left:18px">
+        <li>I venstre menu: <strong style="color:#fff">Build → Realtime Database</strong></li>
+        <li>Klik <strong style="color:#fff">"Create Database"</strong></li>
+        <li>Vælg <strong style="color:#fff">"europe-west1"</strong> som region</li>
+        <li>Vælg <strong style="color:#fff">"Start in test mode"</strong> → Enable</li>
+      </ol>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;text-align:left;margin-bottom:20px">
+      <div style="font-weight:700;color:var(--yellow);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Trin 3 — Hent Config</div>
+      <ol style="color:rgba(255,255,255,0.7);font-size:0.82rem;line-height:1.7;padding-left:18px">
+        <li>Klik tandhjulet ⚙️ → <strong style="color:#fff">Project settings</strong></li>
+        <li>Scroll ned → klik <strong style="color:#fff">"&lt;/&gt;"</strong> (Web) ikonet</li>
+        <li>Navngiv appen "Superliga" → Register</li>
+        <li>Kopiér hele <strong style="color:#fff">firebaseConfig</strong> blokken nedenfor</li>
+      </ol>
+    </div>
+
+    <textarea id="fb-config-input" style="width:100%;height:140px;padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-family:'SF Mono',monospace;font-size:0.78rem;resize:none;outline:none" placeholder='Indsæt din firebaseConfig her, f.eks:
+
+{
+  apiKey: "AIza...",
+  authDomain: "superliga-xxx.firebaseapp.com",
+  databaseURL: "https://superliga-xxx-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "superliga-xxx",
+  storageBucket: "superliga-xxx.appspot.com",
+  messagingSenderId: "123...",
+  appId: "1:123...:web:abc..."
+}'></textarea>
+
+    <button onclick="saveFirebaseConfig()" style="width:100%;padding:14px;border-radius:10px;border:none;background:var(--yellow);color:var(--navy);font-size:1rem;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;margin-top:12px;letter-spacing:-0.01em">Forbind Firebase</button>
+    <button onclick="skipFirebaseSetup()" style="width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.5);font-size:0.85rem;font-family:inherit;cursor:pointer;margin-top:8px">Brug offline-tilstand (kun denne enhed)</button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
+<script>
+// ═══════════════════════════════════════
+// DATA LAYER (Firebase + localStorage fallback)
+// ═══════════════════════════════════════
+const STORAGE_KEY = 'superliga_data';
+const FB_CONFIG_KEY = 'superliga_fb_config';
+
+const DEFAULT_PLAYERS = [
+  {id:'p1',nickname:'Mathias',realName:'Mathias',admin:true,emoji:'🎾'},
+  {id:'p2',nickname:'Admin 2',realName:'Admin 2',admin:true,emoji:'🏆'},
+  {id:'p3',nickname:'Spiller 3',realName:'Spiller 3',admin:false,emoji:'💪'},
+  {id:'p4',nickname:'Spiller 4',realName:'Spiller 4',admin:false,emoji:'⚡'},
+  {id:'p5',nickname:'Spiller 5',realName:'Spiller 5',admin:false,emoji:'🔥'},
+  {id:'p6',nickname:'Spiller 6',realName:'Spiller 6',admin:false,emoji:'🎯'},
+];
+
+const DEFAULT_RULES = [
+  {id:'r1',name:'Komme for sent til kamp/træning',amount:25},
+  {id:'r2',name:'Glemme ketsjer',amount:50},
+  {id:'r3',name:'Glemme bolde / greb / udstyr',amount:25},
+  {id:'r4',name:'Smadre ketsjer i raseri',amount:100},
+  {id:'r5',name:'Misse en nem smash',amount:20},
+  {id:'r6',name:'Dobbeltfejl på matchpoint',amount:50},
+  {id:'r7',name:'Ramme makker med bolden',amount:25},
+  {id:'r8',name:'Telefon ringer under kamp',amount:30},
+  {id:'r9',name:'Brokke sig over dommeren',amount:25},
+  {id:'r10',name:'Forkert påklædning',amount:20},
+  {id:'r11',name:'Glemme vandflasken',amount:15},
+  {id:'r12',name:'Sige "UD!" når bolden er inde',amount:25},
+];
+
+function defaultData(){
+  return {
+    players: DEFAULT_PLAYERS,
+    rules: DEFAULT_RULES,
+    fines: [],
+    payments: [],
+    expenses: [],
+    matches: [],
+    votes: [],
+    nextId: 100
+  };
+}
+
+let DATA = defaultData();
+let currentUser = null;
+let firebaseReady = false;
+let dbRef = null;
+
+function loadLocalData(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  } catch(e){}
+  return defaultData();
+}
+
+function saveData(d){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+  if(firebaseReady && dbRef){
+    dbRef.set(d);
+  }
+}
+
+function genId(){
+  DATA.nextId = (DATA.nextId||100) + 1;
+  saveData(DATA);
+  return 'id_'+DATA.nextId;
+}
+
+// ═══════════════════════════════════════
+// FIREBASE
+// ═══════════════════════════════════════
+function parseFirebaseConfig(raw){
+  try {
+    let cleaned = raw.trim();
+    // Handle if they pasted the full const block
+    const match = cleaned.match(/\{[\s\S]*\}/);
+    if(match) cleaned = match[0];
+    // Convert JS object notation to valid JSON
+    cleaned = cleaned.replace(/(['"])?(\w+)(['"])?\s*:/g, '"$2":');
+    cleaned = cleaned.replace(/,\s*\}/g, '}');
+    cleaned = cleaned.replace(/'/g, '"');
+    return JSON.parse(cleaned);
+  } catch(e){
+    return null;
+  }
+}
+
+function initFirebase(config){
+  try {
+    if(!firebase.apps.length){
+      firebase.initializeApp(config);
+    }
+    const db = firebase.database();
+    dbRef = db.ref('superliga');
+
+    dbRef.on('value', snapshot => {
+      const val = snapshot.val();
+      if(val){
+        // Merge arrays properly (Firebase drops empty arrays)
+        DATA = {
+          players: val.players || DEFAULT_PLAYERS,
+          rules: val.rules || DEFAULT_RULES,
+          fines: val.fines || [],
+          payments: val.payments || [],
+          expenses: val.expenses || [],
+          matches: val.matches || [],
+          votes: val.votes || [],
+          nextId: val.nextId || 100
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+        if(currentUser){
+          // Re-find user in updated data
+          currentUser = DATA.players.find(p=>p.id===currentUser.id) || currentUser;
+          refreshCurrentScreen();
+        }
+        populateLogin();
+      }
+    });
+
+    firebaseReady = true;
+    console.log('Firebase connected');
+    return true;
+  } catch(e){
+    console.error('Firebase init failed:', e);
+    return false;
+  }
+}
+
+function saveFirebaseConfig(){
+  const raw = document.getElementById('fb-config-input').value;
+  if(!raw.trim()) return toast('Indsæt din Firebase config');
+  const config = parseFirebaseConfig(raw);
+  if(!config || !config.apiKey || !config.databaseURL){
+    return toast('Ugyldig config — tjek at du kopierede hele blokken inkl. databaseURL');
+  }
+  localStorage.setItem(FB_CONFIG_KEY, JSON.stringify(config));
+  const ok = initFirebase(config);
+  if(!ok) return toast('Kunne ikke forbinde — tjek config');
+
+  // Push default data if database is empty
+  dbRef.once('value', snap => {
+    if(!snap.val()){
+      const initial = loadLocalData();
+      if(initial.fines.length || initial.players.length > 0){
+        dbRef.set(initial);
+      } else {
+        dbRef.set(defaultData());
+      }
+    }
+    document.getElementById('firebase-setup').style.display='none';
+    document.getElementById('login-screen').style.display='flex';
+    toast('Firebase forbundet! Data deles nu mellem alle spillere');
+  });
+}
+
+function skipFirebaseSetup(){
+  localStorage.setItem(FB_CONFIG_KEY, 'skip');
+  document.getElementById('firebase-setup').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  DATA = loadLocalData();
+  populateLogin();
+}
+
+function refreshCurrentScreen(){
+  if(!currentUser) return;
+  applyPermissions();
+  renderTab(currentTab);
+}
+
+function disconnectFirebase(){
+  if(dbRef) dbRef.off();
+  firebaseReady = false;
+  dbRef = null;
+  localStorage.removeItem(FB_CONFIG_KEY);
+  toast('Firebase frakoblet — skifter til offline-tilstand');
+}
+
+// ═══════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════
+function populateLogin(){
+  const sel = document.getElementById('login-select');
+  sel.innerHTML = '<option value="">Vælg din profil...</option>';
+  DATA.players.forEach(p => {
+    sel.innerHTML += `<option value="${p.id}">${p.emoji} ${p.nickname} (${p.realName})${p.admin?' — Admin':''}</option>`;
+  });
+}
+
+function doLogin(){
+  const sel = document.getElementById('login-select');
+  if(!sel.value) return toast('Vælg en spiller');
+  currentUser = DATA.players.find(p=>p.id===sel.value);
+  document.getElementById('login-screen').style.display='none';
+  const main = document.getElementById('main-app');
+  main.style.display='flex';
+  applyPermissions();
+  switchTab('oversigt');
+}
+
+function doLogout(){
+  currentUser = null;
+  document.getElementById('main-app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  populateLogin();
+}
+
+function applyPermissions(){
+  const isAdmin = currentUser && currentUser.admin;
+  document.querySelectorAll('.admin-only').forEach(el => {
+    el.classList.toggle('show', isAdmin);
+  });
+  document.querySelectorAll('.admin-only-tab').forEach(el => {
+    el.classList.toggle('show', isAdmin);
+  });
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+const TAB_TITLES = {
+  oversigt:'Oversigt',
+  shame:'Wall of Shame',
+  fame:'Wall of Fame',
+  tilfoej:'Tilføj Bøde',
+  katalog:'Bødekatalog',
+  settings:'Indstillinger',
+  economy:'Hold Økonomi'
+};
+
+let currentTab = 'oversigt';
+let navStack = [];
+
+function switchTab(tab){
+  navStack = [];
+  currentTab = tab;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+tab).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  document.getElementById('header-title').textContent = TAB_TITLES[tab]||'';
+  document.getElementById('back-btn').style.display='none';
+  renderTab(tab);
+  document.querySelector('.screen.active').scrollTop = 0;
+}
+
+function showEconomy(){
+  navStack.push(currentTab);
+  currentTab = 'economy';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-economy').classList.add('active');
+  document.getElementById('header-title').textContent = 'Hold Økonomi';
+  document.getElementById('back-btn').style.display='flex';
+  renderEconomy();
+}
+
+function goBack(){
+  const prev = navStack.pop();
+  if(prev) switchTab(prev);
+}
+
+function renderTab(tab){
+  switch(tab){
+    case 'oversigt': renderOverview(); break;
+    case 'shame': renderShame(); break;
+    case 'fame': renderFame(); break;
+    case 'tilfoej': renderAddFine(); break;
+    case 'katalog': renderCatalog(); break;
+    case 'settings': renderSettings(); break;
+  }
+}
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+function getPlayer(id){ return DATA.players.find(p=>p.id===id) }
+function fmtDate(d){ const dt=new Date(d); return dt.toLocaleDateString('da-DK',{day:'numeric',month:'numeric',year:'numeric'}) }
+function today(){ return new Date().toISOString().split('T')[0] }
+
+function getPlayerFineTotal(pid){
+  return DATA.fines.filter(f=>f.playerId===pid).reduce((s,f)=>s+f.amount,0);
+}
+function getPlayerPayments(pid){
+  return DATA.payments.filter(p=>p.playerId===pid).reduce((s,p)=>s+p.amount,0);
+}
+function getPlayerOutstanding(pid){
+  return getPlayerFineTotal(pid) - getPlayerPayments(pid);
+}
+function getTotalCollected(){
+  return DATA.payments.reduce((s,p)=>s+p.amount,0);
+}
+function getTotalExpenses(){
+  return DATA.expenses.reduce((s,e)=>s+e.amount,0);
+}
+function getTotalOutstanding(){
+  return DATA.players.reduce((s,p)=>s+Math.max(0,getPlayerOutstanding(p.id)),0);
+}
+function getBalance(){
+  return getTotalCollected() - getTotalExpenses();
+}
+function getSeasonTotal(){
+  return DATA.fines.reduce((s,f)=>s+f.amount,0);
+}
+function getPlayerVotes(pid){
+  return DATA.votes.filter(v=>v.votedFor===pid).length;
+}
+
+// ═══════════════════════════════════════
+// RENDER: OVERVIEW
+// ═══════════════════════════════════════
+function renderOverview(){
+  document.getElementById('welcome-msg').textContent = `Velkommen, ${currentUser.nickname}!`;
+  document.getElementById('ov-balance').textContent = getBalance()+' kr';
+  document.getElementById('ov-outstanding').textContent = getTotalOutstanding()+' kr';
+
+  const list = document.getElementById('recent-fines-list');
+  const unpaid = DATA.fines
+    .filter(f=> getPlayerOutstanding(f.playerId) > 0)
+    .sort((a,b)=>new Date(b.date)-new Date(a.date))
+    .slice(0,8);
+
+  if(!unpaid.length){
+    list.innerHTML = '<div class="empty"><div class="empty-icon">✅</div><div class="empty-text">Ingen udestående bøder</div></div>';
+    return;
+  }
+
+  list.innerHTML = unpaid.map(f=>{
+    const p = getPlayer(f.playerId);
+    const rule = DATA.rules.find(r=>r.id===f.ruleId);
+    return `<div class="fine-item">
+      <div class="fine-icon plus">${p?p.emoji:'?'}</div>
+      <div class="fine-info">
+        <div class="fine-name">${rule?rule.name:f.ruleName||'Bøde'}</div>
+        <div class="fine-meta">${p?p.nickname:'?'} · ${fmtDate(f.date)}</div>
+      </div>
+      <div class="fine-amount neg">+${f.amount} kr</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// RENDER: ECONOMY
+// ═══════════════════════════════════════
+function renderEconomy(){
+  document.getElementById('eco-balance').textContent = getBalance()+' kr';
+  document.getElementById('eco-collected').textContent = '+'+getTotalCollected();
+  document.getElementById('eco-expenses').textContent = '-'+getTotalExpenses();
+  document.getElementById('eco-outstanding').textContent = getTotalOutstanding();
+  applyPermissions();
+
+  const txns = [];
+  DATA.fines.forEach(f=>{
+    const p=getPlayer(f.playerId);
+    const rule=DATA.rules.find(r=>r.id===f.ruleId);
+    txns.push({type:'fine',name:rule?rule.name:f.ruleName||'Bøde',who:p?p.nickname:'?',date:f.date,amount:f.amount,emoji:p?p.emoji:'?'});
+  });
+  DATA.payments.forEach(p2=>{
+    const p=getPlayer(p2.playerId);
+    txns.push({type:'payment',name:'Betaling',who:p?p.nickname:'?',date:p2.date,amount:p2.amount,emoji:'✓'});
+  });
+  DATA.expenses.forEach(e=>{
+    txns.push({type:'expense',name:e.description,who:'Hold',date:e.date,amount:e.amount,emoji:'−'});
+  });
+  txns.sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+  const list = document.getElementById('transaction-list');
+  if(!txns.length){
+    list.innerHTML = '<div class="empty"><div class="empty-icon">📊</div><div class="empty-text">Ingen transaktioner endnu</div></div>';
+    return;
+  }
+  list.innerHTML = txns.map(t=>{
+    const cls = t.type==='fine'?'plus':t.type==='payment'?'check':'minus';
+    const amtCls = t.type==='fine'?'pos':t.type==='payment'?'blue':'neg';
+    const sign = t.type==='fine'?'+':t.type==='payment'?'✓ ':'-';
+    return `<div class="fine-item">
+      <div class="fine-icon ${cls}">${t.emoji}</div>
+      <div class="fine-info">
+        <div class="fine-name">${t.name}</div>
+        <div class="fine-meta">${fmtDate(t.date)} · ${t.who}</div>
+      </div>
+      <div class="fine-amount ${amtCls}">${sign}${t.amount} kr</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// RENDER: WALL OF SHAME
+// ═══════════════════════════════════════
+function renderShame(){
+  const rankings = DATA.players.map(p=>({
+    ...p,
+    total: getPlayerFineTotal(p.id),
+    outstanding: Math.max(0,getPlayerOutstanding(p.id))
+  })).filter(p=>p.total>0).sort((a,b)=>b.total-a.total);
+
+  const list = document.getElementById('shame-list');
+  if(!rankings.length){
+    list.innerHTML = '<div class="empty"><div class="empty-icon">😇</div><div class="empty-text">Ingen bøder endnu — spil pænere!</div></div>';
+  } else {
+    list.innerHTML = rankings.map((p,i)=>{
+      const rc = i===0?'r1':i===1?'r2':i===2?'r3':'rn';
+      return `<div class="rank-item">
+        <span class="rank-num ${rc}">#${i+1}</span>
+        <div class="rank-avatar">${p.emoji}</div>
+        <div class="rank-info">
+          <div class="rank-name">${p.nickname} (${p.realName})${i===0?' 🟥':i===1?' 🟨':''}</div>
+          <div class="rank-sub">${p.outstanding>0?'Skylder stadig '+p.outstanding+' kr':'Betalt op ✓'}</div>
+        </div>
+        <div class="rank-total">
+          <div class="val">${p.total} kr</div>
+          <div class="lbl">Sæson total</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('season-total').textContent = getSeasonTotal()+' kr';
+}
+
+// ═══════════════════════════════════════
+// RENDER: WALL OF FAME
+// ═══════════════════════════════════════
+function renderFame(){
+  const voteRanks = DATA.players.map(p=>({
+    ...p,
+    stars: getPlayerVotes(p.id)
+  })).filter(p=>p.stars>0).sort((a,b)=>b.stars-a.stars);
+
+  if(voteRanks.length){
+    document.getElementById('mvp-name').textContent = voteRanks[0].nickname+' — '+voteRanks[0].stars+' stemmer';
+  } else {
+    document.getElementById('mvp-name').textContent = 'Ingen stemmer endnu';
+  }
+
+  const fameList = document.getElementById('fame-list');
+  if(!voteRanks.length){
+    fameList.innerHTML = '<div class="empty"><div class="empty-icon">⭐</div><div class="empty-text">Stem efter en kamp!</div></div>';
+  } else {
+    fameList.innerHTML = voteRanks.map((p,i)=>{
+      const rc = i===0?'r1':i===1?'r2':i===2?'r3':'rn';
+      return `<div class="rank-item">
+        <span class="rank-num" style="color:var(--gold)">#${i+1}</span>
+        <div class="rank-avatar">${p.emoji}</div>
+        <div class="rank-info">
+          <div class="rank-name">${p.nickname} (${p.realName})</div>
+        </div>
+        <div class="star-badge">⭐ ${p.stars}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const matchList = document.getElementById('match-list');
+  if(!DATA.matches.length){
+    matchList.innerHTML = '<div class="empty"><div class="empty-icon">🏸</div><div class="empty-text">Ingen kampe registreret</div></div>';
+  } else {
+    matchList.innerHTML = DATA.matches.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(m=>{
+      const votesForMatch = DATA.votes.filter(v=>v.matchId===m.id);
+      return `<div class="match-item" onclick="showMatchVotes('${m.id}')">
+        <div>
+          <div class="match-name">vs ${m.opponent}</div>
+          <div class="match-date">${fmtDate(m.date)} · ${votesForMatch.length} stemmer</div>
+        </div>
+        <span class="match-arrow">›</span>
+      </div>`;
+    }).join('');
+  }
+
+  applyPermissions();
+}
+
+// ═══════════════════════════════════════
+// RENDER: ADD FINE
+// ═══════════════════════════════════════
+let selectedPlayer = null;
+let selectedRule = null;
+
+function renderAddFine(){
+  document.getElementById('fine-date').value = today();
+  document.getElementById('fine-note').value = '';
+  selectedPlayer = null;
+  selectedRule = null;
+
+  const chips = document.getElementById('player-chips');
+  chips.innerHTML = DATA.players.map(p=>`
+    <div class="player-chip" data-pid="${p.id}" onclick="selectPlayer('${p.id}')">
+      <span class="chip-avatar">${p.emoji}</span>
+      ${p.nickname}
+    </div>
+  `).join('');
+
+  const rules = document.getElementById('rule-chips');
+  rules.innerHTML = DATA.rules.map(r=>`
+    <div class="rule-chip" data-rid="${r.id}" onclick="selectRule('${r.id}')">
+      <span class="rname">${r.name}</span>
+      <span class="ramount">${r.amount} DKK</span>
+    </div>
+  `).join('');
+}
+
+function selectPlayer(pid){
+  selectedPlayer = pid;
+  document.querySelectorAll('.player-chip').forEach(c=>c.classList.toggle('selected',c.dataset.pid===pid));
+}
+function selectRule(rid){
+  selectedRule = rid;
+  document.querySelectorAll('.rule-chip').forEach(c=>c.classList.toggle('selected',c.dataset.rid===rid));
+}
+
+function issueFine(){
+  if(!selectedPlayer) return toast('Vælg en spiller');
+  if(!selectedRule) return toast('Vælg en bøde');
+  const rule = DATA.rules.find(r=>r.id===selectedRule);
+  const date = document.getElementById('fine-date').value || today();
+  const note = document.getElementById('fine-note').value;
+  const player = getPlayer(selectedPlayer);
+
+  DATA.fines.push({
+    id: genId(),
+    playerId: selectedPlayer,
+    ruleId: selectedRule,
+    ruleName: rule.name,
+    amount: rule.amount,
+    date: date,
+    note: note,
+    issuedBy: currentUser.id
+  });
+  saveData(DATA);
+  toast(`Bøde givet til ${player.nickname}: ${rule.name} (${rule.amount} kr)`);
+  renderAddFine();
+}
+
+// ═══════════════════════════════════════
+// RENDER: CATALOG
+// ═══════════════════════════════════════
+function renderCatalog(){
+  const isAdmin = currentUser && currentUser.admin;
+  const list = document.getElementById('catalog-list');
+  list.innerHTML = DATA.rules.map(r=>`
+    <div class="catalog-item">
+      <div class="catalog-info">
+        <div class="catalog-name">${r.name}</div>
+      </div>
+      <div class="catalog-amount">${r.amount} DKK</div>
+      <button class="catalog-del ${isAdmin?'show':''}" onclick="deleteRule('${r.id}')">
+        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+      </button>
+    </div>
+  `).join('');
+  applyPermissions();
+}
+
+function deleteRule(rid){
+  if(!confirm('Slet denne bøderegel?')) return;
+  DATA.rules = DATA.rules.filter(r=>r.id!==rid);
+  saveData(DATA);
+  renderCatalog();
+  toast('Regel slettet');
+}
+
+// ═══════════════════════════════════════
+// RENDER: SETTINGS
+// ═══════════════════════════════════════
+function renderSettings(){
+  document.getElementById('player-count').textContent = DATA.players.length+' spillere';
+  const statusVal = document.getElementById('fb-status-val');
+  const disconnectItem = document.getElementById('fb-disconnect-item');
+  const connectItem = document.getElementById('fb-connect-item');
+  if(firebaseReady){
+    statusVal.textContent = 'Forbundet ✓';
+    statusVal.style.color = 'var(--green)';
+    disconnectItem.style.display = '';
+    connectItem.style.display = 'none';
+  } else {
+    statusVal.textContent = 'Offline';
+    statusVal.style.color = 'var(--text-3)';
+    disconnectItem.style.display = 'none';
+    connectItem.style.display = '';
+  }
+  applyPermissions();
+}
+
+// ═══════════════════════════════════════
+// MODALS
+// ═══════════════════════════════════════
+function openModal(html){
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+function closeModal(e){
+  if(e && e.target !== document.getElementById('modal-overlay')) return;
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+function closeModalDirect(){
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+function showRuleModal(){
+  openModal(`
+    <h3>Ny Bøderegel</h3>
+    <div class="form-group">
+      <label class="form-label">Navn</label>
+      <input type="text" class="form-input" id="new-rule-name" placeholder="F.eks. 'Misse en nem volley'">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Beløb (DKK)</label>
+      <input type="number" class="form-input" id="new-rule-amount" placeholder="25" min="1">
+    </div>
+    <button class="btn btn-primary" onclick="addRule()">Tilføj Regel</button>
+  `);
+}
+
+function addRule(){
+  const name = document.getElementById('new-rule-name').value.trim();
+  const amount = parseInt(document.getElementById('new-rule-amount').value);
+  if(!name) return toast('Indtast et navn');
+  if(!amount || amount<1) return toast('Indtast et beløb');
+  DATA.rules.push({id:genId(),name,amount});
+  saveData(DATA);
+  closeModalDirect();
+  renderCatalog();
+  toast('Regel tilføjet: '+name);
+}
+
+function showExpenseModal(){
+  openModal(`
+    <h3>Registrer Udgift</h3>
+    <div class="form-group">
+      <label class="form-label">Beskrivelse</label>
+      <input type="text" class="form-input" id="exp-desc" placeholder="F.eks. 'Øl til afslutning'">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Beløb (DKK)</label>
+      <input type="number" class="form-input" id="exp-amount" placeholder="200" min="1">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Dato</label>
+      <input type="date" class="form-input" id="exp-date">
+    </div>
+    <button class="btn btn-red" onclick="addExpense()">Registrer Udgift</button>
+  `);
+  document.getElementById('exp-date').value = today();
+}
+
+function addExpense(){
+  const desc = document.getElementById('exp-desc').value.trim();
+  const amount = parseInt(document.getElementById('exp-amount').value);
+  const date = document.getElementById('exp-date').value || today();
+  if(!desc) return toast('Indtast en beskrivelse');
+  if(!amount||amount<1) return toast('Indtast et beløb');
+  DATA.expenses.push({id:genId(),description:desc,amount,date});
+  saveData(DATA);
+  closeModalDirect();
+  renderEconomy();
+  toast('Udgift registreret: '+desc);
+}
+
+function showPaymentModal(){
+  openModal(`
+    <h3>Registrer Betaling</h3>
+    <div class="form-group">
+      <label class="form-label">Spiller</label>
+      <select class="form-select" id="pay-player">
+        <option value="">Vælg spiller...</option>
+        ${DATA.players.map(p=>`<option value="${p.id}">${p.emoji} ${p.nickname} (skylder ${Math.max(0,getPlayerOutstanding(p.id))} kr)</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Beløb (DKK)</label>
+      <input type="number" class="form-input" id="pay-amount" placeholder="50" min="1">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Dato</label>
+      <input type="date" class="form-input" id="pay-date">
+    </div>
+    <button class="btn btn-primary" onclick="addPayment()">Registrer Betaling</button>
+  `);
+  document.getElementById('pay-date').value = today();
+}
+
+function addPayment(){
+  const pid = document.getElementById('pay-player').value;
+  const amount = parseInt(document.getElementById('pay-amount').value);
+  const date = document.getElementById('pay-date').value || today();
+  if(!pid) return toast('Vælg en spiller');
+  if(!amount||amount<1) return toast('Indtast et beløb');
+  DATA.payments.push({id:genId(),playerId:pid,amount,date});
+  saveData(DATA);
+  closeModalDirect();
+  renderEconomy();
+  const p = getPlayer(pid);
+  toast(`Betaling registreret: ${p.nickname} — ${amount} kr`);
+}
+
+function showVoteModal(){
+  openModal(`
+    <h3>Ny Kamp Afstemning</h3>
+    <div class="form-group">
+      <label class="form-label">Modstander</label>
+      <input type="text" class="form-input" id="vote-opponent" placeholder="F.eks. 'Holstebro Padel'">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Dato</label>
+      <input type="date" class="form-input" id="vote-date">
+    </div>
+    <button class="btn btn-yellow" onclick="createMatch()">Opret Afstemning</button>
+  `);
+  document.getElementById('vote-date').value = today();
+}
+
+function createMatch(){
+  const opponent = document.getElementById('vote-opponent').value.trim();
+  const date = document.getElementById('vote-date').value || today();
+  if(!opponent) return toast('Indtast modstander');
+  const matchId = genId();
+  DATA.matches.push({id:matchId,opponent,date});
+  saveData(DATA);
+  closeModalDirect();
+  renderFame();
+  toast('Afstemning oprettet: vs '+opponent);
+  showVotingModal(matchId);
+}
+
+function showVotingModal(matchId){
+  const match = DATA.matches.find(m=>m.id===matchId);
+  if(!match) return;
+  const myVote = DATA.votes.find(v=>v.matchId===matchId && v.votedBy===currentUser.id);
+  const votablePlayers = DATA.players.filter(p=>p.id!==currentUser.id);
+
+  openModal(`
+    <h3>Stem: vs ${match.opponent}</h3>
+    <p style="color:var(--text-3);font-size:0.85rem;margin-bottom:16px">${fmtDate(match.date)}${myVote?' — Du har allerede stemt':''}</p>
+    ${myVote?`<p style="color:var(--green);font-weight:600;font-size:0.9rem">Du stemte på: ${getPlayer(myVote.votedFor)?.nickname||'?'}</p>`:`
+    <div class="form-group">
+      <label class="form-label">Vælg MVP</label>
+      ${votablePlayers.map(p=>`
+        <div class="rule-chip" onclick="castVote('${matchId}','${p.id}')">
+          <span class="rname">${p.emoji} ${p.nickname}</span>
+          <span class="ramount">⭐</span>
+        </div>
+      `).join('')}
+    </div>`}
+  `);
+}
+
+function castVote(matchId, playerId){
+  const existing = DATA.votes.find(v=>v.matchId===matchId && v.votedBy===currentUser.id);
+  if(existing) return toast('Du har allerede stemt');
+  DATA.votes.push({id:genId(),matchId,votedBy:currentUser.id,votedFor:playerId});
+  saveData(DATA);
+  closeModalDirect();
+  renderFame();
+  toast('Din stemme er registreret! ⭐');
+}
+
+function showMatchVotes(matchId){
+  const match = DATA.matches.find(m=>m.id===matchId);
+  if(!match) return;
+  const votesForMatch = DATA.votes.filter(v=>v.matchId===matchId);
+  const tallies = {};
+  votesForMatch.forEach(v=>{
+    if(!tallies[v.votedFor]) tallies[v.votedFor] = 0;
+    tallies[v.votedFor]++;
+  });
+  const sorted = Object.entries(tallies).sort((a,b)=>b[1]-a[1]);
+
+  const myVote = DATA.votes.find(v=>v.matchId===matchId && v.votedBy===currentUser.id);
+  const canVote = !myVote;
+  const votablePlayers = DATA.players.filter(p=>p.id!==currentUser.id);
+
+  openModal(`
+    <h3>vs ${match.opponent}</h3>
+    <p style="color:var(--text-3);font-size:0.85rem;margin-bottom:16px">${fmtDate(match.date)} · ${votesForMatch.length} stemmer</p>
+    ${sorted.length?sorted.map(([pid,count],i)=>{
+      const p = getPlayer(pid);
+      return `<div class="rank-item" style="padding:10px 0;border-bottom:1px solid var(--border-light)">
+        <span class="rank-num" style="color:var(--gold)">#${i+1}</span>
+        <div class="rank-avatar">${p?p.emoji:'?'}</div>
+        <div class="rank-info"><div class="rank-name">${p?p.nickname:'?'}</div></div>
+        <div class="star-badge">⭐ ${count}</div>
+      </div>`;
+    }).join(''):'<div class="empty"><div class="empty-text">Ingen stemmer endnu</div></div>'}
+    ${canVote?`<div style="margin-top:16px">
+      <label class="form-label">Afgiv din stemme</label>
+      ${votablePlayers.map(p=>`
+        <div class="rule-chip" onclick="castVote('${matchId}','${p.id}')">
+          <span class="rname">${p.emoji} ${p.nickname}</span>
+          <span class="ramount">⭐</span>
+        </div>
+      `).join('')}
+    </div>`:`<p style="color:var(--green);font-weight:600;font-size:0.85rem;margin-top:12px">Du stemte på: ${getPlayer(myVote.votedFor)?.nickname||'?'}</p>`}
+  `);
+}
+
+function showPlayersModal(){
+  openModal(`
+    <h3>Spillere</h3>
+    ${DATA.players.map(p=>`
+      <div class="rank-item" style="border-bottom:1px solid var(--border-light)">
+        <div class="rank-avatar">${p.emoji}</div>
+        <div class="rank-info">
+          <div class="rank-name">${p.nickname} (${p.realName})</div>
+          <div class="rank-sub">${p.admin?'Admin':'Spiller'} · Bøder: ${getPlayerFineTotal(p.id)} kr · Skylder: ${Math.max(0,getPlayerOutstanding(p.id))} kr</div>
+        </div>
+      </div>
+    `).join('')}
+  `);
+}
+
+function showAddPlayerModal(){
+  openModal(`
+    <h3>Tilføj Spiller</h3>
+    <div class="form-group">
+      <label class="form-label">Kaldenavn</label>
+      <input type="text" class="form-input" id="new-p-nick" placeholder="F.eks. 'El Jansen'">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Rigtige Navn</label>
+      <input type="text" class="form-input" id="new-p-real" placeholder="F.eks. 'Jens Jensen'">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Emoji</label>
+      <input type="text" class="form-input" id="new-p-emoji" placeholder="🎾" maxlength="2" value="🎾">
+    </div>
+    <button class="btn btn-primary" onclick="addPlayer()">Tilføj Spiller</button>
+  `);
+}
+
+function addPlayer(){
+  const nick = document.getElementById('new-p-nick').value.trim();
+  const real = document.getElementById('new-p-real').value.trim();
+  const emoji = document.getElementById('new-p-emoji').value.trim() || '🎾';
+  if(!nick) return toast('Indtast kaldenavn');
+  if(!real) return toast('Indtast rigtigt navn');
+  DATA.players.push({id:genId(),nickname:nick,realName:real,admin:false,emoji});
+  saveData(DATA);
+  closeModalDirect();
+  renderSettings();
+  toast('Spiller tilføjet: '+nick);
+}
+
+function newSeason(){
+  if(!confirm('Er du sikker? Dette nulstiller alle bøder, betalinger og udgifter. Historikken slettes.')) return;
+  if(!confirm('Helt sikker? Sidste chance!')) return;
+  DATA.fines = [];
+  DATA.payments = [];
+  DATA.expenses = [];
+  DATA.votes = [];
+  DATA.matches = [];
+  saveData(DATA);
+  toast('Ny sæson startet! Alt er nulstillet.');
+  switchTab('oversigt');
+}
+
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════
+// PWA SERVICE WORKER
+// ═══════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+(function init(){
+  const fbConfig = localStorage.getItem(FB_CONFIG_KEY);
+  if(fbConfig && fbConfig !== 'skip'){
+    try {
+      const config = JSON.parse(fbConfig);
+      DATA = loadLocalData();
+      initFirebase(config);
+      populateLogin();
+    } catch(e){
+      localStorage.removeItem(FB_CONFIG_KEY);
+      document.getElementById('firebase-setup').style.display='flex';
+    }
+  } else if(fbConfig === 'skip'){
+    DATA = loadLocalData();
+    populateLogin();
+  } else {
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('firebase-setup').style.display='flex';
+  }
+})();
+</script>
+</body>
+</html>

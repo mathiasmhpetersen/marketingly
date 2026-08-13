@@ -1,0 +1,25 @@
+{
+  "name": "Superliga Bødekasse",
+  "short_name": "Superliga",
+  "description": "Bødekasse for Superliga padel tennis",
+  "start_url": "/superliga/",
+  "display": "standalone",
+  "background_color": "#0B1D3A",
+  "theme_color": "#0B1D3A",
+  "orientation": "portrait",
+  "scope": "/superliga/",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
