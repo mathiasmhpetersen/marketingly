@@ -1,92 +1,90 @@
 # BRAND.md — Nikolaj Stokholm feat. Stokkefar
 
-Design system for the `/stokholm` landing page. Extracted from the live brand
-(nikolajstokholm.dk) on 2026-08-20. This is the single source of truth for the
-page's visual tokens.
+Design system for the `/stokholm` landing page, extracted from the live brand
+(nikolajstokholm.dk) on 2026-08-20. Single source of truth for the page's tokens.
 
-## ⚠️ Extraction constraint (read this first)
+## How this was extracted
 
-The live site sits behind a **Simply.com WAF** that returns `HTTP 454 / JS
-browser-challenge` to every automated request for the **HTML and CSS**. The
-compiled stylesheet, the `<head>` `<link>`/`<script>` tags, and the real
-`@font-face` files are therefore **not machine-extractable** from this
-environment. What *did* come through cleanly are the **image assets** (the WAF
-lets image requests pass), and those carry the real brand — the neon-red
-wordmark, the cream script, the near-black canvas, the cream-suit photography.
+The live site sits behind a **Simply.com WAF** that blocks `curl`/programmatic
+requests to the HTML & CSS (`HTTP 454` + JS browser-challenge). Two things got
+through: **image assets** (the WAF passes image requests) and a **real headless
+Chrome render** (it executes the JS challenge like a browser). So the palette and
+layout below are read from the *actual rendered site*, not guessed. Exact CSS hex
+of the theme's own tokens and the real `@font-face` names remain WAF-locked and
+are reconstructed (flagged `⚠️`).
 
-So: **colors are sampled from the real brand imagery (reliable). Exact CSS hex
-values, button radius, and font-family names are best-fit reconstructions
-flagged `⚠️ MISSING` below.** To finalise, capture from the client's browser
-DevTools (Network → CSS/Fonts, Computed styles) or ask the client for the theme
-files.
+> Correction note: an earlier pass assumed a dark/near-black canvas (the brief
+> described it that way). The rendered site is the opposite — a **warm taupe →
+> cream** world. The page was rebuilt to match.
 
----
+## Colors (sampled from the rendered site — reliable)
 
-## Colors
+| Token | Value | Role |
+|---|---|---|
+| `--paper` | `#efe2d4` | light warm cream — main section background |
+| `--paper-2` | `#e7d8c7` | deeper cream — cards |
+| `--taupe-hi` | `#b7a288` | warm light behind the subject (hero gradient) |
+| `--taupe-mid` | `#7c6653` | mid taupe |
+| `--taupe-lo` | `#463f42` | cool dark edge of the hero gradient |
+| `--espresso` | `#241d18` | dark contrast panels (Om showet, conversion, footer) |
+| `--red` (the one accent) | `#e8443f` | neon wordmark + all display headings + status |
+| `--red-glow` | `rgba(232,68,63,.45)` | neon halo on red |
+| `--cream-text` / `--cream-soft` | `#f4ead9` / `#c6b39d` | text on dark |
+| `--ink` / `--ink-soft` | `#2a221c` / `#6f5f50` | text on cream |
+| script cream | `#f2e4cf` | "Feat. Stokkefar" script + Nikolaj's linen suit |
 
-| Token | Value | Source | Confidence |
-|---|---|---|---|
-| `--bg` (near-black canvas) | `#0b0b0b` | `hero-image.png` / `hero-logo-lights-out.png` both target a dark canvas | High (shade APPROX) |
-| `--bg-2` (panel) | `#100e0e` | slightly warm black for cards | Derived |
-| `--red` (primary accent — the whole brand) | `#e8443f` | sampled from the neon-tube wordmark `hero-logo.png` | High |
-| `--red-hot` (hover/hi) | `#ff5a52` | lighter neon core | Derived |
-| `--red-glow` | `rgba(232,68,63,.55)` | pink/white neon halo `#ffaaaa` around the tubes | High |
-| `--cream` (script + suit tone) | `#f2e4cf` | "Feat. Stokkefar" script + Nikolaj's linen suit | High |
-| `--ink` / `--off` | `#ffffff` / `#f3efe9` | body text | High |
-| `--muted` / `--muted-2` | `#b3aca4` / `#7d766e` | de-emphasised text | Derived |
-
-> Note: the tour poster's warm taupe `#87705a` is only the photo-studio backdrop
-> — **not** a UI color. Do not use it as a site background.
+The hero is a **warm taupe radial gradient** — light and warm behind the subject,
+cooler/darker at the edges — with the transparent portrait cut-out laid over it
+so the studio backdrop and the page background merge seamlessly. Sections then
+alternate **light cream ↔ dark espresso** for rhythm; red is used sparingly, only
+for the neon wordmark, display headings, and status/accents.
 
 ## Typography
 
-The wordmark ("NIKOLAJ STOKHOLM") ships as a pre-rendered **image**, so it is not
-a live web font on the page. Real body/nav font-family names are behind the WAF.
+The wordmark ships as a pre-rendered **image** (neon-tube, condensed, ALL-CAPS).
+Real body/nav font names are WAF-locked. Rebuild substitutes:
 
-| Role | Original | Rebuild choice | Status |
+| Role | Original | Substitute | Status |
 |---|---|---|---|
-| Display / headings | Tall **condensed, ALL-CAPS**, uniform-stroke neon-tube display | **Oswald** (600/700, uppercase, tight tracking) + red neon `text-shadow` | ⚠️ MISSING — substitute |
-| Script accent ("Feat. Stokkefar") | Casual cream **handwritten signature script** | **Caveat** (700) | ⚠️ MISSING — substitute |
-| Body / UI | Sans-serif | **Inter** (400–700) | ⚠️ MISSING — substitute |
+| Display / headings | condensed uppercase **neon-tube** | **Oswald** 600/700 + red neon `text-shadow` | ⚠️ substitute |
+| Script accent | cream **handwritten signature** | **Caveat** 700 | ⚠️ substitute |
+| Body / UI | sans-serif | **Inter** 400–700 | ⚠️ substitute |
 
-Fonts are currently loaded from Google Fonts (`Oswald`, `Inter`, `Caveat`) as the
-closest free equivalents. **When the client supplies the real woff2 files**, drop
-them in `/stokholm/fonts/`, add `@font-face` rules, and swap the `<link>` in
-`index.html`. The brief's "self-host, no Google substitute" rule is intentionally
-overridden here *only because the originals are genuinely unavailable* — flag for
-the client so they can supply the real files.
+Loaded from Google Fonts (closest free equivalents). When the client supplies the
+real woff2, drop them in `/stokholm/fonts/`, add `@font-face`, swap the `<link>`.
+The brief's "self-host, no Google substitute" rule is overridden here *only
+because the originals are genuinely WAF-unavailable* — flag for the client.
 
 ## Buttons
 
-⚠️ Exact original button styling is behind the WAF. Reconstructed from palette +
-mood: solid **neon-red fill** (`--red`), white uppercase Oswald label, ~6px
-radius, red glow shadow, lift on hover. Danish label "Køb billet".
+The site's primary CTA is a **dark charcoal pill** (`--pill #231c17`), full radius,
+white uppercase label. On this page: dark pill on light/warm backgrounds; on the
+dark espresso conversion/Om-showet bands the money CTA flips to a **neon-red pill**
+with glow for emphasis. Red is the accent, dark is the default.
 
 ## Mood
 
-Dark, cinematic, retro-cabaret. Near-black stage, a glowing **red neon** wordmark
-as the single hero accent, a cream script flourish, and warmly-lit photographic
-subject (cream linen suit, black umbrella — Stokkefar's hands on his shoulders).
-Premium and theatrical with a nostalgic neon-sign twist. **Not** a SaaS page — no
-gradient blobs, glassmorphism or purple.
+Warm, cinematic, editorial. Filmic taupe photography, a glowing red neon wordmark
+and cream script as the only flourishes, generous negative space. Premium and
+theatrical — **not** a dark SaaS page, no gradient blobs / glassmorphism / purple.
 
-## Assets pulled into `/stokholm/img/`
+## Assets in `/stokholm/img/` (image requests bypass the WAF)
 
-Downloaded at build (image requests bypass the WAF):
-
-- `hero-portrait.png` — transparent cut-out of Nikolaj (hero background) ✅
+- `hero-portrait.png` — transparent cut-out of Nikolaj (hero) ✅
 - `tour-logo.png` — red-neon wordmark + cream script (hero + footer) ✅
 - `poster.jpg` — tour poster (Om showet supporting image) ✅
-- `press-1.jpg`, `press-2.jpg`, `about.png`, `og-image.png`, `favicon.png`,
-  `tour-logo-alt.png` — attempted; the WAF rate-limited some. Any that are
-  missing fall back gracefully. Re-run the download in `README.md` to complete.
+- `press-1.jpg`, `press-2.jpg`, `about.png`, `og-image.png`, `favicon.png` —
+  the WAF rate-limited these mid-build; any that are missing degrade gracefully
+  (`og:image` falls back to the poster; favicon is an inline SVG). Re-run the
+  download in `README.md` to complete them.
 
-## Tokens (as used in `index.html`)
+## Tokens quick reference
 
 ```
---bg:#0b0b0b  --bg-2:#100e0e  --ink:#ffffff  --off:#f3efe9
---muted:#b3aca4  --muted-2:#7d766e
---red:#e8443f  --red-hot:#ff5a52  --red-deep:#c1332f  --red-glow:rgba(232,68,63,.55)
---cream:#f2e4cf  --line:rgba(255,255,255,.10)
-Display: 'Oswald'  Body: 'Inter'  Script: 'Caveat'   (all ⚠️ MISSING substitutes)
+Backgrounds: --paper #efe2d4  --paper-2 #e7d8c7  --espresso #241d18
+Hero taupe : #b7a288 → #7c6653 → #463f42 (radial, light behind subject)
+Accent     : --red #e8443f  (glow rgba(232,68,63,.45))
+Text/dark  : #f4ead9 / #c6b39d      Text/cream: #2a221c / #6f5f50
+Button     : --pill #231c17 (light bg)  ·  red pill (dark bg)
+Fonts      : Oswald (display) · Inter (body) · Caveat (script)  — all ⚠️ substitutes
 ```
