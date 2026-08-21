@@ -17,27 +17,26 @@ are reconstructed (flagged `⚠️`).
 > described it that way). The rendered site is the opposite — a **warm taupe →
 > cream** world. The page was rebuilt to match.
 
-## Colors (sampled from the rendered site — reliable)
+## Colors (client-supplied codes — authoritative)
+
+The client provided three brand codes; the page is built on them:
 
 | Token | Value | Role |
 |---|---|---|
-| `--paper` | `#efe2d4` | light warm cream — main section background |
-| `--paper-2` | `#e7d8c7` | deeper cream — cards |
-| `--taupe-hi` | `#b7a288` | warm light behind the subject (hero gradient) |
-| `--taupe-mid` | `#7c6653` | mid taupe |
-| `--taupe-lo` | `#463f42` | cool dark edge of the hero gradient |
-| `--espresso` | `#241d18` | dark contrast panels (Om showet, conversion, footer) |
-| `--red` (the one accent) | `#e8443f` | neon wordmark + all display headings + status |
-| `--red-glow` | `rgba(232,68,63,.45)` | neon halo on red |
-| `--cream-text` / `--cream-soft` | `#f4ead9` / `#c6b39d` | text on dark |
-| `--ink` / `--ink-soft` | `#2a221c` / `#6f5f50` | text on cream |
-| script cream | `#f2e4cf` | "Feat. Stokkefar" script + Nikolaj's linen suit |
+| `--paper` | `#e3d2ca` | light warm ground — main section backgrounds |
+| `--tan` | `#b19379` | warm tan — accent, conversion band, footer headings |
+| `--dark` | `#434343` | charcoal — **all buttons + the footer** |
+| `--ink` / `--ink-soft` | `#434343` / `#6f625a` | text on light |
+| `--cream-text` / `--cream-soft` | `#efe4da` / `#c8b6a6` | text on dark (footer) |
+| logo red | `#e8443f` | only in the neon wordmark image (kept as the single accent pop) |
 
-The hero is a **warm taupe radial gradient** — light and warm behind the subject,
-cooler/darker at the edges — with the transparent portrait cut-out laid over it
-so the studio backdrop and the page background merge seamlessly. Sections then
-alternate **light cream ↔ dark espresso** for rhythm; red is used sparingly, only
-for the neon wordmark, display headings, and status/accents.
+Rhythm: warm cream/tan hero gradient → light cream Om showet → tan `#b19379`
+conversion band → charcoal `#434343` footer. Buttons are charcoal `#434343`
+everywhere. The red only survives inside the pre-rendered neon wordmark image.
+
+> Earlier passes used a taupe→espresso + neon-red-heading scheme sampled from the
+> live site. The client then supplied the three codes above, so headings are now
+> charcoal on light / tan on dark (no red neon glow), matching the supplied footer.
 
 ## Typography
 

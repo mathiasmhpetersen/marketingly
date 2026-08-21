@@ -35,7 +35,7 @@ window.CONTENT = {
 
   /* --- OM SHOWET ----------------------------------------------------------- */
   about: {
-    heading: "Hvad kan man forvente?",
+    heading: "Hvad handler showet egentlig om?",
     /* Client's own copy — verbatim, do not rewrite. */
     lead:
       "Så sker det endelig. Dét, som en hel nation har ventet på. I denne tid, hvor man bare har brug for at sætte sig ned, grine og glemme alt omkring sig, er der kun én, som kan løse denne umulige opgave. Og det er gode gamle Stokkefar. Med tre succesfulde shows bag sig er forventningerne enorme. Og det ved han godt.",
@@ -51,25 +51,6 @@ window.CONTENT = {
       "40+ byer i Danmark",
     ],
     ctaLabel: "Køb billet",
-  },
-
-  /* --- ANMELDELSER & EXIT POLLS -------------------------------------------- */
-  reviews: {
-    heading: "Hvad siger publikum?",
-    sub: "Exit polls fra salen — og hvad pressen skrev.",
-    /* 9:16 phone-shot exit polls. Files dropped in /video later. */
-    videos: [
-      { src: "/stokholm/video/review-1.mp4", poster: "/stokholm/video/review-1-poster.jpg", caption: "Publikum efter showet i Aarhus" },
-      { src: "/stokholm/video/review-2.mp4", poster: "/stokholm/video/review-2-poster.jpg", caption: "Publikum efter showet i København" },
-      { src: "/stokholm/video/review-3.mp4", poster: "/stokholm/video/review-3-poster.jpg", caption: "Publikum efter showet i Aalborg" },
-    ],
-    /* PLACEHOLDER — do NOT invent real quotes/ratings/attributions.
-       Swap in real citations before launch. */
-    pressQuotes: [
-      { outlet: "BT",          stars: 5, quote: "[PLACEHOLDER — afventer rigtigt citat]", url: "" },
-      { outlet: "Ekstra Bladet", stars: 5, quote: "[PLACEHOLDER — afventer rigtigt citat]", url: "" },
-      { outlet: "Politiken",   stars: 4, quote: "[PLACEHOLDER — afventer rigtigt citat]", url: "" },
-    ],
   },
 
   /* --- HOVED-CTA: Køb billet til din by ------------------------------------ */
