@@ -64,7 +64,7 @@
     setText("reviews-sub", r.sub);
 
     var row = $("review-row");
-    r.videos.forEach(function (v) {
+    r.videos.forEach(function (v, i) {
       var card = document.createElement("div");
       card.className = "review-card";
       var file = v.src.split("/").pop();
@@ -76,8 +76,11 @@
             '<span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>' +
           "</button>" +
           '<figcaption class="video-fallback">' +
+            '<span class="ph-tag">Placeholder</span>' +
             '<span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>' +
-            '<span class="fallback-label">' + file + "</span>" +
+            '<span class="fallback-title">Video #' + (i + 1) + "</span>" +
+            '<span class="fallback-desc">' + v.caption + "</span>" +
+            '<span class="fallback-label">' + file + " · 9:16</span>" +
           "</figcaption>" +
         "</figure>" +
         '<p class="cap">' + v.caption + "</p>";

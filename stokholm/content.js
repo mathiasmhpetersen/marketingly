@@ -59,9 +59,9 @@ window.CONTENT = {
     sub: "Exit polls fra salen — og hvad pressen skrev.",
     /* 9:16 phone-shot exit polls. Files dropped in /video later. */
     videos: [
-      { src: "video/review-1.mp4", poster: "video/review-1-poster.jpg", caption: "Publikum efter showet i Aarhus" },
-      { src: "video/review-2.mp4", poster: "video/review-2-poster.jpg", caption: "Publikum efter showet i København" },
-      { src: "video/review-3.mp4", poster: "video/review-3-poster.jpg", caption: "Publikum efter showet i Aalborg" },
+      { src: "/stokholm/video/review-1.mp4", poster: "/stokholm/video/review-1-poster.jpg", caption: "Publikum efter showet i Aarhus" },
+      { src: "/stokholm/video/review-2.mp4", poster: "/stokholm/video/review-2-poster.jpg", caption: "Publikum efter showet i København" },
+      { src: "/stokholm/video/review-3.mp4", poster: "/stokholm/video/review-3-poster.jpg", caption: "Publikum efter showet i Aalborg" },
     ],
     /* PLACEHOLDER — do NOT invent real quotes/ratings/attributions.
        Swap in real citations before launch. */

@@ -72,6 +72,18 @@ play icon + filename) — it never breaks. Captions/filenames are in
 **do not invent** real quotes, ratings or attributions. Swap in real citations
 (with `outlet`, `stars`, `quote`, `url`) before launch.
 
+### Facebook fan wall ("Det siger publikum på Facebook")
+Real audience reactions, supplied by the client as screenshots, live in
+`img/reviews/` (`fb-*.png` comments + `publikum-photo.png`) and are laid out in
+the fan wall in `index.html` (audience photo + comment feed). These are **real**,
+not placeholders. To add/replace: drop a new screenshot in `img/reviews/` and add
+an `<img>` (with transcribed `alt`) to the `.fan-comments` list.
+
+### Media placeholder boxes
+Every video slot renders a clearly-labelled placeholder box (a "PLACEHOLDER" tag,
+"Video #n", the caption, and the expected filename/aspect) so the client can see
+where each clip goes. The box is replaced automatically once the real file loads.
+
 ## Tracking
 
 All tracking is behind `analytics.js` so a cookie banner can be wired in later

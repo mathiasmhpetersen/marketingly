@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Nikolaj Stokholm feat. Stokkefar — Danmarksturné 2026/27</title>
 <meta name="description" content="Hele Danmarks Stokkefar er tilbage med sit fjerde onemanshow. Over 40 byer fra Frederikshavn til Sønderborg. Størstedelen er udsolgt — sikr din billet.">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#e7d9cb">
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website">
@@ -13,12 +13,12 @@
 <meta property="og:site_name" content="Nikolaj Stokholm">
 <meta property="og:title" content="Nikolaj Stokholm feat. Stokkefar — Danmarksturné 2026/27">
 <meta property="og:description" content="Fjerde onemanshow. Over 40 byer. Størstedelen udsolgt. Køb din billet nu.">
-<meta property="og:image" content="img/poster.jpg">
+<meta property="og:image" content="/stokholm/img/poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Inline SVG favicon (neon-red S on black) — no 404, on-brand. Swap for the
-     real cropped-favicon-270x270.png when the WAF allows the download. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0b0b'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='22' font-weight='700' fill='%23e8443f' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<!-- Inline SVG favicon (neon-red S on warm ground) — no 404, on-brand.
+     Swap for the real cropped-favicon-270x270.png when the WAF allows it. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23241d18'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%23e8443f' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
 
 <!-- Fonts: closest free equivalents to the (WAF-locked) original site fonts.
      See BRAND.md → ⚠️ MISSING. Swap for the real woff2 when supplied. -->
@@ -26,35 +26,40 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
-<link rel="preload" as="image" href="img/tour-logo.png" fetchpriority="high">
+<link rel="preload" as="image" href="/stokholm/img/tour-logo.png" fetchpriority="high">
+<link rel="preload" as="image" href="/stokholm/img/hero-portrait.png" fetchpriority="high">
 
 <style>
-/* ══════════════ TOKENS ══════════════ */
+/* ══════════════ TOKENS — warm, editorial, filmic (matches nikolajstokholm.dk) ══════════════ */
 :root{
-  --bg:#0b0b0b;
-  --bg-2:#100e0e;
-  --ink:#ffffff;
-  --off:#f3efe9;
-  --muted:#b3aca4;
-  --muted-2:#7d766e;
+  --paper:#efe2d4;        /* light warm cream — main sections */
+  --paper-2:#e7d8c7;      /* deeper cream — cards */
+  --paper-edge:#d8c6b2;   /* hairlines on cream */
+  --espresso:#241d18;     /* dark contrast panels / footer */
+  --espresso-2:#2e251e;
+  --taupe-hi:#b7a288;     /* warm light (behind subject) */
+  --taupe-mid:#7c6653;
+  --taupe-lo:#463f42;     /* cool dark edge */
+  --ink:#2a221c;          /* text on cream */
+  --ink-soft:#6f5f50;     /* muted text on cream */
+  --ink-faint:#9a8a78;
+  --cream-text:#f4ead9;   /* text on dark */
+  --cream-soft:#c6b39d;   /* muted on dark */
   --red:#e8443f;
-  --red-hot:#ff5a52;
-  --red-deep:#c1332f;
-  --red-glow:rgba(232,68,63,.55);
-  --cream:#f2e4cf;
-  --line:rgba(255,255,255,.10);
-  --line-2:rgba(255,255,255,.06);
-  --maxw:1200px;
+  --red-hot:#ff574f;
+  --red-glow:rgba(232,68,63,.45);
+  --pill:#231c17;         /* dark charcoal button */
+  --line-dark:rgba(36,29,24,.14);
+  --line-cream:rgba(244,234,217,.16);
+  --maxw:1240px;
   --sticky-h:0px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
 body{
-  background:var(--bg);color:var(--ink);
+  background:var(--paper);color:var(--ink);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-size:16px;line-height:1.6;font-weight:400;
-  overflow-x:hidden;
-  /* room for sticky mobile bar so it never covers the last section */
+  font-size:16px;line-height:1.6;font-weight:400;overflow-x:hidden;
   padding-bottom:var(--sticky-h);
 }
 img{display:block;max-width:100%;height:auto}
@@ -64,187 +69,208 @@ a{color:inherit}
 .wrap{max-width:var(--maxw);margin:0 auto;padding-left:22px;padding-right:22px}
 @media(min-width:768px){.wrap{padding-left:40px;padding-right:40px}}
 
-.display{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.01em;font-weight:600;line-height:1.02}
-.script{font-family:'Caveat',cursive;text-transform:none;letter-spacing:0}
+/* neon display type — the signature look */
+.neon{
+  font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:600;letter-spacing:.015em;
+  color:var(--red);line-height:1;
+  text-shadow:0 0 1px rgba(232,68,63,.7), 0 0 14px rgba(232,68,63,.5), 0 0 34px rgba(232,68,63,.28);
+}
+.script{font-family:'Caveat',cursive;text-transform:none;letter-spacing:0;font-weight:700}
+.display{font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:700;letter-spacing:.005em;line-height:1.02}
 
 /* ══════════════ BUTTONS ══════════════ */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:600;
-  letter-spacing:.06em;font-size:16px;line-height:1;
-  background:var(--red);color:#fff;text-decoration:none;
-  padding:17px 30px;border-radius:6px;border:1px solid var(--red-hot);
-  box-shadow:0 0 0 1px rgba(232,68,63,.25), 0 8px 30px -6px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.18);
+  display:inline-flex;align-items:center;justify-content:center;gap:11px;
+  font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:600;letter-spacing:.08em;
+  font-size:15px;line-height:1;
+  background:var(--pill);color:#fff;text-decoration:none;
+  padding:17px 32px;border-radius:100px;border:1px solid transparent;
+  box-shadow:0 10px 30px -12px rgba(0,0,0,.6);
   transition:transform .18s ease, box-shadow .25s ease, background .2s ease;
   cursor:pointer;-webkit-tap-highlight-color:transparent;
 }
-.btn:hover{background:var(--red-hot);transform:translateY(-2px);
-  box-shadow:0 0 0 1px rgba(232,68,63,.4), 0 14px 44px -6px var(--red-glow), 0 0 40px -4px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.25)}
+.btn:hover{background:#000;transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(0,0,0,.7), 0 0 0 4px rgba(232,68,63,.12)}
 .btn:active{transform:translateY(0)}
-.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.btn svg{width:18px;height:18px;flex-shrink:0}
-.btn-lg{font-size:19px;padding:21px 40px}
+.btn:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.btn svg{width:17px;height:17px;flex-shrink:0}
+.btn-lg{font-size:17px;padding:20px 40px}
 .btn-block{display:flex;width:100%}
+/* on dark backgrounds → neon-red money button */
+.btn--onDark{background:var(--red);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 10px 34px -8px var(--red-glow), 0 0 40px -10px var(--red-glow)}
+.btn--onDark:hover{background:var(--red-hot);box-shadow:0 0 0 1px rgba(255,255,255,.14), 0 16px 46px -8px var(--red-glow), 0 0 60px -8px var(--red-glow)}
 
-.trust{font-size:13px;color:var(--muted-2);margin-top:14px;letter-spacing:.01em}
+.trust{font-size:13px;color:var(--ink-soft);margin-top:14px;letter-spacing:.01em}
+.eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:12px;
+  font-weight:600;color:var(--red);display:inline-block;margin-bottom:18px}
 
-/* ══════════════ HERO ══════════════ */
+.sec-pad{padding-top:80px;padding-bottom:80px}
+@media(min-width:768px){.sec-pad{padding-top:112px;padding-bottom:112px}}
+
+/* ══════════════ 1 · HERO ══════════════ */
 .hero{position:relative;overflow:hidden;isolation:isolate;
-  background:radial-gradient(120% 80% at 78% 18%, rgba(232,68,63,.16) 0%, rgba(232,68,63,.05) 34%, transparent 62%), linear-gradient(180deg,#131010 0%, var(--bg) 60%)}
-.hero-portrait{
-  position:absolute;z-index:-1;bottom:0;right:-2%;
-  height:96%;width:auto;max-width:none;opacity:.9;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0%, #000 30%);mask-image:linear-gradient(90deg,transparent 0%, #000 30%);
-  pointer-events:none;
+  background:
+    radial-gradient(90% 70% at 72% 42%, var(--taupe-hi) 0%, #93795f 38%, var(--taupe-mid) 62%, var(--taupe-lo) 100%);
 }
+.hero-portrait{position:absolute;z-index:-1;bottom:0;right:-4%;height:98%;width:auto;max-width:none;
+  pointer-events:none;filter:drop-shadow(0 30px 60px rgba(0,0,0,.25))}
 .hero-scrim{position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg, var(--bg) 6%, rgba(11,11,11,.72) 42%, rgba(11,11,11,.15) 70%, transparent 100%),
-             linear-gradient(0deg, var(--bg) 2%, transparent 26%)}
-.hero-inner{display:grid;grid-template-columns:1fr;gap:26px;
-  padding-top:26px;padding-bottom:44px;min-height:calc(100svh - 4px);align-content:start}
-.hero-logo{width:min(78%,300px);height:auto;margin-bottom:4px;
-  filter:drop-shadow(0 0 24px rgba(232,68,63,.35))}
-.hero h1{font-size:clamp(30px,7.6vw,60px);color:#fff;max-width:14ch;
-  text-shadow:0 2px 24px rgba(0,0,0,.6)}
-.hero .sub{font-size:16px;color:var(--off);max-width:44ch;line-height:1.55;margin-top:2px}
-.hero .cta-row{margin-top:4px}
-/* video comes after CTA on mobile */
-.hero-video{order:5}
+  background:linear-gradient(90deg, rgba(64,54,44,.55) 0%, rgba(70,60,48,.16) 42%, transparent 66%),
+             linear-gradient(0deg, rgba(40,33,26,.4) 0%, transparent 22%)}
+.hero-inner{display:grid;grid-template-columns:1fr;gap:22px;align-content:end;
+  padding-top:88px;padding-bottom:40px;min-height:100svh}
+.hero-logo{width:min(74%,290px);height:auto;margin-bottom:6px}
+.hero h1{font-size:clamp(27px,7vw,44px);color:#fff;max-width:15ch;font-weight:700;
+  text-shadow:0 2px 18px rgba(40,30,22,.45)}
+.hero .sub{font-size:15.5px;color:#f3e7d6;max-width:42ch;line-height:1.55;
+  text-shadow:0 1px 10px rgba(40,30,22,.5)}
+.hero .cta-row{margin-top:6px}
+.hero .trust{color:#e7d6c2}
+.hero-video{order:5;margin-top:8px}
 
-@media(min-width:900px){
-  .hero-inner{grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;
-    padding-top:40px;padding-bottom:64px;min-height:calc(100vh - 4px)}
+@media(min-width:960px){
+  .hero-inner{grid-template-columns:1.02fr .98fr;gap:52px;align-items:center;align-content:center;
+    padding-top:96px;padding-bottom:72px}
   .hero-copy{align-self:center}
-  .hero-logo{width:min(100%,360px)}
-  .hero h1{font-size:clamp(44px,4.4vw,64px)}
+  .hero-logo{width:min(100%,340px)}
+  .hero h1{font-size:clamp(38px,3.6vw,52px);max-width:16ch}
   .hero .sub{font-size:18px}
   .hero-video{order:0}
-  .hero-portrait{height:104%;right:-6%;opacity:.5;
-    -webkit-mask-image:linear-gradient(90deg,transparent 8%, #000 55%);mask-image:linear-gradient(90deg,transparent 8%, #000 55%)}
+  .hero-portrait{height:106%;right:-7%;filter:none}
+  .hero-scrim{background:linear-gradient(90deg, rgba(60,50,40,.35) 0%, transparent 46%),
+              linear-gradient(0deg, rgba(40,33,26,.22), transparent 30%)}
 }
 
 /* ══════════════ VIDEO (shared) ══════════════ */
-.video-wrap{position:relative;background:var(--bg-2);border:1px solid var(--line);
-  border-radius:14px;overflow:hidden;box-shadow:0 20px 60px -20px rgba(0,0,0,.8)}
+.video-wrap{position:relative;background:#171310;border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;overflow:hidden;box-shadow:0 30px 70px -24px rgba(30,20,12,.6)}
 .video-wrap.ar-16-9{aspect-ratio:16/9}
 .video-wrap.ar-9-16{aspect-ratio:9/16}
-.video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--bg-2)}
-/* branded placeholder shown until a real file loads (or if it's missing) */
-.video-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  background:radial-gradient(120% 90% at 50% 40%, rgba(232,68,63,.10), transparent 60%), var(--bg-2);
-  text-align:center;padding:20px}
+.video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#171310}
+.video-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;
+  background:radial-gradient(120% 90% at 50% 40%, rgba(232,68,63,.12), transparent 64%), linear-gradient(180deg,#241b15,#161009);
+  text-align:center;padding:24px}
+.video-fallback::after{content:"";position:absolute;inset:14px;border:1.5px dashed rgba(244,234,217,.32);border-radius:10px;pointer-events:none}
 .video-wrap.has-video .video-fallback{display:none}
-.fallback-play{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--red);box-shadow:0 0 30px -4px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.25)}
-.fallback-play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
-.fallback-label{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--muted-2)}
-/* hero unmute toggle */
+.ph-tag{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:1;
+  font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:600;
+  color:#fff;background:var(--red);padding:4px 11px;border-radius:100px;box-shadow:0 0 18px -4px var(--red-glow)}
+.fallback-play{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--red);box-shadow:0 0 34px -2px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.25)}
+.fallback-play svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+.fallback-title{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.05em;font-weight:600;font-size:21px;color:#f4ead9;line-height:1}
+.fallback-desc{font-size:13px;color:var(--cream-soft);max-width:24ch;line-height:1.4;margin-top:-2px}
+.fallback-label{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;color:#9a8a78}
 .mute-toggle{position:absolute;top:12px;right:12px;z-index:3;width:44px;height:44px;border-radius:50%;
-  border:1px solid var(--line);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.18);background:rgba(20,14,9,.55);backdrop-filter:blur(6px);
   display:flex;align-items:center;justify-content:center;cursor:pointer}
 .mute-toggle svg{width:20px;height:20px;fill:#fff}
-.mute-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
-/* review click-to-play overlay */
+.mute-toggle:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .review-play{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35));border:0;cursor:pointer;width:100%}
 .review-play .fallback-play{transition:transform .2s ease}
 .review-play:hover .fallback-play{transform:scale(1.06)}
 .video-wrap.playing .review-play{display:none}
+/* while it's still a placeholder (no real file loaded), hide the click-to-play
+   overlay so only the labelled placeholder box shows — no double play button */
+.video-wrap:not(.has-video) .review-play{display:none}
 
-/* ══════════════ SECTIONS ══════════════ */
-section{position:relative}
-.eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.22em;font-size:12px;
-  font-weight:600;color:var(--red);display:inline-block;margin-bottom:16px}
-.sec-pad{padding-top:72px;padding-bottom:72px}
-@media(min-width:768px){.sec-pad{padding-top:104px;padding-bottom:104px}}
-.hr-line{height:1px;border:0;background:linear-gradient(90deg,transparent,var(--line),transparent)}
-
-/* OM SHOWET */
-.about-grid{display:grid;grid-template-columns:1fr;gap:36px}
-@media(min-width:900px){.about-grid{grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}}
-.about h2{font-size:clamp(26px,5vw,40px);color:#fff;margin-bottom:22px;max-width:16ch}
-.measure{max-width:65ch}
-.about .lead{font-size:18px;line-height:1.75;color:var(--off)}
-.pullquote{margin:34px 0;padding:26px 0 26px 26px;border-left:3px solid var(--red);
-  font-size:clamp(20px,2.4vw,26px);line-height:1.5;color:#fff;font-style:italic}
-.pullquote .q{ text-wrap:balance}
-.pullquote cite{display:block;margin-top:16px;font-style:normal;font-size:15px;color:var(--red);
-  font-family:'Caveat',cursive;font-weight:700;letter-spacing:.01em;font-size:24px}
-.about .cred{font-size:16px;line-height:1.7;color:var(--muted)}
-.proof{display:flex;flex-wrap:wrap;gap:14px 26px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
-.proof-item{display:flex;align-items:baseline;gap:9px;font-size:14px;color:var(--off)}
-.proof-item::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);
-  box-shadow:0 0 10px 1px var(--red-glow);align-self:center;flex-shrink:0}
+/* ══════════════ 2 · OM SHOWET (dark contrast panel) ══════════════ */
+.about{background:radial-gradient(120% 90% at 15% 0%, #322822 0%, var(--espresso) 55%);color:var(--cream-text)}
+.about .eyebrow{color:var(--red)}
+.about-grid{display:grid;grid-template-columns:1fr;gap:38px}
+@media(min-width:960px){.about-grid{grid-template-columns:1.12fr .88fr;gap:64px;align-items:start}}
+.about h2{font-size:clamp(30px,5.4vw,50px);margin-bottom:26px;max-width:15ch}
+.measure{max-width:64ch}
+.about .lead{font-size:18.5px;line-height:1.78;color:#efe3d2}
+.pullquote{margin:36px 0;padding:4px 0 4px 28px;border-left:2px solid var(--red);
+  font-size:clamp(21px,2.5vw,28px);line-height:1.46;color:#fff;font-style:italic;font-weight:500}
+.pullquote .q{text-wrap:balance}
+.pullquote cite{display:block;margin-top:18px;font-style:normal;
+  font-family:'Caveat',cursive;font-weight:700;font-size:26px;color:var(--red)}
+.about .cred{font-size:16px;line-height:1.72;color:var(--cream-soft)}
+.proof{display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:36px;padding-top:28px;border-top:1px solid var(--line-cream)}
+.proof-item{display:flex;align-items:center;gap:10px;font-size:14px;color:#e9dccb}
+.proof-item::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red);
+  box-shadow:0 0 12px 1px var(--red-glow);flex-shrink:0}
+.about-cta{margin-top:42px}
 .about-media{position:relative}
-.about-media img{width:100%;border-radius:14px;border:1px solid var(--line);
-  box-shadow:0 30px 80px -30px rgba(0,0,0,.9)}
+.about-media img{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 40px 90px -34px rgba(0,0,0,.7)}
 .about-media .frame-glow{position:absolute;inset:-1px;border-radius:15px;pointer-events:none;
-  box-shadow:0 0 0 1px rgba(232,68,63,.12), 0 0 60px -10px rgba(232,68,63,.25)}
-.about-cta{margin-top:40px}
+  box-shadow:0 0 0 1px rgba(232,68,63,.18), 0 0 70px -12px rgba(232,68,63,.35)}
 
-/* REVIEWS */
-.reviews{background:linear-gradient(180deg,var(--bg) 0%, #0e0c0c 100%)}
-.reviews-head{text-align:center;margin-bottom:40px}
-.reviews-head h2{font-size:clamp(26px,5vw,42px);color:#fff}
-.reviews-head p{color:var(--muted);margin-top:12px;font-size:17px}
+/* ══════════════ 3 · ANMELDELSER (light warm) ══════════════ */
+.reviews{background:var(--paper)}
+.reviews-head{text-align:center;margin-bottom:44px}
+.reviews-head h2{font-size:clamp(30px,5.6vw,52px)}
+.reviews-head p{color:var(--ink-soft);margin-top:14px;font-size:17px}
 .review-row{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:16px;
   overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
   padding:4px 22px 8px;margin:0 -22px;scrollbar-width:none}
 .review-row::-webkit-scrollbar{display:none}
 .review-card{scroll-snap-align:center}
-.review-card .cap{font-size:14px;color:var(--muted);margin-top:12px;text-align:center}
+.review-card .cap{font-size:14px;color:var(--ink-soft);margin-top:13px;text-align:center}
 @media(min-width:768px){
   .review-row{grid-auto-flow:initial;grid-template-columns:repeat(3,1fr);grid-auto-columns:initial;
-    overflow:visible;padding:0;margin:0;max-width:900px;margin-inline:auto}
+    overflow:visible;padding:0;margin:0;max-width:920px;margin-inline:auto}
 }
-/* press */
-.press{margin-top:56px;padding-top:44px;border-top:1px solid var(--line)}
-.press-title{text-align:center;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.16em;
-  font-size:13px;color:var(--muted-2);margin-bottom:26px}
-.press-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:900px;margin-inline:auto}
+/* fan wall — real audience reactions from Facebook */
+.fanwall{margin-top:56px}
+.fanwall-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:960px;margin:24px auto 0}
+.fanwall-grid>*{min-width:0}
+@media(min-width:820px){.fanwall-grid{grid-template-columns:0.82fr 1.18fr;gap:26px;align-items:start}}
+.fan-photo{margin:0;min-width:0}
+.fan-photo img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--paper-edge);
+  box-shadow:0 26px 60px -28px rgba(30,20,12,.6)}
+.fan-comments{display:flex;flex-direction:column;gap:12px;min-width:0}
+.fan-comments img{display:block;width:100%;height:auto;min-width:0;border-radius:12px;
+  border:1px solid var(--paper-edge);box-shadow:0 10px 26px -18px rgba(30,20,12,.5)}
+@media(min-width:820px){.fan-comments img{align-self:flex-start;width:auto;max-width:100%}}
+
+.press{margin-top:60px;padding-top:48px;border-top:1px solid var(--paper-edge)}
+.press-title{text-align:center;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.2em;
+  font-size:13px;color:var(--ink-faint);margin-bottom:28px}
+.press-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:920px;margin-inline:auto}
 @media(min-width:700px){.press-grid{grid-template-columns:repeat(3,1fr)}}
-.press-card{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:22px}
-.press-outlet{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-weight:600;
-  font-size:16px;color:#fff}
-.press-stars{display:flex;gap:3px;margin:10px 0 12px}
+.press-card{background:var(--paper-2);border:1px solid var(--paper-edge);border-radius:12px;padding:22px}
+.press-outlet{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-weight:600;font-size:16px;color:var(--ink)}
+.press-stars{display:flex;gap:3px;margin:11px 0 13px}
 .press-stars svg{width:16px;height:16px}
 .press-stars .on{fill:var(--red)}
-.press-stars .off{fill:rgba(255,255,255,.14)}
-.press-quote{font-size:14.5px;line-height:1.55;color:var(--muted);font-style:italic}
+.press-stars .off{fill:rgba(42,34,28,.16)}
+.press-quote{font-size:14.5px;line-height:1.55;color:var(--ink-soft);font-style:italic}
 
-/* CONVERSION BAND */
-.convert{position:relative;overflow:hidden;text-align:center;
-  background:radial-gradient(90% 120% at 50% 0%, rgba(232,68,63,.18), transparent 60%), linear-gradient(180deg,#161010,#0b0b0b)}
-.convert::before,.convert::after{content:"";position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--red-glow),transparent)}
-.convert::before{top:0}.convert::after{bottom:0}
-.convert h2{font-size:clamp(30px,6vw,54px);color:#fff;margin-bottom:18px;text-wrap:balance}
-.convert .sub{font-size:17px;color:var(--muted);max-width:60ch;margin:0 auto 34px;line-height:1.6}
-.city-cloud{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:860px;margin:40px auto 0}
-.city-chip{font-size:13.5px;color:var(--muted);background:rgba(255,255,255,.03);
-  border:1px solid var(--line-2);border-radius:100px;padding:7px 15px;letter-spacing:.01em;
+/* ══════════════ 4 · HOVED-CTA (warm-dark band) ══════════════ */
+.convert{position:relative;overflow:hidden;text-align:center;color:var(--cream-text);
+  background:radial-gradient(100% 130% at 50% 0%, #3a2f26 0%, var(--espresso) 58%)}
+.convert h2{font-size:clamp(34px,6.4vw,64px);margin-bottom:20px;text-wrap:balance}
+.convert .sub{font-size:17px;color:var(--cream-soft);max-width:58ch;margin:0 auto 36px;line-height:1.6}
+.city-cloud{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:880px;margin:44px auto 0}
+.city-chip{font-size:13.5px;color:#e5d7c5;background:rgba(255,255,255,.04);
+  border:1px solid var(--line-cream);border-radius:100px;padding:7px 16px;letter-spacing:.01em;
   user-select:none;white-space:nowrap}
-.cloud-note{font-size:13px;color:var(--muted-2);margin-top:26px}
+.cloud-note{font-size:13px;color:var(--cream-soft);opacity:.85;margin-top:28px}
 
-/* STICKY MOBILE BAR */
+/* ══════════════ 5 · STICKY MOBILE BAR ══════════════ */
 .sticky-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;
   padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-  background:linear-gradient(180deg,rgba(11,11,11,.6),rgba(11,11,11,.96) 40%);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(239,226,212,.55),rgba(239,226,212,.96) 42%);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--paper-edge);
   transform:translateY(130%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
 .sticky-bar.show{transform:translateY(0)}
 @media(min-width:768px){.sticky-bar{display:none}}
 
-/* FOOTER */
-.footer{padding:56px 0 40px;border-top:1px solid var(--line);text-align:center;background:#080707}
-.footer-logo{width:180px;margin:0 auto 24px;opacity:.92;filter:drop-shadow(0 0 16px rgba(232,68,63,.25))}
-.footer .f-trust{font-size:14px;color:var(--off);margin-bottom:10px}
-.footer .f-booking{font-size:13px;color:var(--muted-2);margin-bottom:24px}
-.footer .f-booking a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+/* ══════════════ 6 · FOOTER ══════════════ */
+.footer{padding:60px 0 44px;text-align:center;background:#1c1611;color:var(--cream-text)}
+.footer-logo{width:190px;margin:0 auto 26px;opacity:.96}
+.footer .f-trust{font-size:14px;color:#efe3d2;margin-bottom:10px}
+.footer .f-booking{font-size:13px;color:var(--cream-soft);margin-bottom:26px}
+.footer .f-booking a{color:#e9dccb;text-decoration:underline;text-underline-offset:2px}
 .socials{display:flex;gap:14px;justify-content:center}
-.socials a{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+.socials a{width:42px;height:42px;border-radius:50%;border:1px solid var(--line-cream);
   display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s}
-.socials a:hover{border-color:var(--red);background:rgba(232,68,63,.08)}
-.socials svg{width:19px;height:19px;fill:var(--off)}
+.socials a:hover{border-color:var(--red);background:rgba(232,68,63,.12)}
+.socials svg{width:19px;height:19px;fill:#efe3d2}
 
 /* ══════════════ REDUCED MOTION ══════════════ */
 @media(prefers-reduced-motion:reduce){
@@ -258,11 +284,11 @@ section{position:relative}
 
 <!-- ═══════════════ 1 · HERO ═══════════════ -->
 <header class="hero" id="top">
-  <img class="hero-portrait" src="img/hero-portrait.png" alt="" aria-hidden="true" fetchpriority="high" width="1812" height="2940">
+  <img class="hero-portrait" src="/stokholm/img/hero-portrait.png" alt="" aria-hidden="true" fetchpriority="high" width="1812" height="2940">
   <div class="hero-scrim"></div>
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <img class="hero-logo" src="img/tour-logo.png" alt="Nikolaj Stokholm feat. Stokkefar" width="1406" height="893">
+      <img class="hero-logo" src="/stokholm/img/tour-logo.png" alt="Nikolaj Stokholm feat. Stokkefar" width="1406" height="893">
       <h1 class="display" id="hero-headline">Hele Danmarks Stokkefar er tilbage. Og denne gang er han ikke alene.</h1>
       <p class="sub" id="hero-sub"></p>
       <div class="cta-row">
@@ -276,15 +302,18 @@ section{position:relative}
 
     <div class="hero-video">
       <figure class="video-wrap ar-16-9" id="hero-video-wrap">
-        <video id="hero-video" muted loop playsinline preload="metadata" poster="video/hero-poster.jpg">
-          <source src="video/hero.mp4" type="video/mp4">
+        <video id="hero-video" muted loop playsinline preload="metadata" poster="/stokholm/video/hero-poster.jpg">
+          <source src="/stokholm/video/hero.mp4" type="/stokholm/video/mp4">
         </video>
         <button class="mute-toggle" id="hero-mute" type="button" aria-label="Slå lyd til">
-          <svg id="mute-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4zm11.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 15.5 12z" opacity=".0"/><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 7.5a5 5 0 0 1 0 9M18.5 5a8.5 8.5 0 0 1 0 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" style="display:none" id="sound-waves"/><path id="mute-x" d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path id="sound-waves" d="M16 7.5a5 5 0 0 1 0 9M18.5 5a8.5 8.5 0 0 1 0 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" style="display:none"/><path id="mute-x" d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
         </button>
         <figcaption class="video-fallback">
+          <span class="ph-tag">Placeholder</span>
           <span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="fallback-label">hero.mp4</span>
+          <span class="fallback-title">Video</span>
+          <span class="fallback-desc">Trailer / teaser lægges ind her</span>
+          <span class="fallback-label">hero.mp4 · 16:9</span>
         </figcaption>
       </figure>
     </div>
@@ -296,7 +325,7 @@ section{position:relative}
   <div class="wrap about-grid">
     <div class="about-copy">
       <span class="eyebrow">Om showet</span>
-      <h2 class="display" id="about-heading">Hvad kan man forvente?</h2>
+      <h2 class="neon" id="about-heading">Hvad kan man forvente?</h2>
       <div class="measure">
         <p class="lead" id="about-lead">Så sker det endelig. Dét, som en hel nation har ventet på. I denne tid, hvor man bare har brug for at sætte sig ned, grine og glemme alt omkring sig, er der kun én, som kan løse denne umulige opgave. Og det er gode gamle Stokkefar. Med tre succesfulde shows bag sig er forventningerne enorme. Og det ved han godt.</p>
         <blockquote class="pullquote">
@@ -307,11 +336,11 @@ section{position:relative}
       </div>
       <div class="proof" id="proof-strip"></div>
       <div class="about-cta">
-        <a class="btn" data-cta="om_showet" href="#" target="_blank" rel="noopener"><span class="lbl">Køb billet</span></a>
+        <a class="btn btn--onDark" data-cta="om_showet" href="#" target="_blank" rel="noopener"><span class="lbl">Køb billet</span></a>
       </div>
     </div>
     <div class="about-media">
-      <img src="img/poster.jpg" alt="Turnéplakat — Nikolaj Stokholm feat. Stokkefar, Danmarksturné 2026/27" loading="lazy" width="1810" height="2560">
+      <img src="/stokholm/img/poster.jpg" alt="Turnéplakat — Nikolaj Stokholm feat. Stokkefar, Danmarksturné 2026/27" loading="lazy" width="1810" height="2560">
       <span class="frame-glow"></span>
     </div>
   </div>
@@ -322,10 +351,27 @@ section{position:relative}
   <div class="wrap">
     <div class="reviews-head">
       <span class="eyebrow">Anmeldelser & exit polls</span>
-      <h2 class="display" id="reviews-heading">Hvad siger publikum?</h2>
+      <h2 class="neon" id="reviews-heading">Hvad siger publikum?</h2>
       <p id="reviews-sub"></p>
     </div>
     <div class="review-row" id="review-row"></div>
+
+    <div class="fanwall">
+      <p class="press-title">Det siger publikum på Facebook</p>
+      <div class="fanwall-grid">
+        <figure class="fan-photo">
+          <img src="/stokholm/img/reviews/publikum-photo.png" alt="Publikum til Nikolaj Stokholm feat. Stokkefar" loading="lazy" width="700" height="1050">
+        </figure>
+        <div class="fan-comments">
+          <img src="/stokholm/img/reviews/fb-lennart.png" loading="lazy" width="638" height="81" alt="Lennart Juel Ottenfeldt Dahl: Har lige haft fornøjelsen i Ringsted kongress center på første række her til aften. Det var verdensklasse. Det er længe siden vi har grinet så meget.">
+          <img src="/stokholm/img/reviews/fb-line.png" loading="lazy" width="657" height="83" alt="Line Jennie Jensen: Vi så dig i Ringsted i fredags, wauw et show! Både min mand og jeg græd af grin flere gange. Kæmpe tak for dig Nikolaj Stokholm.">
+          <img src="/stokholm/img/reviews/fb-katja.png" loading="lazy" width="641" height="48" alt="Katja Dolleris Engel: Det er uden tvivl det bedste show jeg har oplevet – aldrig har jeg grinet så meget.">
+          <img src="/stokholm/img/reviews/fb-kamilla.png" loading="lazy" width="481" height="78" alt="Kamilla Kristine Pedersen: Har været inde og se det og hold kæft jeg grinte og grinte. Du er sååå sjov – tak for den bedste aften.">
+          <img src="/stokholm/img/reviews/fb-jeanette.png" loading="lazy" width="429" height="77" alt="Jeanette Charlotte Rosbirk-Offersen: Fra start til slut grinede man. Super godt show.">
+        </div>
+      </div>
+    </div>
+
     <div class="press">
       <p class="press-title">Det skrev pressen</p>
       <div class="press-grid" id="press-grid"></div>
@@ -337,9 +383,9 @@ section{position:relative}
 <section class="convert sec-pad" id="billetter">
   <div class="wrap">
     <span class="eyebrow">Danmarksturné 2026/27</span>
-    <h2 class="display" id="convert-heading">Køb billet til din by</h2>
+    <h2 class="neon" id="convert-heading">Køb billet til din by</h2>
     <p class="sub" id="convert-sub"></p>
-    <a class="btn btn-lg" data-cta="hovedcta" href="#" target="_blank" rel="noopener">
+    <a class="btn btn-lg btn--onDark" data-cta="hovedcta" href="#" target="_blank" rel="noopener">
       <span class="lbl">Se alle datoer og køb billet</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -351,7 +397,7 @@ section{position:relative}
 <!-- ═══════════════ 6 · FOOTER ═══════════════ -->
 <footer class="footer">
   <div class="wrap">
-    <img class="footer-logo" src="img/tour-logo.png" alt="Nikolaj Stokholm feat. Stokkefar" loading="lazy">
+    <img class="footer-logo" src="/stokholm/img/tour-logo.png" alt="Nikolaj Stokholm feat. Stokkefar" loading="lazy">
     <p class="f-trust" id="foot-trust"></p>
     <p class="f-booking" id="foot-booking"></p>
     <div class="socials" id="socials"></div>
