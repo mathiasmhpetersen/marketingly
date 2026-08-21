@@ -66,9 +66,15 @@ the same name. If a file is ever missing, the player shows a branded placeholder
 (dashed box + play icon + filename) so the page never breaks — it's replaced
 automatically once the real file loads.
 
-> ⚠️ The current files are large (hero ~70 MB, about ~33 MB). Before go-live,
-> compress to web-optimised H.264 (faststart, ~1080×1920, a few MB each) so the
-> landing page stays fast. There was no ffmpeg in the build env to do it here.
+> The originals (70 MB / 33 MB) were web-compressed with macOS `avconvert`
+> (`--preset Preset960x540`) to H.264 540×960 with **faststart** (moov atom at the
+> front) so they start playing immediately: hero ~22 MB, about ~14 MB. If you
+> re-export, keep them faststart + a few MB, or they'll be slow to appear.
+
+The **"Det siger publikum på Facebook"** section (`img/reviews/`) shows a real
+audience photo + five real Facebook comment screenshots (client-supplied). To
+add/replace: drop a screenshot in `img/reviews/` and add an `<img>` (with
+transcribed `alt`) to the `.fan-comments` list in `index.html`.
 
 ## Tracking
 
