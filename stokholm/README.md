@@ -53,36 +53,22 @@ on load, so **editing `content.js` is enough**.
 `content.js → hero.activeHeadline` — set `0`–`4` to pick from `hero.headlines`
 (A–E). Variant A is the default.
 
-### Swap the videos
-Drop these exact filenames into `stokholm/video/` (with poster frames):
+### The videos
+Two vertical (9:16) players, both autoplay muted + loop with an unmute toggle:
 
 ```
-video/hero.mp4       + video/hero-poster.jpg        (16:9, autoplay muted loop)
-video/review-1.mp4   + video/review-1-poster.jpg    (9:16 exit poll)
-video/review-2.mp4   + video/review-2-poster.jpg    (9:16 exit poll)
-video/review-3.mp4   + video/review-3-poster.jpg    (9:16 exit poll)
+video/hero.mp4     — hero trailer (right column of the hero)
+video/about.mp4    — "Hvad handler showet egentlig om?" (Om showet section)
 ```
 
-Until a file exists, the page renders a **branded placeholder** (dark panel +
-play icon + filename) — it never breaks. Captions/filenames are in
-`content.js → reviews.videos`.
+Both real files are already in `stokholm/video/`. To swap: replace the file with
+the same name. If a file is ever missing, the player shows a branded placeholder
+(dashed box + play icon + filename) so the page never breaks — it's replaced
+automatically once the real file loads.
 
-### Press quotes
-`content.js → reviews.pressQuotes`. These are **`[PLACEHOLDER]`** on purpose —
-**do not invent** real quotes, ratings or attributions. Swap in real citations
-(with `outlet`, `stars`, `quote`, `url`) before launch.
-
-### Facebook fan wall ("Det siger publikum på Facebook")
-Real audience reactions, supplied by the client as screenshots, live in
-`img/reviews/` (`fb-*.png` comments + `publikum-photo.png`) and are laid out in
-the fan wall in `index.html` (audience photo + comment feed). These are **real**,
-not placeholders. To add/replace: drop a new screenshot in `img/reviews/` and add
-an `<img>` (with transcribed `alt`) to the `.fan-comments` list.
-
-### Media placeholder boxes
-Every video slot renders a clearly-labelled placeholder box (a "PLACEHOLDER" tag,
-"Video #n", the caption, and the expected filename/aspect) so the client can see
-where each clip goes. The box is replaced automatically once the real file loads.
+> ⚠️ The current files are large (hero ~70 MB, about ~33 MB). Before go-live,
+> compress to web-optimised H.264 (faststart, ~1080×1920, a few MB each) so the
+> landing page stays fast. There was no ffmpeg in the build env to do it here.
 
 ## Tracking
 
@@ -93,8 +79,8 @@ without touching components. Set IDs in `content.js`:
 - `ga4Id` — GA4. Blank ⇒ no-op.
 
 Events: `PageView` (load), `ViewContent` (Om showet at 50% viewport),
-`BilletCTAClick` with a `section` param (`hero` | `om_showet` | `anmeldelser` |
-`hovedcta` | `sticky_mobile`), and scroll-depth at 25/50/75/100%.
+`BilletCTAClick` with a `section` param (`hero` | `om_showet` | `hovedcta` |
+`sticky_mobile`), and scroll-depth at 25/50/75/100%.
 
 ## Re-download brand images
 

@@ -46,59 +46,11 @@
     setText("about-pull-author", "— " + a.pullQuoteAuthor);
     setText("about-cred", a.credibility);
     var strip = $("proof-strip");
-    a.proof.forEach(function (p) {
+    if (strip) a.proof.forEach(function (p) {
       var span = document.createElement("span");
       span.className = "proof-item";
       span.textContent = p;
       strip.appendChild(span);
-    });
-  }
-
-  /* ---------- REVIEWS + PRESS ---------- */
-  function star(on) {
-    return '<svg viewBox="0 0 24 24" class="' + (on ? "on" : "off") + '" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
-  }
-  function renderReviews() {
-    var r = C.reviews;
-    setText("reviews-heading", r.heading);
-    setText("reviews-sub", r.sub);
-
-    var row = $("review-row");
-    r.videos.forEach(function (v, i) {
-      var card = document.createElement("div");
-      card.className = "review-card";
-      var file = v.src.split("/").pop();
-      card.innerHTML =
-        '<figure class="video-wrap ar-9-16" data-review>' +
-          '<video preload="metadata" playsinline poster="' + v.poster + '">' +
-            '<source src="' + v.src + '" type="video/mp4"></video>' +
-          '<button class="review-play" type="button" aria-label="Afspil: ' + v.caption + '">' +
-            '<span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>' +
-          "</button>" +
-          '<figcaption class="video-fallback">' +
-            '<span class="ph-tag">Placeholder</span>' +
-            '<span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>' +
-            '<span class="fallback-title">Video #' + (i + 1) + "</span>" +
-            '<span class="fallback-desc">' + v.caption + "</span>" +
-            '<span class="fallback-label">' + file + " · 9:16</span>" +
-          "</figcaption>" +
-        "</figure>" +
-        '<p class="cap">' + v.caption + "</p>";
-      row.appendChild(card);
-    });
-    setupReviewVideos();
-
-    var grid = $("press-grid");
-    r.pressQuotes.forEach(function (p) {
-      var card = document.createElement("div");
-      card.className = "press-card";
-      var stars = "";
-      for (var i = 1; i <= 5; i++) stars += star(i <= p.stars);
-      card.innerHTML =
-        '<div class="press-outlet">' + p.outlet + "</div>" +
-        '<div class="press-stars" aria-label="' + p.stars + ' ud af 5 stjerner">' + stars + "</div>" +
-        '<p class="press-quote">' + p.quote + "</p>";
-      grid.appendChild(card);
     });
   }
 
@@ -109,7 +61,7 @@
     setText("convert-sub", c.sub);
     setText("cloud-note", c.cloudNote);
     var cloud = $("city-cloud");
-    c.cities.forEach(function (city) {
+    if (cloud) c.cities.forEach(function (city) {
       var chip = document.createElement("span");
       chip.className = "city-chip";
       chip.textContent = city;
@@ -121,88 +73,52 @@
   function renderFooter() {
     var f = C.footer;
     setText("foot-trust", f.trustLine);
-    var b = $("foot-booking");
-    b.innerHTML = "PR, management og booking: Tajmer Booking & Management — " +
-      '<a href="' + f.bookingUrl + '" target="_blank" rel="noopener">tajmer.dk</a>';
     var fb = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>';
     var ig = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5.01-4.74.07-.9.04-1.38.19-1.71.32-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.13.33-.28.81-.32 1.71C3.21 8.5 3.2 8.85 3.2 12s.01 3.5.07 4.74c.04.9.19 1.38.32 1.71.17.43.37.74.69 1.06.32.32.63.52 1.06.69.33.13.81.28 1.71.32 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c.9-.04 1.38-.19 1.71-.32.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.13-.33.28-.81.32-1.71.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.04-.9-.19-1.38-.32-1.71a2.85 2.85 0 0 0-.69-1.06 2.85 2.85 0 0 0-1.06-.69c-.33-.13-.81-.28-1.71-.32C15.5 4.01 15.15 4 12 4zm0 3.06A4.94 4.94 0 1 1 12 16.94 4.94 4.94 0 0 1 12 7.06zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28zm5.14-.94a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z"/></svg>';
-    $("socials").innerHTML =
+    var el = $("socials");
+    if (el) el.innerHTML =
       '<a href="' + f.facebook + '" target="_blank" rel="noopener" aria-label="Facebook">' + fb + "</a>" +
       '<a href="' + f.instagram + '" target="_blank" rel="noopener" aria-label="Instagram">' + ig + "</a>";
   }
 
-  /* ---------- VIDEO: fallback wiring (branded placeholder if file missing) ---------- */
-  function markLoadable(wrap) {
-    var video = wrap.querySelector("video");
-    if (!video) return;
-    var reveal = function () { wrap.classList.add("has-video"); wrap.dataset.loaded = "1"; };
-    video.addEventListener("loadeddata", reveal);
-    // if already have data (cached), reveal
-    if (video.readyState >= 2) reveal();
-    // on error, keep the fallback visible (do nothing)
-  }
-
-  /* ---------- HERO VIDEO ---------- */
-  function setupHeroVideo() {
-    var wrap = $("hero-video-wrap");
-    var video = $("hero-video");
-    if (!wrap || !video) return;
-    markLoadable(wrap);
-    // Respect reduced motion: never autoplay
-    if (!prefersReducedMotion) {
-      video.muted = true;
-      var p = video.play();
-      if (p && p.catch) p.catch(function () {});
-    }
-    // unmute toggle
-    var btn = $("hero-mute");
-    var waves = $("sound-waves");
-    var x = $("mute-x");
-    var sync = function () {
-      if (video.muted) { btn.setAttribute("aria-label", "Slå lyd til"); if (waves) waves.style.display = "none"; if (x) x.style.display = ""; }
-      else { btn.setAttribute("aria-label", "Slå lyd fra"); if (waves) waves.style.display = ""; if (x) x.style.display = "none"; }
-    };
-    sync();
-    btn.addEventListener("click", function () {
-      video.muted = !video.muted;
-      if (!video.muted && video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
-      sync();
-    });
-  }
-
-  /* ---------- REVIEW VIDEOS: click-to-play w/ sound, one at a time, pause off-screen ---------- */
-  function setupReviewVideos() {
-    var wraps = Array.prototype.slice.call(document.querySelectorAll("[data-review]"));
-    wraps.forEach(function (wrap) {
-      markLoadable(wrap);
+  /* ---------- VERTICAL VIDEO PLAYERS (hero + om showet) ----------
+     autoplay muted loop; branded placeholder until the real file loads;
+     per-player unmute toggle (unmuting one mutes the others). */
+  function setupVideos() {
+    var players = Array.prototype.slice.call(document.querySelectorAll("[data-video]"));
+    players.forEach(function (wrap) {
       var video = wrap.querySelector("video");
-      var play = wrap.querySelector(".review-play");
-      play.addEventListener("click", function () {
-        if (!wrap.dataset.loaded) return; // file missing → keep placeholder
-        // pause the others
-        wraps.forEach(function (w) {
-          if (w !== wrap) { var v = w.querySelector("video"); v.pause(); w.classList.remove("playing"); }
-        });
-        video.muted = false;
-        wrap.classList.add("playing");
+      if (!video) return;
+
+      var reveal = function () { wrap.classList.add("has-video"); wrap.dataset.loaded = "1"; };
+      video.addEventListener("loadeddata", reveal);
+      if (video.readyState >= 2) reveal();
+
+      if (!prefersReducedMotion) {
+        video.muted = true;
         var p = video.play();
-        if (p && p.catch) p.catch(function () { wrap.classList.remove("playing"); });
+        if (p && p.catch) p.catch(function () {});
+      }
+
+      var btn = wrap.querySelector("[data-mute]");
+      if (!btn) return;
+      var sync = function () {
+        if (video.muted) { wrap.classList.remove("sound"); btn.setAttribute("aria-label", "Slå lyd til"); }
+        else { wrap.classList.add("sound"); btn.setAttribute("aria-label", "Slå lyd fra"); }
+      };
+      sync();
+      btn.addEventListener("click", function () {
+        if (video.muted) {
+          // mute every other player so only one has sound
+          players.forEach(function (w) {
+            if (w !== wrap) { var v = w.querySelector("video"); if (v) v.muted = true; w.classList.remove("sound"); }
+          });
+        }
+        video.muted = !video.muted;
+        if (!video.muted && video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
+        sync();
       });
-      video.addEventListener("pause", function () { wrap.classList.remove("playing"); });
-      video.addEventListener("ended", function () { wrap.classList.remove("playing"); });
     });
-    // pause when scrolled out of view
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (!e.isIntersecting) {
-            var v = e.target.querySelector("video");
-            if (v && !v.paused) { v.pause(); e.target.classList.remove("playing"); }
-          }
-        });
-      }, { threshold: 0.35 });
-      wraps.forEach(function (w) { io.observe(w); });
-    }
   }
 
   /* ---------- STICKY MOBILE BAR: show after hero ---------- */
@@ -211,16 +127,11 @@
     var hero = $("top");
     if (!bar || !hero) return;
     var updatePad = function () {
-      if (bar.classList.contains("show")) {
-        document.documentElement.style.setProperty("--sticky-h", bar.offsetHeight + "px");
-      } else {
-        document.documentElement.style.setProperty("--sticky-h", "0px");
-      }
+      document.documentElement.style.setProperty("--sticky-h", bar.classList.contains("show") ? bar.offsetHeight + "px" : "0px");
     };
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (entries) {
-        var e = entries[0];
-        bar.classList.toggle("show", !e.isIntersecting);
+        bar.classList.toggle("show", !entries[0].isIntersecting);
         updatePad();
       }, { threshold: 0, rootMargin: "-40% 0px 0px 0px" });
       io.observe(hero);
@@ -245,11 +156,10 @@
   function init() {
     renderHero();
     renderAbout();
-    renderReviews();
     renderConversion();
     renderFooter();
     wireCtas();
-    setupHeroVideo();
+    setupVideos();
     setupStickyBar();
     A.init();
     setupViewContent();
