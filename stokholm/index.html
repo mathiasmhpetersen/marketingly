@@ -154,6 +154,21 @@ a{color:inherit}
 .proof-item::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tan);flex-shrink:0}
 .about-cta{margin-top:38px}
 
+/* ══════════════ PUBLIKUM — Facebook fan wall ══════════════ */
+.fanwall-sec{background:#dccabb;border-top:1px solid rgba(67,67,67,.08)}
+.fan-head{text-align:center;margin-bottom:38px}
+.fan-head h2{font-size:clamp(28px,5.2vw,44px);color:var(--dark)}
+.fanwall-grid{display:grid;grid-template-columns:1fr;gap:18px;max-width:980px;margin:0 auto}
+.fanwall-grid>*{min-width:0}
+@media(min-width:820px){.fanwall-grid{grid-template-columns:0.8fr 1.2fr;gap:28px;align-items:start}}
+.fan-photo{margin:0;min-width:0}
+.fan-photo img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--paper-2);
+  box-shadow:0 26px 60px -30px rgba(40,30,22,.5)}
+.fan-comments{display:flex;flex-direction:column;gap:12px;min-width:0}
+.fan-comments img{display:block;width:100%;height:auto;min-width:0;border-radius:12px;
+  border:1px solid var(--paper-2);box-shadow:0 12px 28px -20px rgba(40,30,22,.45)}
+@media(min-width:820px){.fan-comments img{align-self:flex-start;width:auto;max-width:100%}}
+
 /* ══════════════ 3 · HOVED-CTA (tan band) ══════════════ */
 .convert{position:relative;text-align:center;background:var(--tan);color:#fff}
 .convert .eyebrow{color:#4a3b2e}
@@ -284,6 +299,28 @@ a{color:inherit}
           <span class="fallback-label">about.mp4 · 9:16</span>
         </figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PUBLIKUM (Facebook) ═══════════════ -->
+<section class="fanwall-sec sec-pad" id="publikum">
+  <div class="wrap">
+    <div class="fan-head">
+      <span class="eyebrow">Anmeldelser</span>
+      <h2 class="display">Det siger publikum på Facebook</h2>
+    </div>
+    <div class="fanwall-grid">
+      <figure class="fan-photo">
+        <img src="/stokholm/img/reviews/publikum-photo.png" alt="Publikum til Nikolaj Stokholm feat. Stokkefar" loading="lazy" width="700" height="1050">
+      </figure>
+      <div class="fan-comments">
+        <img src="/stokholm/img/reviews/fb-lennart.png" loading="lazy" width="638" height="81" alt="Lennart Juel Ottenfeldt Dahl: Har lige haft fornøjelsen i Ringsted kongress center på første række her til aften. Det var verdensklasse. Det er længe siden vi har grinet så meget.">
+        <img src="/stokholm/img/reviews/fb-line.png" loading="lazy" width="657" height="83" alt="Line Jennie Jensen: Vi så dig i Ringsted i fredags, wauw et show! Både min mand og jeg græd af grin flere gange. Kæmpe tak for dig Nikolaj Stokholm.">
+        <img src="/stokholm/img/reviews/fb-katja.png" loading="lazy" width="641" height="48" alt="Katja Dolleris Engel: Det er uden tvivl det bedste show jeg har oplevet – aldrig har jeg grinet så meget.">
+        <img src="/stokholm/img/reviews/fb-kamilla.png" loading="lazy" width="481" height="78" alt="Kamilla Kristine Pedersen: Har været inde og se det og hold kæft jeg grinte og grinte. Du er sååå sjov – tak for den bedste aften.">
+        <img src="/stokholm/img/reviews/fb-jeanette.png" loading="lazy" width="429" height="77" alt="Jeanette Charlotte Rosbirk-Offersen: Fra start til slut grinede man. Super godt show.">
+      </div>
     </div>
   </div>
 </section>
