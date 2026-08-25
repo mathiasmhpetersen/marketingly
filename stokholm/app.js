@@ -82,10 +82,9 @@
   }
 
   /* ---------- VIDEO PLAYERS (hero + om showet) ----------
-     The <video> plays natively (autoplay muted loop playsinline + poster) with
-     NO overlay and NO reveal logic — it shows and plays even if this script never
-     runs. This only *enhances*: nudge autoplay, tap-to-play, and the mute toggle.
-     Wrapped in try/catch so a video quirk can never break the rest of the page. */
+     No autoplay. The poster shows with a play button; the user clicks to play,
+     and it starts WITH SOUND. Only one video plays at a time. Wrapped in
+     try/catch so a video quirk can never break the rest of the page. */
   function setupVideos() {
     try {
       var wraps = Array.prototype.slice.call(document.querySelectorAll(".video-wrap"));
@@ -93,37 +92,42 @@
         var video = wrap.querySelector("video");
         if (!video) return;
 
-        // Nudge playback (some browsers ignore the autoplay attribute until muted
-        // is set via JS). Harmless if it's already playing or gets blocked.
-        video.muted = true;
-        var kick = video.play();
-        if (kick && kick.catch) kick.catch(function () {});
+        var btn = wrap.querySelector("[data-mute]");
+        var syncMute = function () {
+          if (video.muted) { wrap.classList.remove("sound"); if (btn) btn.setAttribute("aria-label", "Slå lyd til"); }
+          else { wrap.classList.add("sound"); if (btn) btn.setAttribute("aria-label", "Slå lyd fra"); }
+        };
 
-        // Tap the video to play/pause (covers browsers that block autoplay).
-        wrap.style.cursor = "pointer";
+        var startWithSound = function () {
+          // Stop every other player so only one has sound at a time.
+          wraps.forEach(function (w) {
+            if (w !== wrap) { var v = w.querySelector("video"); if (v) v.pause(); }
+          });
+          video.muted = false;
+          syncMute();
+          var p = video.play();
+          if (p && p.catch) p.catch(function () {
+            // Sound-on blocked → fall back to muted playback so it still plays.
+            video.muted = true; syncMute();
+            var p2 = video.play(); if (p2 && p2.catch) p2.catch(function () {});
+          });
+        };
+
+        video.addEventListener("play", function () { wrap.classList.add("playing"); });
+        video.addEventListener("pause", function () { wrap.classList.remove("playing"); });
+
+        // Click the poster / play button → play with sound. Click again → pause.
         wrap.addEventListener("click", function (e) {
           if (e.target.closest && e.target.closest("[data-mute]")) return;
-          if (video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
-          else { video.pause(); }
+          if (video.paused) startWithSound();
+          else video.pause();
         });
 
-        var btn = wrap.querySelector("[data-mute]");
-        if (!btn) return;
-        var sync = function () {
-          if (video.muted) { wrap.classList.remove("sound"); btn.setAttribute("aria-label", "Slå lyd til"); }
-          else { wrap.classList.add("sound"); btn.setAttribute("aria-label", "Slå lyd fra"); }
-        };
-        sync();
-        btn.addEventListener("click", function (ev) {
+        syncMute();
+        if (btn) btn.addEventListener("click", function (ev) {
           ev.stopPropagation();
-          if (video.muted) {
-            wraps.forEach(function (w) {
-              if (w !== wrap) { var v = w.querySelector("video"); if (v) v.muted = true; w.classList.remove("sound"); }
-            });
-          }
           video.muted = !video.muted;
-          if (video.paused) { var p2 = video.play(); if (p2 && p2.catch) p2.catch(function () {}); }
-          sync();
+          syncMute();
         });
       });
     } catch (e) { /* never let video wiring break the page */ }
