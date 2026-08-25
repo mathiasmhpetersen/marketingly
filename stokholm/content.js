@@ -68,15 +68,44 @@ window.CONTENT = {
     cloudNote: "Se de aktuelle datoer og ledige billetter på nikolajstokholm.dk",
   },
 
+  /* --- ANMELDELSER: publikum på Facebook ----------------------------------
+     Native review cards (was Facebook screenshot crops). Text is verbatim from
+     the original comments — do not rewrite. `name` seeds the avatar initials. */
+  reviews: {
+    heading: "Det siger publikum på Facebook",
+    attribution: "Kommentarer fra publikum · via Facebook",
+    items: [
+      {
+        name: "Lennart Juel Ottenfeldt Dahl",
+        text: "Har lige haft fornøjelsen i Ringsted kongress center på første række her til aften. Det var verdensklasse. Det er længe siden vi har grinet så meget.",
+      },
+      {
+        name: "Line Jennie Jensen",
+        text: "Vi så dig i Ringsted i fredags, wauw et show! Både min mand og jeg græd af grin flere gange. Kæmpe tak for dig Nikolaj Stokholm.",
+      },
+      {
+        name: "Katja Dolleris Engel",
+        text: "Det er uden tvivl det bedste show jeg har oplevet – aldrig har jeg grinet så meget.",
+      },
+      {
+        name: "Kamilla Kristine Pedersen",
+        text: "Har været inde og se det og hold kæft jeg grinte og grinte. Du er sååå sjov – tak for den bedste aften.",
+      },
+      {
+        name: "Jeanette Charlotte Rosbirk-Offersen",
+        text: "Fra start til slut grinede man. Super godt show.",
+      },
+    ],
+  },
+
   /* --- STICKY MOBILE BAR --------------------------------------------------- */
   sticky: { ctaLabel: "Køb billet" },
 
-  /* --- FOOTER -------------------------------------------------------------- */
+  /* --- FOOTER --------------------------------------------------------------
+     Conversion page: nothing clickable except the ticket URL. No socials,
+     no contact blocks, no newsletter. Logo + trust line + one credit line. */
   footer: {
     trustLine: "Officielt billetsalg via nikolajstokholm.dk",
-    booking: "PR, management og booking: Tajmer Booking & Management — tajmer.dk",
-    bookingUrl: "https://www.tajmer.dk/",
-    facebook: "https://www.facebook.com/nikolaj.stokholm",
-    instagram: "https://www.instagram.com/nikolajstokholm/",
+    credit: "Tajmer Booking & Management",
   },
 };
