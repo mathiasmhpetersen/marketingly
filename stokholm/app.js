@@ -81,85 +81,52 @@
       '<a href="' + f.instagram + '" target="_blank" rel="noopener" aria-label="Instagram">' + ig + "</a>";
   }
 
-  /* ---------- VERTICAL VIDEO PLAYERS (hero + om showet) ----------
-     autoplay muted loop; branded placeholder until the real file loads;
-     per-player unmute toggle (unmuting one mutes the others). */
+  /* ---------- VIDEO PLAYERS (hero + om showet) ----------
+     The <video> plays natively (autoplay muted loop playsinline + poster) with
+     NO overlay and NO reveal logic — it shows and plays even if this script never
+     runs. This only *enhances*: nudge autoplay, tap-to-play, and the mute toggle.
+     Wrapped in try/catch so a video quirk can never break the rest of the page. */
   function setupVideos() {
-    var players = Array.prototype.slice.call(document.querySelectorAll("[data-video]"));
-    players.forEach(function (wrap) {
-      var video = wrap.querySelector("video");
-      if (!video) return;
+    try {
+      var wraps = Array.prototype.slice.call(document.querySelectorAll(".video-wrap"));
+      wraps.forEach(function (wrap) {
+        var video = wrap.querySelector("video");
+        if (!video) return;
 
-      // Reveal (hide the placeholder) as soon as the video is displayable —
-      // NOT only on playback. This is what makes the frame show even when
-      // autoplay is blocked or the user has "reduce motion" enabled.
-      var reveal = function () {
-        if (wrap.dataset.loaded) return;
-        wrap.classList.add("has-video");
-        wrap.dataset.loaded = "1";
-      };
-      // "loadstart" fires almost immediately → the poster frame shows at once,
-      // in every browser, even if autoplay is blocked or decoding is slow.
-      ["loadstart", "loadedmetadata", "loadeddata", "canplay", "canplaythrough", "playing"].forEach(function (ev) {
-        video.addEventListener(ev, reveal);
-      });
-      if (video.readyState >= 1 || video.currentSrc) reveal();
-
-      // A real load/decode failure → keep the placeholder (don't show a black box).
-      video.addEventListener("error", function () {
-        wrap.classList.remove("has-video");
-        delete wrap.dataset.loaded;
-      });
-
-      var attemptPlay = function () {
+        // Nudge playback (some browsers ignore the autoplay attribute until muted
+        // is set via JS). Harmless if it's already playing or gets blocked.
         video.muted = true;
-        var p = video.play();
-        if (p && p.catch) p.catch(function () { /* blocked: first frame + tap-to-play still work */ });
-      };
+        var kick = video.play();
+        if (kick && kick.catch) kick.catch(function () {});
 
-      // Autoplay only when motion is allowed; play/pause as it enters/leaves view.
-      if (!prefersReducedMotion) {
-        if ("IntersectionObserver" in window) {
-          var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (e.isIntersecting) attemptPlay();
-              else if (!video.paused) video.pause();
-            });
-          }, { threshold: 0.25 });
-          io.observe(video);
-        } else {
-          attemptPlay();
-        }
-      }
+        // Tap the video to play/pause (covers browsers that block autoplay).
+        wrap.style.cursor = "pointer";
+        wrap.addEventListener("click", function (e) {
+          if (e.target.closest && e.target.closest("[data-mute]")) return;
+          if (video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+          else { video.pause(); }
+        });
 
-      // Tap anywhere on the video to play/pause — the reliable fallback when
-      // autoplay is blocked or motion is reduced. (Mute button handles its own.)
-      wrap.addEventListener("click", function (e) {
-        if (e.target.closest && e.target.closest("[data-mute]")) return;
-        if (video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
-        else { video.pause(); }
-      });
-
-      var btn = wrap.querySelector("[data-mute]");
-      if (!btn) return;
-      var sync = function () {
-        if (video.muted) { wrap.classList.remove("sound"); btn.setAttribute("aria-label", "Slå lyd til"); }
-        else { wrap.classList.add("sound"); btn.setAttribute("aria-label", "Slå lyd fra"); }
-      };
-      sync();
-      btn.addEventListener("click", function (ev) {
-        ev.stopPropagation();
-        if (video.muted) {
-          // mute every other player so only one has sound
-          players.forEach(function (w) {
-            if (w !== wrap) { var v = w.querySelector("video"); if (v) v.muted = true; w.classList.remove("sound"); }
-          });
-        }
-        video.muted = !video.muted;
-        if (video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
+        var btn = wrap.querySelector("[data-mute]");
+        if (!btn) return;
+        var sync = function () {
+          if (video.muted) { wrap.classList.remove("sound"); btn.setAttribute("aria-label", "Slå lyd til"); }
+          else { wrap.classList.add("sound"); btn.setAttribute("aria-label", "Slå lyd fra"); }
+        };
         sync();
+        btn.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          if (video.muted) {
+            wraps.forEach(function (w) {
+              if (w !== wrap) { var v = w.querySelector("video"); if (v) v.muted = true; w.classList.remove("sound"); }
+            });
+          }
+          video.muted = !video.muted;
+          if (video.paused) { var p2 = video.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+          sync();
+        });
       });
-    });
+    } catch (e) { /* never let video wiring break the page */ }
   }
 
   /* ---------- STICKY MOBILE BAR: show after hero ---------- */
