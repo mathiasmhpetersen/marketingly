@@ -98,10 +98,12 @@
         wrap.classList.add("has-video");
         wrap.dataset.loaded = "1";
       };
-      ["loadeddata", "canplay", "canplaythrough", "playing"].forEach(function (ev) {
+      // "loadstart" fires almost immediately → the poster frame shows at once,
+      // in every browser, even if autoplay is blocked or decoding is slow.
+      ["loadstart", "loadedmetadata", "loadeddata", "canplay", "canplaythrough", "playing"].forEach(function (ev) {
         video.addEventListener(ev, reveal);
       });
-      if (video.readyState >= 2) reveal();
+      if (video.readyState >= 1 || video.currentSrc) reveal();
 
       // A real load/decode failure → keep the placeholder (don't show a black box).
       video.addEventListener("error", function () {
