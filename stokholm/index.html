@@ -96,9 +96,23 @@ a{color:inherit}
   box-shadow:0 40px 90px -34px rgba(40,30,22,.55), 0 0 0 1px rgba(67,67,67,.08)}
 .video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   background:#2b2622;display:block}
+/* Click-to-play overlay (no autoplay). Sound is on when the user starts it. */
+.play-overlay{position:absolute;inset:0;z-index:2;border:0;padding:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,rgba(20,16,13,.12),rgba(20,16,13,.42));
+  transition:background .2s}
+.play-overlay:hover{background:linear-gradient(180deg,rgba(20,16,13,.06),rgba(20,16,13,.34))}
+.play-overlay:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+.play-ic{width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.94);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 14px 36px -8px rgba(0,0,0,.55)}
+.play-ic svg{width:30px;height:30px;fill:#231c17;margin-left:5px}
+.play-label{position:absolute;bottom:16px;left:0;right:0;text-align:center;
+  font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:rgba(255,255,255,.9)}
+.video-wrap.playing .play-overlay{display:none}
 .mute-toggle{position:absolute;bottom:14px;right:14px;z-index:3;width:46px;height:46px;border-radius:50%;
   border:1px solid rgba(255,255,255,.22);background:rgba(30,24,20,.5);backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;cursor:pointer}
+  display:none;align-items:center;justify-content:center;cursor:pointer}
+.video-wrap.playing .mute-toggle{display:flex}
 .mute-toggle svg{width:20px;height:20px;fill:#fff}
 .mute-toggle .ic-on{display:none}
 .video-wrap.sound .mute-toggle .ic-mute{display:none}
@@ -112,10 +126,17 @@ a{color:inherit}
   opacity:.28;pointer-events:none;filter:saturate(.9)}
 .hero-inner{display:grid;grid-template-columns:1fr;gap:26px;align-content:center;
   padding-top:92px;padding-bottom:44px;min-height:100svh}
-.hero-logo{width:min(76%,300px);height:auto;margin-bottom:4px}
-.hero h1{font-size:clamp(28px,7vw,44px);color:var(--dark);max-width:15ch;font-weight:700}
-.hero .sub{font-size:15.5px;color:#5c5048;max-width:42ch;line-height:1.55}
-.hero .cta-row{margin-top:4px}
+.hero-copy{display:flex;flex-direction:column;align-items:flex-start}
+.hero-logo{width:min(76%,300px);height:auto;margin-bottom:22px}
+.hero h1{font-size:clamp(28px,7vw,44px);color:var(--dark);max-width:15ch;font-weight:700;margin-bottom:18px}
+.hero .sub{font-size:16px;color:#4f453d;max-width:42ch;line-height:1.6}
+.hero .cta-row{margin-top:36px;display:flex;flex-direction:column;align-items:stretch;gap:16px;width:100%;max-width:360px}
+.hero-scarcity{display:flex;align-items:center;gap:9px;font-family:'Oswald',sans-serif;text-transform:uppercase;
+  letter-spacing:.12em;font-size:12px;font-weight:600;color:var(--tan-dk)}
+.hero-scarcity::before{content:"";width:9px;height:9px;border-radius:50%;background:#e8443f;flex-shrink:0;
+  box-shadow:0 0 0 4px rgba(232,68,63,.16)}
+.hero .cta-row .btn{width:100%;justify-content:center}
+.hero .cta-row .trust{margin-top:2px}
 .hero-video{order:5}
 @media(min-width:960px){
   .hero-inner{grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
@@ -146,20 +167,14 @@ a{color:inherit}
 .proof-item::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tan);flex-shrink:0}
 .about-cta{margin-top:38px}
 
-/* ══════════════ PUBLIKUM — Facebook fan wall ══════════════ */
+/* ══════════════ PUBLIKUM — Facebook comments ══════════════ */
 .fanwall-sec{background:#dccabb;border-top:1px solid rgba(67,67,67,.08)}
 .fan-head{text-align:center;margin-bottom:38px}
 .fan-head h2{font-size:clamp(28px,5.2vw,44px);color:var(--dark)}
-.fanwall-grid{display:grid;grid-template-columns:1fr;gap:18px;max-width:980px;margin:0 auto}
-.fanwall-grid>*{min-width:0}
-@media(min-width:820px){.fanwall-grid{grid-template-columns:0.8fr 1.2fr;gap:28px;align-items:start}}
-.fan-photo{margin:0;min-width:0}
-.fan-photo img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--paper-2);
-  box-shadow:0 26px 60px -30px rgba(40,30,22,.5)}
-.fan-comments{display:flex;flex-direction:column;gap:12px;min-width:0}
-.fan-comments img{display:block;width:100%;height:auto;min-width:0;border-radius:12px;
+.fan-comments{display:flex;flex-direction:column;align-items:center;gap:14px;
+  max-width:680px;margin:0 auto}
+.fan-comments img{display:block;height:auto;max-width:100%;border-radius:12px;
   border:1px solid var(--paper-2);box-shadow:0 12px 28px -20px rgba(40,30,22,.45)}
-@media(min-width:820px){.fan-comments img{align-self:flex-start;width:auto;max-width:100%}}
 
 /* ══════════════ 3 · HOVED-CTA (tan band) ══════════════ */
 .convert{position:relative;text-align:center;background:var(--tan);color:#fff}
@@ -225,21 +240,26 @@ a{color:inherit}
     <div class="hero-copy">
       <img class="hero-logo" src="/stokholm/img/tour-logo.png" alt="Nikolaj Stokholm feat. Stokkefar" width="1406" height="893">
       <h1 class="display" id="hero-headline">Hele Danmarks Stokkefar er tilbage. Og denne gang er han ikke alene.</h1>
-      <p class="sub" id="hero-sub"></p>
+      <p class="sub" id="hero-sub">Nikolaj Stokholm feat. Stokkefar — Danmarksturné 2026/27. Fjerde onemanshow. Over 40 byer fra Frederikshavn til Sønderborg.</p>
       <div class="cta-row">
+        <p class="hero-scarcity">Størstedelen af turnéen er allerede udsolgt</p>
         <a class="btn btn-lg" data-cta="hero" href="#" target="_blank" rel="noopener">
           <span class="lbl">Køb billet</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <p class="trust" id="hero-trust"></p>
+        <p class="trust" id="hero-trust">Officielt billetsalg via nikolajstokholm.dk</p>
       </div>
     </div>
 
     <div class="hero-video vstage">
       <figure class="video-wrap">
-        <video autoplay muted loop playsinline preload="auto" poster="/stokholm/img/hero-poster.jpg">
+        <video loop playsinline preload="auto" poster="/stokholm/img/hero-poster.jpg">
           <source src="/stokholm/video/hero.mp4" type="video/mp4">
         </video>
+        <button class="play-overlay" data-play type="button" aria-label="Afspil trailer med lyd">
+          <span class="play-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="play-label">Afspil med lyd</span>
+        </button>
         <button class="mute-toggle" data-mute type="button" aria-label="Slå lyd til">
           <svg class="ic-mute" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
           <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a8.5 8.5 0 0 1 0 13" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
@@ -258,10 +278,10 @@ a{color:inherit}
       <div class="measure">
         <p class="lead" id="about-lead">Så sker det endelig. Dét, som en hel nation har ventet på. I denne tid, hvor man bare har brug for at sætte sig ned, grine og glemme alt omkring sig, er der kun én, som kan løse denne umulige opgave. Og det er gode gamle Stokkefar. Med tre succesfulde shows bag sig er forventningerne enorme. Og det ved han godt.</p>
         <blockquote class="pullquote">
-          <span class="q" id="about-pull"></span>
-          <cite id="about-pull-author"></cite>
+          <span class="q" id="about-pull">„For at være 100 % sikker på, at du får dit livs sjoveste aften, tager jeg selvfølgelig også den uforudsigelige Stokkefar med på scenen. Er det den samme person? Ingen ved det. Alle spørger. Men du spørger ikke – for du skal jo se det.”</span>
+          <cite id="about-pull-author">— Nikolaj Stokholm</cite>
         </blockquote>
-        <p class="cred" id="about-cred"></p>
+        <p class="cred" id="about-cred">Siden debuten i 2007 er Nikolaj Stokholm blevet en af landets mest folkekære entertainere med sin skæve, selvironiske og uforudsigelige humor. Tre storsælgende onemanshows — det seneste solgte 120.000 billetter. Nu er han klar med det fjerde.</p>
       </div>
       <div class="proof" id="proof-strip"></div>
       <div class="about-cta">
@@ -271,9 +291,13 @@ a{color:inherit}
 
     <div class="about-media vstage">
       <figure class="video-wrap">
-        <video autoplay muted loop playsinline preload="auto" poster="/stokholm/img/about-poster.jpg">
+        <video loop playsinline preload="auto" poster="/stokholm/img/about-poster.jpg">
           <source src="/stokholm/video/about.mp4" type="video/mp4">
         </video>
+        <button class="play-overlay" data-play type="button" aria-label="Afspil video med lyd">
+          <span class="play-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="play-label">Afspil med lyd</span>
+        </button>
         <button class="mute-toggle" data-mute type="button" aria-label="Slå lyd til">
           <svg class="ic-mute" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
           <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a8.5 8.5 0 0 1 0 13" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
@@ -288,19 +312,14 @@ a{color:inherit}
   <div class="wrap">
     <div class="fan-head">
       <span class="eyebrow">Anmeldelser</span>
-      <h2 class="display">Det siger publikum på Facebook</h2>
+      <h2 class="display">Det siger publikum</h2>
     </div>
-    <div class="fanwall-grid">
-      <figure class="fan-photo">
-        <img src="/stokholm/img/reviews/publikum-photo.png" alt="Publikum til Nikolaj Stokholm feat. Stokkefar" loading="lazy" width="700" height="1050">
-      </figure>
-      <div class="fan-comments">
-        <img src="/stokholm/img/reviews/fb-lennart.png" loading="lazy" width="638" height="81" alt="Lennart Juel Ottenfeldt Dahl: Har lige haft fornøjelsen i Ringsted kongress center på første række her til aften. Det var verdensklasse. Det er længe siden vi har grinet så meget.">
-        <img src="/stokholm/img/reviews/fb-line.png" loading="lazy" width="657" height="83" alt="Line Jennie Jensen: Vi så dig i Ringsted i fredags, wauw et show! Både min mand og jeg græd af grin flere gange. Kæmpe tak for dig Nikolaj Stokholm.">
-        <img src="/stokholm/img/reviews/fb-katja.png" loading="lazy" width="641" height="48" alt="Katja Dolleris Engel: Det er uden tvivl det bedste show jeg har oplevet – aldrig har jeg grinet så meget.">
-        <img src="/stokholm/img/reviews/fb-kamilla.png" loading="lazy" width="481" height="78" alt="Kamilla Kristine Pedersen: Har været inde og se det og hold kæft jeg grinte og grinte. Du er sååå sjov – tak for den bedste aften.">
-        <img src="/stokholm/img/reviews/fb-jeanette.png" loading="lazy" width="429" height="77" alt="Jeanette Charlotte Rosbirk-Offersen: Fra start til slut grinede man. Super godt show.">
-      </div>
+    <div class="fan-comments">
+      <img src="/stokholm/img/reviews/fb-lennart.png" loading="lazy" width="638" height="81" alt="Lennart Juel Ottenfeldt Dahl: Har lige haft fornøjelsen i Ringsted kongress center på første række her til aften. Det var verdensklasse. Det er længe siden vi har grinet så meget.">
+      <img src="/stokholm/img/reviews/fb-line.png" loading="lazy" width="657" height="83" alt="Line Jennie Jensen: Vi så dig i Ringsted i fredags, wauw et show! Både min mand og jeg græd af grin flere gange. Kæmpe tak for dig Nikolaj Stokholm.">
+      <img src="/stokholm/img/reviews/fb-katja.png" loading="lazy" width="641" height="48" alt="Katja Dolleris Engel: Det er uden tvivl det bedste show jeg har oplevet – aldrig har jeg grinet så meget.">
+      <img src="/stokholm/img/reviews/fb-kamilla.png" loading="lazy" width="481" height="78" alt="Kamilla Kristine Pedersen: Har været inde og se det og hold kæft jeg grinte og grinte. Du er sååå sjov – tak for den bedste aften.">
+      <img src="/stokholm/img/reviews/fb-jeanette.png" loading="lazy" width="429" height="77" alt="Jeanette Charlotte Rosbirk-Offersen: Fra start til slut grinede man. Super godt show.">
     </div>
   </div>
 </section>
