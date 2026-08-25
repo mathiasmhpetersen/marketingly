@@ -90,15 +90,53 @@
       var video = wrap.querySelector("video");
       if (!video) return;
 
-      var reveal = function () { wrap.classList.add("has-video"); wrap.dataset.loaded = "1"; };
-      video.addEventListener("loadeddata", reveal);
+      // Reveal (hide the placeholder) as soon as the video is displayable —
+      // NOT only on playback. This is what makes the frame show even when
+      // autoplay is blocked or the user has "reduce motion" enabled.
+      var reveal = function () {
+        if (wrap.dataset.loaded) return;
+        wrap.classList.add("has-video");
+        wrap.dataset.loaded = "1";
+      };
+      ["loadeddata", "canplay", "canplaythrough", "playing"].forEach(function (ev) {
+        video.addEventListener(ev, reveal);
+      });
       if (video.readyState >= 2) reveal();
 
-      if (!prefersReducedMotion) {
+      // A real load/decode failure → keep the placeholder (don't show a black box).
+      video.addEventListener("error", function () {
+        wrap.classList.remove("has-video");
+        delete wrap.dataset.loaded;
+      });
+
+      var attemptPlay = function () {
         video.muted = true;
         var p = video.play();
-        if (p && p.catch) p.catch(function () {});
+        if (p && p.catch) p.catch(function () { /* blocked: first frame + tap-to-play still work */ });
+      };
+
+      // Autoplay only when motion is allowed; play/pause as it enters/leaves view.
+      if (!prefersReducedMotion) {
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) attemptPlay();
+              else if (!video.paused) video.pause();
+            });
+          }, { threshold: 0.25 });
+          io.observe(video);
+        } else {
+          attemptPlay();
+        }
       }
+
+      // Tap anywhere on the video to play/pause — the reliable fallback when
+      // autoplay is blocked or motion is reduced. (Mute button handles its own.)
+      wrap.addEventListener("click", function (e) {
+        if (e.target.closest && e.target.closest("[data-mute]")) return;
+        if (video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
+        else { video.pause(); }
+      });
 
       var btn = wrap.querySelector("[data-mute]");
       if (!btn) return;
@@ -107,7 +145,8 @@
         else { wrap.classList.add("sound"); btn.setAttribute("aria-label", "Slå lyd fra"); }
       };
       sync();
-      btn.addEventListener("click", function () {
+      btn.addEventListener("click", function (ev) {
+        ev.stopPropagation();
         if (video.muted) {
           // mute every other player so only one has sound
           players.forEach(function (w) {
@@ -115,7 +154,7 @@
           });
         }
         video.muted = !video.muted;
-        if (!video.muted && video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
+        if (video.paused) { var pp = video.play(); if (pp && pp.catch) pp.catch(function () {}); }
         sync();
       });
     });
