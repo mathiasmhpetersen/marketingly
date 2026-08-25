@@ -87,23 +87,15 @@ a{color:inherit}
 .sec-pad{padding-top:80px;padding-bottom:80px}
 @media(min-width:768px){.sec-pad{padding-top:108px;padding-bottom:108px}}
 
-/* ══════════════ VERTICAL VIDEO PLAYER (9:16) ══════════════ */
+/* ══════════════ VERTICAL VIDEO PLAYER (9:16) — plain native video ══════════════
+   No overlay, no JS gating: the <video> autoplays natively and its poster shows
+   a real frame instantly. Works even if every script on the page fails. */
 .vstage{display:flex;justify-content:center}
-.video-wrap{position:relative;width:100%;max-width:340px;aspect-ratio:9/16;cursor:pointer;
+.video-wrap{position:relative;width:100%;max-width:340px;aspect-ratio:9/16;
   background:#2b2622;border-radius:20px;overflow:hidden;
   box-shadow:0 40px 90px -34px rgba(40,30,22,.55), 0 0 0 1px rgba(67,67,67,.08)}
-.video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#2b2622}
-.video-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;
-  background:radial-gradient(120% 90% at 50% 40%, rgba(177,147,121,.35), transparent 64%), linear-gradient(180deg,#3a332c,#26211c);
-  text-align:center;padding:24px}
-.video-fallback::after{content:"";position:absolute;inset:14px;border:1.5px dashed rgba(239,228,218,.3);border-radius:12px;pointer-events:none}
-.video-wrap.has-video .video-fallback{display:none}
-.fallback-play{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--tan);box-shadow:0 8px 26px -6px rgba(40,30,22,.5), inset 0 1px 0 rgba(255,255,255,.25)}
-.fallback-play svg{width:22px;height:22px;fill:#fff;margin-left:3px}
-.fallback-title{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.05em;font-weight:600;font-size:20px;color:var(--cream-text)}
-.fallback-desc{font-size:13px;color:var(--cream-soft);max-width:24ch;line-height:1.4}
-.fallback-label{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;color:#9a8977}
+.video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  background:#2b2622;display:block}
 .mute-toggle{position:absolute;bottom:14px;right:14px;z-index:3;width:46px;height:46px;border-radius:50%;
   border:1px solid rgba(255,255,255,.22);background:rgba(30,24,20,.5);backdrop-filter:blur(6px);
   display:flex;align-items:center;justify-content:center;cursor:pointer}
@@ -244,20 +236,14 @@ a{color:inherit}
     </div>
 
     <div class="hero-video vstage">
-      <figure class="video-wrap" data-video>
-        <video muted loop playsinline preload="auto" poster="/stokholm/img/hero-poster.jpg">
+      <figure class="video-wrap">
+        <video autoplay muted loop playsinline preload="auto" poster="/stokholm/img/hero-poster.jpg">
           <source src="/stokholm/video/hero.mp4" type="video/mp4">
         </video>
         <button class="mute-toggle" data-mute type="button" aria-label="Slå lyd til">
           <svg class="ic-mute" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
           <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a8.5 8.5 0 0 1 0 13" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
-        <figcaption class="video-fallback">
-          <span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="fallback-title">Trailer</span>
-          <span class="fallback-desc">Videoen lægges ind her</span>
-          <span class="fallback-label">hero.mp4 · 9:16</span>
-        </figcaption>
       </figure>
     </div>
   </div>
@@ -284,20 +270,14 @@ a{color:inherit}
     </div>
 
     <div class="about-media vstage">
-      <figure class="video-wrap" data-video>
-        <video muted loop playsinline preload="auto" poster="/stokholm/img/about-poster.jpg">
+      <figure class="video-wrap">
+        <video autoplay muted loop playsinline preload="auto" poster="/stokholm/img/about-poster.jpg">
           <source src="/stokholm/video/about.mp4" type="video/mp4">
         </video>
         <button class="mute-toggle" data-mute type="button" aria-label="Slå lyd til">
           <svg class="ic-mute" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
           <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a8.5 8.5 0 0 1 0 13" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
-        <figcaption class="video-fallback">
-          <span class="fallback-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="fallback-title">Video</span>
-          <span class="fallback-desc">Videoen lægges ind her</span>
-          <span class="fallback-label">about.mp4 · 9:16</span>
-        </figcaption>
       </figure>
     </div>
   </div>
