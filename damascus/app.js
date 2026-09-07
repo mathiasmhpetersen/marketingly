@@ -10,6 +10,11 @@
   var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var el = function (tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  /* Root-absolute asset base. cleanUrls + trailingSlash:false serves this page at
+     "/damascus" (no slash), so relative asset paths would resolve against "/".
+     Prefix every local asset with /damascus/ so it loads regardless of trailing slash. */
+  var BASE = "/damascus/";
+  function asset(p) { return (!p || /^(https?:|\/|data:|mailto:|tel:)/.test(p)) ? p : BASE + p; }
 
   /* ---------- lucide icon paths (only the ones we use) ---------- */
   var ICON = {
@@ -133,7 +138,7 @@
       var box = el("div", "vid reveal"); box.style.transitionDelay = (i * 0.1) + "s";
       var lines = d.lines.map(function (l) { return "<span>" + l + "</span>"; }).join("<br>");
       box.innerHTML =
-        '<div class="vid-frame"><video playsinline preload="none"' + (d.poster ? ' poster="' + d.poster + '"' : "") + ' src="' + d.src + '"></video>' +
+        '<div class="vid-frame"><video playsinline preload="none"' + (d.poster ? ' poster="' + asset(d.poster) + '"' : "") + ' src="' + asset(d.src) + '"></video>' +
         '<button class="vid-play" aria-label="Afspil video">' + icon("play", 28) + "</button></div>" +
         '<div class="vid-meta"><h3>' + d.title + "</h3><p>" + lines + "</p></div>";
       wrap.appendChild(box);
@@ -182,7 +187,7 @@
       var card = el("div", "case reveal"); card.style.transitionDelay = ((i % 2) * 0.08) + "s";
       var tags = c.tags.map(function (t) { return '<span class="tag">' + t + "</span>"; }).join("");
       card.innerHTML =
-        '<div class="case-img"><img src="' + c.img + '" alt="' + c.alt + '" loading="lazy"></div>' +
+        '<div class="case-img"><img src="' + asset(c.img) + '" alt="' + c.alt + '" loading="lazy"></div>' +
         '<div class="card case-body"><div class="case-tags">' + tags + "</div><h3>" + c.title + "</h3><p>" + c.body + "</p></div>";
       fallbackImg($("img", card), c.title);
       g.appendChild(card);
@@ -214,8 +219,8 @@
     countUpObserver();
     // BTS video: autoplay muted loop when in view; toggle button
     var vid = $("#hippo-video"), toggle = $("#hippo-toggle");
-    vid.poster = "video/hippo-bts-poster.jpg";
-    vid.src = h.video;
+    vid.poster = asset("video/hippo-bts-poster.jpg");
+    vid.src = asset(h.video);
     var setIcon = function () { toggle.innerHTML = icon(vid.paused ? "play" : "pause", 20); };
     vid.addEventListener("error", function () {
       $("#hippo-video-wrap").innerHTML = placeholder("Hippo BTS");
@@ -270,7 +275,7 @@
       card.style.opacity = 0; card.style.transform = "translateX(12px)";
       setTimeout(function () {
         card.innerHTML =
-          '<img class="avatar" src="' + s.avatar + '" alt="' + s.name + '" loading="lazy">' +
+          '<img class="avatar" src="' + asset(s.avatar) + '" alt="' + s.name + '" loading="lazy">' +
           '<div class="company">' + s.company + "</div>" +
           '<blockquote class="quote">“' + s.quote + '”</blockquote>' +
           '<div class="name">' + s.name + '</div><div class="role">' + s.role + "</div>";
@@ -312,7 +317,7 @@
     });
     var fig = $("#letter-figure");
     l.images.forEach(function (im, i) {
-      var img = el("img"); img.src = im.src; img.alt = im.alt; img.loading = "lazy";
+      var img = el("img"); img.src = asset(im.src); img.alt = im.alt; img.loading = "lazy";
       if (i === 0) img.classList.add("active");
       fallbackImg(img, "Foto " + (i + 1));
       fig.appendChild(img);
@@ -432,7 +437,7 @@
   function renderFaq() {
     var f = C.faq;
     $("#faq-h").innerHTML = fadeLastWord(f.heading);
-    var img = $("#faq-img"); img.src = f.image; fallbackImg(img, "Mathias");
+    var img = $("#faq-img"); img.src = asset(f.image); fallbackImg(img, "Mathias");
     var acc = $("#acc");
     (f.items || []).forEach(function (it, i) {
       var item = el("div", "acc-item" + (i === 0 ? " open" : ""));
