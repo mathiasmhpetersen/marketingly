@@ -143,6 +143,22 @@ window.CONTENT = {
     ],
   },
 
+  /* --- 7b. CHANNELS / VORES SERVICE ---------------------------------------- */
+  channels: {
+    eyebrow: "VORES SERVICE",
+    heading: "Kanaler vi skaber stor succes på",
+    body: "Vi tager udgangspunkt i hvilke kanaler der er relevante for din virksomhed - så du altid får det størst mulige afkast.",
+    cta: { label: "Bestil en Growth Evaluation", href: "#email-form", variant: "primary" },
+    logos: [
+      { src: "img/channels/facebook.png", alt: "Meta / Facebook" },
+      { src: "img/channels/tiktok.png", alt: "TikTok" },
+      { src: "img/channels/snapchat.png", alt: "Snapchat" },
+      { src: "img/channels/google.svg", alt: "Google" },
+      { src: "img/channels/pinterest.svg", alt: "Pinterest" },
+      { src: "img/channels/klaviyo.png", alt: "Klaviyo" },
+    ],
+  },
+
   /* --- 8. TESTIMONIAL CAROUSEL --------------------------------------------- */
   testimonials: {
     heading: "Føl dig som den eneste kunde",

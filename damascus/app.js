@@ -257,6 +257,24 @@
     requestAnimationFrame(step);
   }
 
+  /* ═══ CHANNELS / MARQUEE ═══ */
+  function renderChannels() {
+    var c = C.channels; if (!c) return;
+    $("#channels-eyebrow").textContent = c.eyebrow;
+    $("#channels-h").textContent = c.heading;
+    $("#channels-body").textContent = c.body;
+    var track = $("#channels-track");
+    var logos = c.logos || [];
+    // duplicate the set so the loop is seamless (translateX -50%)
+    logos.concat(logos).forEach(function (lg, i) {
+      var img = el("img"); img.src = asset(lg.src); img.alt = lg.alt; img.loading = "lazy";
+      if (i >= logos.length) img.setAttribute("aria-hidden", "true");
+      fallbackImg(img, lg.alt);
+      track.appendChild(img);
+    });
+    $("#channels-cta").appendChild(button(c.cta));
+  }
+
   /* ═══ TESTIMONIAL CAROUSEL ═══ */
   function renderTestimonials() {
     var t = C.testimonials; $("#tc-h").textContent = t.heading;
@@ -518,7 +536,7 @@
   /* ═══ boot ═══ */
   function init() {
     renderNav(); renderHero(); renderTrust(); renderVideoTestimonials(); renderWhy();
-    renderCases(); renderCtaBand(); renderHippo(); renderTestimonials(); renderLetter();
+    renderCases(); renderCtaBand(); renderHippo(); renderChannels(); renderTestimonials(); renderLetter();
     renderPricing(); renderContact(); renderFaq(); renderFooter();
     revealObserver();
   }

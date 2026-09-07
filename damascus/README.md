@@ -54,6 +54,24 @@ damascus/
 letter, pricing, FAQ, footer, and the contact-form fields all live there. `app.js`
 renders it into the section skeletons in `index.html`.
 
+## Fidelity vs. the live marketingly.dk
+
+Built from the brief's copy/asset list, then reconciled 1:1 against the actual live
+page (recovered from the Webflow CDN + Wayback capture — the site is unpublished):
+
+- **Restored a whole section the brief omitted:** "VORES SERVICE — Kanaler vi skaber
+  stor succes på" with the channel-logo strip (Meta, TikTok, Snapchat, Google,
+  Pinterest, Klaviyo), rendered as an infinite marquee. Sits after the Content stats,
+  before the testimonials, exactly as on the live site.
+- **Case-card copy differs from the live site on purpose.** The brief supplied newer,
+  more specific case descriptions + tags (e.g. GrejFreak "+40% YoY / +25.000.000",
+  Tajmer "+75.000.000") and said to use them verbatim, so those are what's shipped.
+  The live site's older wording is in `ASSET-SCRAPE-LOG.md` if you'd rather revert.
+- **Skipped Webflow template leftovers** that aren't real content (a stray "Basic plan
+  $10 / professional $14" pricing block from the BRIX template).
+- The contact "map" on the live site is a static Google-Maps screenshot; here it's a
+  live grayscale Google Maps embed (per brief) — same location, interactive.
+
 ## Things worth knowing before launch
 
 - **Videos.** The two portrait testimonial clips (GrejFreak, Out of Bounds) are the
