@@ -383,7 +383,6 @@
       node.innerHTML = icon(r[0], 20) + "<span>" + r[1] + "</span>";
       rows.appendChild(node);
     });
-    $("#contact-map").src = "https://www.google.com/maps?q=" + encodeURIComponent(m.mapsQuery) + "&output=embed";
 
     // ---- multi-step form (ALWAYS one question at a time) ----
     var fields = c.fields || [], step = 0, data = {};

@@ -69,8 +69,8 @@ page (recovered from the Webflow CDN + Wayback capture — the site is unpublish
   The live site's older wording is in `ASSET-SCRAPE-LOG.md` if you'd rather revert.
 - **Skipped Webflow template leftovers** that aren't real content (a stray "Basic plan
   $10 / professional $14" pricing block from the BRIX template).
-- The contact "map" on the live site is a static Google-Maps screenshot; here it's a
-  live grayscale Google Maps embed (per brief) — same location, interactive.
+- The contact section has **no map** (removed at the client's request). The address
+  still shows as a text row.
 
 ## Things worth knowing before launch
 
@@ -83,11 +83,9 @@ page (recovered from the Webflow CDN + Wayback capture — the site is unpublish
   It's a mockup: set `content.js → contact.endpoint` to a real endpoint (or wire a
   Resend Server Action when this moves to Next.js) to actually send.
 - **Missing assets** (documented in `ASSET-SCRAPE-LOG.md`): the live site had no
-  `og-image` (OG now points at `cases/outofbounds.jpg`) and no 4th "office-chair" letter
-  photo (replaced with the real `mathias-portrait.png`). No SVG logo exists on the site —
-  the nav uses the same CSS "M" mark as the rest of this repo; `logo-marketingly.png`
-  (white wordmark) is included if you'd rather swap it in.
+  `og-image` (OG now points at `cases/outofbounds.jpg`). The founder-letter column shows
+  3 photos. No SVG logo exists on the site — the nav uses the same CSS "M" mark as the
+  rest of this repo; `logo-marketingly.png` (white wordmark) is included if you'd rather
+  swap it in.
 - **CVR in the footer** (`content.js → meta.cvr`) is a placeholder — verify before launch.
-- **Google Map** is an embed of Kochsgade 31D; it needs network and may not render in
-  headless/preview screenshots.
 ```
