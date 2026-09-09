@@ -3,8 +3,5 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/damascus", "destination": "/", "permanent": true }
-  ],
-  "rewrites": [
-    { "source": "/", "destination": "/damascus/index.html" }
   ]
 }

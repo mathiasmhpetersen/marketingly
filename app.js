@@ -10,10 +10,10 @@
   var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var el = function (tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
-  /* Root-absolute asset base. cleanUrls + trailingSlash:false serves this page at
-     "/damascus" (no slash), so relative asset paths would resolve against "/".
-     Prefix every local asset with /damascus/ so it loads regardless of trailing slash. */
-  var BASE = "/damascus/";
+  /* Root-absolute asset base. The homepage is served at the site root ("/"), so
+     prefix every local asset with "/" to load it regardless of the current path
+     (e.g. deep links / redirects). */
+  var BASE = "/";
   function asset(p) { return (!p || /^(https?:|\/|data:|mailto:|tel:)/.test(p)) ? p : BASE + p; }
 
   /* ---------- lucide icon paths (only the ones we use) ---------- */
