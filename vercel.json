@@ -1,11 +1,10 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/damascus", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "^(www\\.)?marketingly\\.dk$" }],
-      "destination": "/damascus/index.html"
-    }
+    { "source": "/", "destination": "/damascus/index.html" }
   ]
 }
