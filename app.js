@@ -409,7 +409,7 @@
 
     var nav = $("#fnav", wrap), err = $("#ferr", wrap), bar = $("#fp", wrap), form = $("#ge-form", wrap);
     function progress() { bar.style.width = ((step) / fields.length * 100) + "%"; }
-    function showStep() {
+    function showStep(doFocus) {
       $$(".form-step", stepsWrap).forEach(function (s, i) { s.classList.toggle("active", i === step); });
       err.textContent = "";
       nav.innerHTML = "";
@@ -417,7 +417,9 @@
       var next = el("button", "btn btn-primary", '<span class="swap"><span>' + (step === fields.length - 1 ? C.contact.submitLabel : "Videre") + '</span><span aria-hidden="true">' + (step === fields.length - 1 ? C.contact.submitLabel : "Videre") + "</span></span>");
       next.type = "button"; next.id = "fnext"; next.addEventListener("click", nextStep); nav.appendChild(next);
       progress();
-      var inp = $("#f-" + fields[step].name, stepsWrap); if (inp && !RM) setTimeout(function () { inp.focus(); }, 60);
+      // Focus only on user-driven step changes — never on initial render (would
+      // scroll the page down to the form on load).
+      var inp = $("#f-" + fields[step].name, stepsWrap); if (doFocus && inp && !RM) setTimeout(function () { inp.focus(); }, 60);
     }
     function validate() {
       var f = fields[step], inp = $("#f-" + f.name, stepsWrap), val = (inp.value || "").trim();
@@ -426,8 +428,8 @@
       if (f.type === "tel" && val && val.replace(/[^0-9]/g, "").length < 6) { err.textContent = "Indtast et gyldigt telefonnummer."; return false; }
       data[f.name] = val; err.textContent = ""; return true;
     }
-    function nextStep() { if (!validate()) return; if (step < fields.length - 1) { step++; showStep(); } else submit(); }
-    function prev() { if (step > 0) { step--; showStep(); } }
+    function nextStep() { if (!validate()) return; if (step < fields.length - 1) { step++; showStep(true); } else submit(); }
+    function prev() { if (step > 0) { step--; showStep(true); } }
     // Enter advances (except textarea)
     form.addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); nextStep(); }
