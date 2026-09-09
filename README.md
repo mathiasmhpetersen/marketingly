@@ -1,4 +1,9 @@
-# /damascus — Marketingly.dk homepage rebuild
+# Marketingly.dk homepage (repo root)
+
+> Served at the site root `/` (www.marketingly.dk). Originally built under
+> `/damascus`; promoted to the root, so these files now live at the repo root.
+> The internal landing-page hub moved to `/overview`.
+
 
 A 1:1 content/structure rebuild of the **marketingly.dk** homepage, with the
 motion/interaction polish elevated toward [archetypelab.io](https://archetypelab.io):
@@ -15,8 +20,8 @@ animated FAQ accordion.
 The brief specified Next.js 15 + Tailwind v4 + motion + Lenis. This repo is a
 **static landing-page hub** (`/analyse`, `/warberg`, `/stokholm`, `/superliga` — each a
 single `index.html`, `cleanUrls` on Vercel, **no build step**). To match the proven
-pattern and not break the other apps, `/damascus` is built the same way: **plain static
-files**. Every brief requirement is honoured with a static equivalent:
+pattern and not break the other apps, the homepage is built the same way: **plain static
+files** (served at the root). Every brief requirement is honoured with a static equivalent:
 
 | Brief (Next.js) | Here (static) |
 |---|---|
@@ -35,7 +40,7 @@ Respects `prefers-reduced-motion` (reveals → instant, blob/parallax/count-ups 
 ## Files
 
 ```
-damascus/
+/  (repo root)
   index.html     markup + ALL CSS (design tokens in :root)
   content.js     ← ALL COPY & SETTINGS live here (edit this, not the HTML)
   app.js         renders content.js + wires every interaction
