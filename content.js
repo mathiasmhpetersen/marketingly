@@ -255,9 +255,13 @@ window.CONTENT = {
     ],
     submitLabel: "Send",
     successTitle: "Tak — vi vender tilbage inden for 24 timer.",
-    /* Where the form posts. Blank => mockup mode: no network call, just success
-       state. In production wire a Next.js Server Action → Resend here. */
-    endpoint: "",
+    /* Where the form posts. Blank => mockup mode (no network call, just success
+       state). Set to a FormSubmit AJAX endpoint to email the lead to Mathias.
+       First submission triggers a one-time activation email to this address —
+       click the link in it once, then all future submissions arrive normally.
+       After activating, you can swap the email for FormSubmit's random alias to
+       keep the address out of the page source. */
+    endpoint: "https://formsubmit.co/ajax/mathias@marketingly.dk",
   },
 
   /* --- 12. FAQ ------------------------------------------------------------- */

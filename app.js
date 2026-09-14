@@ -443,7 +443,22 @@
         (window.dataLayer = window.dataLayer || []).push({ event: "growth_evaluation_submitted", virksomhed: data.virksomhed || "" });
       };
       if (C.contact.endpoint) {
-        fetch(C.contact.endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
+        // Human-readable payload — FormSubmit uses the field names as labels in the
+        // email. "email" becomes the reply-to; the _-prefixed fields are controls.
+        var payload = {
+          Navn: data.navn || "",
+          email: data.email || "",
+          Telefon: data.telefon || "",
+          Virksomhed: data.virksomhed || "",
+          "Omsætning": data.omsaetning || "",
+          "Marketing budget": data.budget || "",
+          "Andet": data.andet || "",
+          _subject: "Ny Growth Evaluation: " + (data.virksomhed || "ny henvendelse"),
+          _template: "table",
+          _captcha: "false",
+          _honey: (form.company_url && form.company_url.value) || ""
+        };
+        fetch(C.contact.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) })
           .then(function (r) { if (!r.ok) throw 0; done(); })
           .catch(function () { err.textContent = "Noget gik galt. Prøv igen eller skriv til " + C.meta.email + "."; if (btn) { btn.disabled = false; showStep(); } });
       } else { setTimeout(done, 500); } // mockup mode
