@@ -459,8 +459,16 @@
           _honey: (form.company_url && form.company_url.value) || ""
         };
         fetch(C.contact.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) })
-          .then(function (r) { if (!r.ok) throw 0; done(); })
-          .catch(function () { err.textContent = "Noget gik galt. Prøv igen eller skriv til " + C.meta.email + "."; if (btn) { btn.disabled = false; showStep(); } });
+          .then(function (r) { return r.json().catch(function () { return {}; }); })
+          // Only treat it as sent when the service confirms success — never fake it
+          // on an HTTP 200 that actually failed (e.g. FormSubmit "needs activation").
+          .then(function (j) { if (j && String(j.success) === "true") { done(); } else { throw new Error((j && j.message) || "fail"); } })
+          .catch(function () {
+            // Keep the button on the last step and show the error — do NOT call
+            // showStep() here, it would wipe err.textContent (resets it to "").
+            err.textContent = "Noget gik galt. Prøv igen eller skriv til " + C.meta.email + ".";
+            if (btn) { btn.disabled = false; btn.innerHTML = '<span class="swap"><span>' + C.contact.submitLabel + '</span><span aria-hidden="true">' + C.contact.submitLabel + "</span></span>"; }
+          });
       } else { setTimeout(done, 500); } // mockup mode
     }
     showStep();
