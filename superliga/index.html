@@ -597,7 +597,7 @@ html,body{
   border-radius:var(--radius-sm);
   font-size:0.88rem;
   font-weight:600;
-  z-index:300;
+  z-index:500;
   box-shadow:0 8px 24px rgba(0,0,0,0.2);
   transition:transform 0.3s ease;
   white-space:nowrap;
@@ -998,6 +998,15 @@ html,body{
 // ═══════════════════════════════════════
 const STORAGE_KEY = 'superliga_data';
 const FB_CONFIG_KEY = 'superliga_fb_config';
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDe9DCuj-UsWlrf3IOqzyCdP2mzdm-lG0g",
+  authDomain: "superliga-52f8e.firebaseapp.com",
+  databaseURL: "https://superliga-52f8e-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "superliga-52f8e",
+  storageBucket: "superliga-52f8e.firebasestorage.app",
+  messagingSenderId: "949109121783",
+  appId: "1:949109121783:web:5e4972775615f5d7e369f2"
+};
 
 const DEFAULT_PLAYERS = [
   {id:'p1',nickname:'Mathias',realName:'Mathias',admin:true,emoji:'🎾'},
@@ -1068,13 +1077,11 @@ function genId(){
 function parseFirebaseConfig(raw){
   try {
     let cleaned = raw.trim();
-    // Handle if they pasted the full const block
     const match = cleaned.match(/\{[\s\S]*\}/);
     if(match) cleaned = match[0];
-    // Convert JS object notation to valid JSON
-    cleaned = cleaned.replace(/(['"])?(\w+)(['"])?\s*:/g, '"$2":');
+    try { return JSON.parse(cleaned); } catch(e){}
+    cleaned = cleaned.replace(/([{,])\s*(\w+)\s*:/g, '$1"$2":');
     cleaned = cleaned.replace(/,\s*\}/g, '}');
-    cleaned = cleaned.replace(/'/g, '"');
     return JSON.parse(cleaned);
   } catch(e){
     return null;
@@ -1089,10 +1096,15 @@ function initFirebase(config){
     const db = firebase.database();
     dbRef = db.ref('superliga');
 
+    dbRef.once('value', snap => {
+      if(!snap.val()){
+        dbRef.set(DATA);
+      }
+    });
+
     dbRef.on('value', snapshot => {
       const val = snapshot.val();
       if(val){
-        // Merge arrays properly (Firebase drops empty arrays)
         DATA = {
           players: val.players || DEFAULT_PLAYERS,
           rules: val.rules || DEFAULT_RULES,
@@ -1105,7 +1117,6 @@ function initFirebase(config){
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
         if(currentUser){
-          // Re-find user in updated data
           currentUser = DATA.players.find(p=>p.id===currentUser.id) || currentUser;
           refreshCurrentScreen();
         }
@@ -1114,7 +1125,6 @@ function initFirebase(config){
     });
 
     firebaseReady = true;
-    console.log('Firebase connected');
     return true;
   } catch(e){
     console.error('Firebase init failed:', e);
@@ -1866,24 +1876,9 @@ if ('serviceWorker' in navigator) {
 // INIT
 // ═══════════════════════════════════════
 (function init(){
-  const fbConfig = localStorage.getItem(FB_CONFIG_KEY);
-  if(fbConfig && fbConfig !== 'skip'){
-    try {
-      const config = JSON.parse(fbConfig);
-      DATA = loadLocalData();
-      initFirebase(config);
-      populateLogin();
-    } catch(e){
-      localStorage.removeItem(FB_CONFIG_KEY);
-      document.getElementById('firebase-setup').style.display='flex';
-    }
-  } else if(fbConfig === 'skip'){
-    DATA = loadLocalData();
-    populateLogin();
-  } else {
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('firebase-setup').style.display='flex';
-  }
+  DATA = loadLocalData();
+  initFirebase(FIREBASE_CONFIG);
+  populateLogin();
 })();
 </script>
 </body>
