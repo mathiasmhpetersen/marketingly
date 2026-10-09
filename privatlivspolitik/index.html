@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privatlivspolitik · Marketingly Digital ApS</title>
+<meta name="description" content="Sådan behandler Marketingly Digital ApS dine personoplysninger og bruger cookies på marketingly.dk.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0E10; --bg-elevated:#161618; --surface:#1C1C1F;
+  --border:rgba(255,255,255,0.08); --border-hover:rgba(255,255,255,0.18);
+  --text:#FFFFFF; --text-muted:#B4B4B8; --text-dim:#6E6E73;
+  --brand:#5A3BFF; --brand-hover:#6D51FF; --brand-glow:rgba(90,59,255,0.35);
+  --dur-fast:200ms;
+  --sans:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
+  --body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.65;font-weight:400;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--brand);color:#fff}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+
+/* ─── NAV ─── */
+.nav{background:rgba(14,14,16,0.8);border-bottom:1px solid var(--border);padding:18px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:800;font-size:19px;letter-spacing:-0.03em;color:var(--text)}
+.nav-logo .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-hover));display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;box-shadow:0 0 20px var(--brand-glow)}
+.nav-back{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--text-muted);transition:color var(--dur-fast)}
+.nav-back:hover{color:var(--text)}
+@media(max-width:520px){.nav{padding:16px 20px}}
+
+/* ─── WRAP ─── */
+.wrap{max-width:780px;margin:0 auto;padding:72px 32px 120px;position:relative}
+.wrap::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:800px;height:520px;background:radial-gradient(circle at center,rgba(90,59,255,0.10) 0%,rgba(90,59,255,0.03) 38%,transparent 70%);pointer-events:none;z-index:0}
+.wrap>*{position:relative;z-index:1}
+@media(max-width:640px){.wrap{padding:48px 22px 80px}}
+
+.eyebrow{display:inline-block;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--brand-hover);margin-bottom:18px}
+h1{font-family:var(--sans);font-weight:800;font-size:clamp(34px,5.5vw,52px);line-height:1.06;letter-spacing:-0.035em;margin-bottom:18px}
+.updated{font-size:14px;color:var(--text-dim);margin-bottom:40px}
+.lede{font-size:18px;color:var(--text-muted);line-height:1.75}
+
+h2{font-family:var(--sans);font-weight:800;font-size:clamp(22px,3vw,28px);letter-spacing:-0.025em;margin:52px 0 16px;line-height:1.2}
+h3{font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:-0.015em;margin:28px 0 8px;color:var(--text)}
+p{color:var(--text-muted);margin-bottom:16px}
+p a,li a{color:var(--brand-hover);text-decoration:underline;text-underline-offset:2px;transition:color var(--dur-fast)}
+p a:hover,li a:hover{color:var(--text)}
+ul{margin:0 0 16px;padding-left:22px}
+li{color:var(--text-muted);margin-bottom:9px}
+strong{color:var(--text);font-weight:600}
+
+.rule{height:1px;background:linear-gradient(90deg,transparent,rgba(90,59,255,0.20) 30%,rgba(90,59,255,0.20) 70%,transparent);border:none;margin:56px 0 0}
+
+/* ─── COOKIE CATEGORY CARDS ─── */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 8px}
+@media(max-width:640px){.cat-grid{grid-template-columns:1fr}}
+.cat{background:var(--bg-elevated);border:1px solid var(--border);border-radius:14px;padding:22px 22px 20px}
+.cat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.cat-head h3{margin:0;font-size:16px}
+.cat-count{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--brand-hover);background:rgba(90,59,255,0.10);border:1px solid rgba(90,59,255,0.22);border-radius:100px;padding:3px 10px;white-space:nowrap}
+.cat p{font-size:14.5px;margin:0;line-height:1.6}
+
+/* ─── CONTACT CARD ─── */
+.contact{background:var(--bg-elevated);border:1px solid var(--border);border-radius:16px;padding:28px 30px;margin-top:20px}
+.contact strong{display:block;font-family:var(--sans);font-size:18px;margin-bottom:12px}
+.contact-row{color:var(--text-muted);margin-bottom:6px}
+.contact-row a{color:var(--brand-hover);text-decoration:none}
+.contact-row a:hover{color:var(--text)}
+
+/* ─── FOOTER ─── */
+footer{max-width:780px;margin:0 auto;padding:0 32px 60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--text-dim);font-family:var(--sans);font-weight:500}
+footer a{transition:color var(--dur-fast)}
+footer a:hover{color:var(--text)}
+@media(max-width:640px){footer{padding:0 22px 48px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/"><span class="mark">M</span>Marketingly</a>
+  <a class="nav-back" href="/">← Tilbage til forsiden</a>
+</nav>
+
+<main class="wrap">
+
+  <span class="eyebrow">Juridisk</span>
+  <h1>Privatlivspolitik</h1>
+  <p class="updated">Senest opdateret: 9. oktober 2026</p>
+
+  <p class="lede">Denne hjemmeside bruger cookies. Vi bruger cookies til at tilpasse vores indhold og annoncer, til at vise dig funktioner til sociale medier og til at analysere vores trafik. Vi deler også oplysninger om din brug af vores hjemmeside med vores partnere inden for sociale medier, annoncering og analyse. Vores partnere kan kombinere disse data med andre oplysninger, du har givet dem, eller som de har indsamlet fra din brug af deres tjenester.</p>
+
+  <h2>Om cookies</h2>
+  <p>Cookies er små tekstfiler, som kan bruges af websteder til at gøre en brugers oplevelse mere effektiv.</p>
+  <p>Loven fastslår, at vi kan gemme cookies på din enhed, hvis de er strengt nødvendige for at sikre leveringen af den tjeneste, du udtrykkeligt har anmodet om at bruge. For alle andre typer cookies skal vi indhente dit samtykke.</p>
+  <p>Dette websted bruger forskellige typer af cookies. Nogle cookies sættes af tredjeparts tjenester, der vises på vores sider.</p>
+  <p>Du kan til enhver tid ændre eller tilbagetrække dit samtykke fra cookiedeklarationen på vores hjemmeside. Angiv venligst dit samtykke-ID og -dato, når du kontakter os angående dit samtykke. Dit samtykke gælder for følgende domæne: <strong>marketingly.dk</strong>.</p>
+
+  <h2>Typer af cookies vi bruger</h2>
+  <div class="cat-grid">
+    <div class="cat">
+      <div class="cat-head"><h3>Nødvendige</h3></div>
+      <p>Nødvendige cookies hjælper med at gøre en hjemmeside brugbar ved at aktivere grundlæggende funktioner såsom side-navigation og adgang til sikre områder af hjemmesiden. Hjemmesiden kan ikke fungere ordentligt uden disse cookies.</p>
+    </div>
+    <div class="cat">
+      <div class="cat-head"><h3>Præferencer</h3></div>
+      <p>Præference-cookies gør det muligt for en hjemmeside at huske oplysninger, der ændrer den måde, hjemmesiden ser ud eller opfører sig på — f.eks. dit foretrukne sprog eller den region, du befinder dig i.</p>
+    </div>
+    <div class="cat">
+      <div class="cat-head"><h3>Statistik</h3></div>
+      <p>Statistiske cookies giver os indsigt i brugernes interaktion med hjemmesiden ved at indsamle og rapportere oplysninger anonymt.</p>
+    </div>
+    <div class="cat">
+      <div class="cat-head"><h3>Marketing</h3></div>
+      <p>Marketing-cookies bruges til at spore brugere på tværs af websites. Hensigten er at vise annoncer, der er relevante og engagerende for den enkelte bruger.</p>
+    </div>
+  </div>
+
+  <h2>Hvem vi er</h2>
+  <p>Marketingly Digital ApS er dataansvarlig for behandlingen af de personoplysninger, vi indsamler om dig via marketingly.dk og i forbindelse med vores ydelser. Du kan altid kontakte os med spørgsmål om, hvordan vi behandler dine persondata — se kontaktoplysningerne nederst på siden.</p>
+
+  <h2>Hvilke personoplysninger vi behandler</h2>
+  <p>Afhængigt af din interaktion med os kan vi behandle følgende oplysninger:</p>
+  <ul>
+    <li><strong>Kontaktoplysninger</strong> du selv afgiver via vores formularer — f.eks. navn, virksomhed, e-mail, telefonnummer og oplysninger om din virksomhed og dine marketingbehov.</li>
+    <li><strong>Tekniske oplysninger</strong> om din brug af hjemmesiden — f.eks. IP-adresse, enheds- og browsertype, besøgte sider og klik, indsamlet via cookies og lignende teknologier.</li>
+    <li><strong>Korrespondance</strong> i forbindelse med mails, opkald og møder mellem os.</li>
+  </ul>
+
+  <h2>Formål og retsgrundlag</h2>
+  <p>Vi behandler dine personoplysninger til følgende formål:</p>
+  <ul>
+    <li>At besvare din henvendelse og vurdere, om vi er et match som samarbejdspartner (retsgrundlag: vores legitime interesse og dine forberedende skridt inden en eventuel aftale, jf. databeskyttelsesforordningens art. 6, stk. 1, litra b og f).</li>
+    <li>At levere, administrere og forbedre vores ydelser (litra b og f).</li>
+    <li>At måle og forbedre hjemmesidens performance samt vise relevant markedsføring, i det omfang du har givet samtykke (litra a).</li>
+    <li>At overholde gældende lovgivning, herunder bogførings- og skattelovgivning (litra c).</li>
+  </ul>
+
+  <h2>Deling af dine oplysninger</h2>
+  <p>Vi sælger aldrig dine personoplysninger. Vi deler dem alene med betroede databehandlere og partnere, der hjælper os med at drive vores forretning og hjemmeside — f.eks. hosting- og e-mailtjenester samt leverandører af analyse- og annonceringsværktøjer som Google og Meta. Disse partnere behandler kun oplysninger efter vores instruks eller som selvstændigt dataansvarlige i henhold til deres egne privatlivspolitikker, og visse af dem kan overføre data til lande uden for EU/EØS på et gyldigt overførselsgrundlag.</p>
+
+  <h2>Opbevaring</h2>
+  <p>Vi opbevarer dine personoplysninger, så længe det er nødvendigt for at opfylde de formål, de er indsamlet til, eller så længe vi er forpligtet til det efter gældende lovgivning. Når oplysningerne ikke længere er nødvendige, sletter eller anonymiserer vi dem.</p>
+
+  <h2>Dine rettigheder</h2>
+  <p>Efter databeskyttelsesforordningen har du ret til at:</p>
+  <ul>
+    <li>få indsigt i de oplysninger, vi behandler om dig,</li>
+    <li>få urigtige oplysninger rettet,</li>
+    <li>få oplysninger slettet,</li>
+    <li>få begrænset behandlingen,</li>
+    <li>gøre indsigelse mod behandlingen,</li>
+    <li>modtage dine oplysninger i et struktureret, almindeligt anvendt format (dataportabilitet),</li>
+    <li>til enhver tid at tilbagetrække et samtykke, uden at det påvirker lovligheden af behandlingen inden tilbagetrækningen.</li>
+  </ul>
+  <p>Vil du gøre brug af dine rettigheder, så kontakt os på <a href="mailto:mathias@marketingly.dk">mathias@marketingly.dk</a>. Du har også ret til at klage til Datatilsynet, hvis du er utilfreds med vores behandling af dine personoplysninger — se <a href="https://www.datatilsynet.dk" target="_blank" rel="noopener">datatilsynet.dk</a>.</p>
+
+  <h2>Sikkerhed</h2>
+  <p>Vi beskytter dine personoplysninger med passende tekniske og organisatoriske foranstaltninger mod uautoriseret adgang, tab og misbrug, og vi begrænser adgangen til oplysningerne til dem, der har et sagligt behov for den.</p>
+
+  <h2>Ændringer af denne politik</h2>
+  <p>Vi kan løbende opdatere denne privatlivspolitik. Den til enhver tid gældende version findes altid på denne side med angivelse af datoen for seneste opdatering øverst.</p>
+
+  <h2>Kontakt</h2>
+  <div class="contact">
+    <strong>Marketingly Digital ApS</strong>
+    <div class="contact-row">Kochsgade 31D, 5000 Odense C</div>
+    <div class="contact-row">Danmark</div>
+    <div class="contact-row">CVR: 40 29 06 92</div>
+    <div class="contact-row">Telefon: <a href="tel:+4530200121">+45 30 20 01 21</a></div>
+    <div class="contact-row">E-mail: <a href="mailto:mathias@marketingly.dk">mathias@marketingly.dk</a></div>
+  </div>
+
+  <hr class="rule">
+
+</main>
+
+<footer>
+  <span>© 2026 Marketingly Digital ApS</span>
+  <a href="/">marketingly.dk</a>
+</footer>
+
+</body>
+</html>
