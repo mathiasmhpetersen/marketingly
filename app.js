@@ -533,7 +533,7 @@
         '<div class="footer-socials"><a href="' + m.linkedin + '" target="_blank" rel="noopener" aria-label="LinkedIn">' + icon("linkedin", 18) + '</a><a href="' + m.instagram + '" target="_blank" rel="noopener" aria-label="Instagram">' + icon("instagram", 18) + "</a></div></div>" +
       '<div class="footer-col"><h4>Kontakt</h4><a href="mailto:' + m.email + '">' + m.email + '</a><a href="' + m.phoneHref + '">' + m.phone + "</a><span>" + m.address + "</span></div>" +
       '<div class="footer-col"><h4>Genveje</h4>' + links + '<a href="' + m.trustpilot + '" target="_blank" rel="noopener">Trustpilot</a></div>';
-    $("#footer-bottom").innerHTML = "<span>" + f.copyright + "</span><span>CVR: " + m.cvr + "</span>";
+    $("#footer-bottom").innerHTML = "<span>" + f.copyright + "</span><a href=\"/privatlivspolitik\">Privatlivspolitik</a><span>CVR: " + m.cvr + "</span>";
     $$("#footer-top a[href^='#']").forEach(function (a) { a.addEventListener("click", smoothTo); });
   }
 

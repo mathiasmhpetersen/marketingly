@@ -19,7 +19,7 @@ window.CONTENT = {
     linkedin: "https://www.linkedin.com/in/mathias-maach-haüser-petersen-5098ab202",
     instagram: "https://www.instagram.com/mathiaspetersen_",
     hippoUrl: "https://hippoproductions.dk",
-    cvr: "40 29 06 92", // FILL_IN — verify before launch
+    cvr: "44 55 53 36",
   },
 
   /* --- 0. NAV -------------------------------------------------------------- */
